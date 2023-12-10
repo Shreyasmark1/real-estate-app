@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     element: <RegisterPage/>
   },
   {
-    path: "/user-dashboard",
+    path: "/dashboard",
     element: <UserDashboard/>
   }
 ]);
