@@ -30,7 +30,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
                         control={form.control}
                         render={({ field }) => (
                             <FormItem>
-                                <Label htmlFor="email">Mobile/Email</Label>
+                                <Label>Mobile/Email</Label>
                                 <FormControl>
                                     <Input type="text" {...field} className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
                                 </FormControl>
@@ -47,7 +47,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
                         control={form.control}
                         render={({ field }) => (
                             <FormItem>
-                                <Label htmlFor="email">Pasword</Label>
+                                <Label>Pasword</Label>
                                 <FormControl>
                                     <Input type="password" id="password" {...field} className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
                                 </FormControl>

@@ -40,7 +40,7 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
                             <FormItem>
                                 <Label>Name</Label>
                                 <FormControl>
-                                    <Input {...field} className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
+                                    <Input {...field} type="text" className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
                                 </FormControl>
                                 <FormDescription>
                                 </FormDescription>
@@ -57,7 +57,7 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
                             <FormItem>
                                 <Label>Mobile</Label>
                                 <FormControl>
-                                    <Input type="email" {...field} className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
+                                    <Input type="number" {...field} className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
                                 </FormControl>
                                 <FormDescription>
                                 </FormDescription>
@@ -74,7 +74,7 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
                             <FormItem>
                                 <Label>Email</Label>
                                 <FormControl>
-                                    <Input type="text" {...field} className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
+                                    <Input type="email" {...field} className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
                                 </FormControl>
                                 <FormDescription>
                                 </FormDescription>
