@@ -45,10 +45,38 @@ const UserDashboard = () => {
        
         </SheetTitle>
       */}
+      
+//dashboard
+
       <SheetDescription>
-      <div className="bg-white border rounded-lg overflow-hidden">
-            <img className=" bg-white border rounded-lg  min-h-screen   h-15 w-full object-cover"   src="https://images6.alphacoders.com/132/thumbbig-1328675.webp" alt=""></img>
-        </div>
+      <div className="">
+
+     
+        <ul className="text-3xl text-grey-800 font-[Poppins] mx-15 my-10 md:my-0  font-bold top-100 left-100 md:flex py-4  mr-100 pt-2">
+          MENU
+        </ul>
+      
+      </div>
+ 
+
+     
+
+      <div>
+      <ul className="md:flex md:items-center md:my-0 md:ml-70 text-xl md:my-5 my-30">
+          <li className="text-black-400 md:static ">Add new Project</li>
+        </ul>
+       
+      </div>
+
+      <div>
+      <ul className="md:flex md:items-center md:my-0 md:ml-70 text-xl md:my-5 my-30">
+          <li className="text-black-400 md:static ">My projects</li>
+        </ul>
+       
+      </div>
+       
+       
+        
       </SheetDescription>
     
      
