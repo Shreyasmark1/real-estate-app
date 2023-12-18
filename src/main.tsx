@@ -2,13 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import UserDashboard from './pages/UserDashboard';
-import LoginPage from './pages/Login';
-import RegisterPage from './pages/Register';
-import MyProjectPage from './pages/MyProjects';
-import ProjectsPage from './pages/Projects';
-import ProjectDetailPage from './pages/ProjectDetail';
-import SubscribtionPage from './pages/Subscription';
+import MyProjects from './pages/MyProjects';
 
 const router = createBrowserRouter([
   {
@@ -17,31 +14,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage/>
+    element: <Login/>
   },
   {
     path: "/register",
-    element: <RegisterPage/>
+    element: <Register/>
   },
   {
-    path: "/dashboard",
+    path: "/user-dashboard",
     element: <UserDashboard/>
   },
   {
-    path: "/my-projects",
-    element: <MyProjectPage/>
-  },
-  {
-    path: "/projects",
-    element: <ProjectsPage/>
-  },
-  {
-    path: "/projects/{id}",
-    element: <ProjectDetailPage/>
-  },
-  {
-    path: "/subscription",
-    element: <SubscribtionPage/>
+    path: "/user-projects",
+    element: <MyProjects/>
   }
 ]);
 
