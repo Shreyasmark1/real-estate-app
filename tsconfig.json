@@ -25,7 +25,13 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "@api/*":[
+        "./src/lib/network/api/*"
+      ],
+      "@schema/*": [
+        "./src/lib/schema/*"
+      ],
     }
   },
   "include": ["src"],
