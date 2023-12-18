@@ -43,46 +43,46 @@ const UserDashboard = () => {
        
         </SheetTitle>
       */}
-      
+
 //dashboard
 
-      <SheetDescription>
-      <div className="">
+                  <SheetDescription>
+                    <div className="">
 
-     
-        <ul className="text-3xl text-grey-800 font-[Poppins] mx-15 my-10 md:my-0  font-bold top-100 left-100 md:flex py-4  mr-100 pt-2">
-          MENU
+
+                      <ul className="text-3xl text-grey-800 font-[Poppins] mx-15 my-10 md:my-0  font-bold top-100 left-100 md:flex py-4  mr-100 pt-2">
+                        MENU
+                      </ul>
+
+                    </div>
+
+
+
+
+                    <div>
+                      <ul className="md:flex md:items-center md:my-0 md:ml-70 text-xl md:my-5 my-30">
+                        <li className="text-black-400 md:static ">Add new Project</li>
+                      </ul>
+
+                    </div>
+
+                    <div>
+                      <ul className="md:flex md:items-center md:my-0 md:ml-70 text-xl md:my-5 my-30">
+                        <li className="text-black-400 md:static ">My projects</li>
+                      </ul>
+
+                    </div>
+
+
+
+                  </SheetDescription>
+
+
+                </SheetHeader>
+              </SheetContent>
+            </Sheet>
+          </li>
         </ul>
-      
-      </div>
- 
-
-     
-
-      <div>
-      <ul className="md:flex md:items-center md:my-0 md:ml-70 text-xl md:my-5 my-30">
-          <li className="text-black-400 md:static ">Add new Project</li>
-        </ul>
-       
-      </div>
-
-      <div>
-      <ul className="md:flex md:items-center md:my-0 md:ml-70 text-xl md:my-5 my-30">
-          <li className="text-black-400 md:static ">My projects</li>
-        </ul>
-       
-      </div>
-       
-       
-        
-      </SheetDescription>
-    
-     
-    </SheetHeader>
-  </SheetContent>
-</Sheet>
-        </li>
-      </ul>
       </nav>
 
     </>
