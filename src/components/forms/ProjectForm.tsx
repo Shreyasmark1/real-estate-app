@@ -2,7 +2,6 @@ import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } fr
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "../ui/form";
-import { registerFormFields } from "@/lib/schema/auth/register-form-schema";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -18,7 +17,7 @@ const ProjectForm = () => {
     });
 
     const onSubmit = () => {
-
+        setIsSubmitting(true)
     }
 
     return (
