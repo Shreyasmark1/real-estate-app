@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import RegisterForm from "@/components/RegisterForm";
+import RegisterForm from "@/components/forms/RegisterForm";
 import { Register } from "@schema/auth/register-form-schema";
 import { useState } from "react";
 import { AuthService } from "@/lib/network/api/auth";
 import { useNotification } from "@/lib/hooks/useNotificationDialog";
-import OtpVerificationForm from "@/components/OtpVerificationForm";
+import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
 
 const RegisterPage = () => {
   const [verifyOtp, setVerifyOtp] = useState(false)

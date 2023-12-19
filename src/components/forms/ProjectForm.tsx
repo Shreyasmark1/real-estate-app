@@ -1,41 +1,43 @@
-
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } from "@/lib/schema/project/project-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "./ui/form";
+import { useForm } from "react-hook-form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "../ui/form";
+import { registerFormFields } from "@/lib/schema/auth/register-form-schema";
 import { Label } from "@radix-ui/react-label";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Login, LoginFormDefaults, LoginFormFields, LoginFormSchema } from "@schema/auth/login-form-schema";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { useState } from "react";
 
-type LoginFormProps = {
-    isSubmitting: boolean
-    onSubmit: SubmitHandler<Login>
-}
+const ProjectForm = () => {
 
-const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const formContext = useForm<Login>({
-        resolver: zodResolver(LoginFormSchema),
-        defaultValues: LoginFormDefaults
+    const formContext = useForm<Project>({
+        resolver: zodResolver(ProjectFormSchema),
+        defaultValues: projectFormDefaults
     });
+
+    const onSubmit = () => {
+
+    }
 
     return (
         <Form {...formContext}>
             <form onSubmit={formContext.handleSubmit(onSubmit)}>
                 {
-                    LoginFormFields.map((formField) => (
-                        <div key={formField.name} className="grid w-full max-w-sm items-center py-1 mb-1 text-md">
+                    projectFormFields.map((formField) => (
+                        <div key={formField.name} className="grid w-full max-w-sm items-center gap-1.5 text-md ">
                             <FormField
                                 name={formField.name}
                                 control={formContext.control}
                                 render={({ field }) => (
                                     <FormItem>
-                                        <Label> {formField.label} </Label>
+                                        <Label>{formField.label}</Label>
                                         <FormControl>
                                             <Input
                                                 {...field}
-                                                type={formField.fieldType}
                                                 autoComplete={formField.name === 'password' ? 'current-password' : 'on'}
+                                                type={formField.fieldType}
                                                 className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
                                             />
                                         </FormControl>
@@ -50,12 +52,12 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
                 }
                 <Button
                     disabled={isSubmitting}
-                    className="w-full bg-black text-white p-2 rounded-1g mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300">
-                    Login
+                    className="w-full bg-black text-white mt-2 rounded-1g my-4 hover:bg-white hover:text-black hover:border hover:border-gray-300">
+                    Register
                 </Button>
             </form>
-        </Form >
+        </Form>
     );
 }
 
-export default LoginForm;
+export default ProjectForm;

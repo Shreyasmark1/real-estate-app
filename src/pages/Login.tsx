@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/forms/LoginForm";
 import { Login } from "@schema/auth/login-form-schema";
 import { AuthService } from "@api/auth";
 import { useState } from "react";
 import { useNotification } from "@/lib/hooks/useNotificationDialog";
-import OtpVerificationForm from "@/components/OtpVerificationForm";
+import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
 
 const LoginPage = () => {
     const [verifyOtp, setVerifyOtp] = useState(false)

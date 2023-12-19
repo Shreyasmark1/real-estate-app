@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FormField, FormItem, FormControl, FormDescription, FormMessage, Form } from "./ui/form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { FormField, FormItem, FormControl, FormDescription, FormMessage, Form } from "../ui/form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { Register, registerFormDefaults, registerFormFields, RegisterFormSchema } from "@schema/auth/register-form-schema";
 
 type RegisterFormProps = {

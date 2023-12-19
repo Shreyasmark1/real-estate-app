@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { FormField } from "./auth-schema"
+import { FormField } from "../from-field"
 
 export const OtpFormFields : FormField[] = [
     {
