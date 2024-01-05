@@ -3,17 +3,33 @@ import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTrigger
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import user from "@/assets/user.jpg"
 import { PlusIcon, SearchIcon } from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
+import SecureStorageService from "@/lib/store/local-storage/local-storage-secure";
+import { LS_ACESS_TOKEN_KEY } from "@/utils/env-helper";
+import { useState } from "react";
+import { PageContextType } from "@/lib/context/PageContext";
+import { drawerNavigation } from "@/route/DrawerNavigation";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const UserLayout = () => {
 
+    const [pageName, setPageName] = useState("Home");
+
+    let navigate = useNavigate()
+
+    const handleLogOut = () => {
+        SecureStorageService.removeItem(LS_ACESS_TOKEN_KEY);
+        navigate("/login")
+    }
+
     return (
         <>
-            <nav className="flex items-center justify-between my-5 mx-8 bg-white">
-                <div className="text-lg md:text-2xl font-semibold text-black">Dashboard</div>
+        <ScrollToTop />
+            <nav className="flex items-center justify-between my-2 md:my-5 mx-4 md:mx-8">
+                <div className="text-lg md:text-2xl font-semibold">{pageName}</div>
                 <div className="flex items-center space-x-4">
-                    <Link to={"/project"}>
+                    <Link to={"/search"}>
                         <Avatar className="overflow-hidden text-gray-500 rounded-full">
                             <SearchIcon className="w-7 h-7 mt-1 mx-2" />
                         </Avatar>
@@ -21,7 +37,7 @@ const UserLayout = () => {
                     <Link to={"/add-project"}>
                         <Button variant="outline" className="overflow-hidden text-gray-500">
                             <PlusIcon className="w-7 h-7" />
-                            New project
+                            <span className="hidden md:block">New project</span>
                         </Button>
                     </Link>
                     <Sheet>
@@ -39,19 +55,22 @@ const UserLayout = () => {
                                 </Avatar>
                                 <Button variant="ghost" type="submit">Edit profile</Button>
                             </SheetHeader>
-                            <Separator className="mt-2" />
+                            <Separator />
                             <ul className="w-full">
-                                <Button className="text-lg w-full" variant="ghost"> Dashboard </Button> <br />
-                                <Button className="text-lg w-full" variant="ghost"> Explore </Button> <br />
-                                <Button className="text-lg w-full" variant="ghost"> My Projects </Button> <br />
-                                <Button className="text-lg w-full" variant="ghost"> Subscription </Button> <br />
-                                <Button className="text-lg w-full" variant="ghost"> About </Button> <br />
+                                {
+                                    drawerNavigation.map((drawerNav) => (
+                                        <SheetClose asChild className="w-full" key={drawerNav.locationName}>
+                                            <Link to={drawerNav.url}>
+                                                <Button className="text-lg w-full" variant="ghost"> {drawerNav.locationName} </Button> <br />
+                                            </Link>
+                                        </SheetClose>
+                                    ))
+                                }
                             </ul>
-
                             <div className="flex-grow"></div>
                             <SheetFooter className="self-bottom w-full">
                                 <SheetClose asChild>
-                                    <Button variant="outline" className="w-full" type="submit">
+                                    <Button onClick={() => handleLogOut()} variant="outline" className="w-full" type="submit">
                                         Logout
                                     </Button>
                                 </SheetClose>
@@ -60,7 +79,7 @@ const UserLayout = () => {
                     </Sheet>
                 </div>
             </nav>
-            <Outlet />
+            <div className="my-2 md:my-5 mx-4 md:mx-8"><Outlet context={{ pageName: pageName, setPageName: setPageName } satisfies PageContextType} /></div>
         </>
     );
 }

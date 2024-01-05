@@ -1,41 +1,60 @@
 import { z } from "zod";
-import { FormField } from "../from-field";
+import { FormFieldSchema, FormFieldType } from "../from-field";
+import { validateImageFileType } from "@/utils/utils";
+import { MAX_IMG_FILE_SIZE } from "@/utils/constants";
 
-export const projectFormFields: FormField[] = [
+export const projectFormFields: FormFieldSchema[] = [
     {
-        name: "projectType",
-        fieldValidation: z.string().length(36),
-        fieldType: "",
-        label: "Project type",
-        defaultValue: ""
-    },
-    {
-        name: "saleType",
-        fieldValidation: z.string().length(36),
-        fieldType: "",
-        label: "Sale type",
-        defaultValue: ""
-    },
-    {
-        name: "price",
-        fieldValidation: z.number(),
-        fieldType: "number",
-        label: "price",
-        defaultValue: 0
-    },
-    {
-        name: "projectName",
+        name: "projName",
         fieldValidation: z.string().min(3),
-        fieldType: "text",
+        fieldType: FormFieldType.text,
         label: "Project name",
         defaultValue: ""
     },
     {
+        name: "projType",
+        fieldValidation: z.string().length(36),
+        fieldType: FormFieldType.dropdown,
+        label: "Project type",
+        defaultValue: ""
+    },
+    // {
+    //     name: "saleType",
+    //     fieldValidation: z.string().length(36),
+    //     fieldType: "",
+    //     label: "Sale type",
+    //     defaultValue: ""
+    // },
+    {
+        name: "price",
+        fieldValidation: z.number(),
+        fieldType: FormFieldType.number,
+        label: "Price",
+        defaultValue: 0
+    },
+    {
         name: "description",
         fieldValidation: z.string().min(20),
-        fieldType: "text",
+        fieldType: FormFieldType.dropdown,
         label: "Description",
         defaultValue: ""
+    },
+    {
+        name: "area",
+        fieldValidation: z.number(),
+        fieldType: FormFieldType.number,
+        label: "Area (sq. meter)",
+        defaultValue: 0
+    },
+    {
+        name: "Project Image",
+        fieldValidation: z.any()
+            .refine((file: File) => file?.size !== 0, "File is required")
+            .refine((file) => file.size < MAX_IMG_FILE_SIZE, "Max size is 5MB.")
+            .refine((file) => validateImageFileType(file), "Only .png, .jpeg formats are supported."),
+        fieldType: FormFieldType.image,
+        label: "Project Image",
+        defaultValue: null
     }
 ]
 

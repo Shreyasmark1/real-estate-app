@@ -1,11 +1,13 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "../ui/form";
-import { Label } from "@radix-ui/react-label";
+import { Form } from "../ui/form";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Login, LoginFormDefaults, LoginFormFields, LoginFormSchema } from "@schema/auth/login-form-schema";
+import { Login, LoginFormSchema, loginFormDefaults, loginFormFields } from "@schema/auth/login-form-schema";
+import StandardFormField from "./form-fields/InputField";
+import FormFieldWrapper from "./form-fields/FormFieldWrapper";
+import InputField from "./form-fields/InputField";
+import { SearchIcon } from "lucide-react";
 
 type LoginFormProps = {
     isSubmitting: boolean
@@ -16,36 +18,25 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
 
     const formContext = useForm<Login>({
         resolver: zodResolver(LoginFormSchema),
-        defaultValues: LoginFormDefaults
+        defaultValues: loginFormDefaults
     });
 
     return (
         <Form {...formContext}>
             <form onSubmit={formContext.handleSubmit(onSubmit)}>
                 {
-                    LoginFormFields.map((formField) => (
-                        <div key={formField.name} className="grid w-full max-w-sm items-center py-1 mb-1 text-md">
-                            <FormField
-                                name={formField.name}
-                                control={formContext.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <Label> {formField.label} </Label>
-                                        <FormControl>
-                                            <Input
-                                                {...field}
-                                                type={formField.fieldType}
-                                                autoComplete={formField.name === 'password' ? 'current-password' : 'on'}
-                                                className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                                            />
-                                        </FormControl>
-                                        <FormDescription>
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
+                    loginFormFields.map((formField) => (
+                        <FormFieldWrapper
+                            key={formField.name}
+                            formFieldSchema={formField}
+                            control={formContext.control}
+                            Child={{
+                                Component: InputField,
+                                props: <SearchIcon
+                                    name="your-icon-name"
+                                    className="absolute left-3 top-1/2 transform -translate-y-1/2"
+                                />
+                            }} />
                     ))
                 }
                 <Button

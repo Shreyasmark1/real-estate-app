@@ -1,11 +1,11 @@
 import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } from "@/lib/schema/project/project-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "../ui/form";
-import { Label } from "@radix-ui/react-label";
+import { Form } from "../ui/form";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import { useState } from "react";
+import StandardFormField from "./form-fields/InputField";
+import { FormFieldType } from "@/lib/schema/from-field";
 
 const ProjectForm = () => {
 
@@ -25,28 +25,8 @@ const ProjectForm = () => {
             <form onSubmit={formContext.handleSubmit(onSubmit)}>
                 {
                     projectFormFields.map((formField) => (
-                        <div key={formField.name} className="grid w-full max-w-sm items-center gap-1.5 text-md ">
-                            <FormField
-                                name={formField.name}
-                                control={formContext.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <Label>{formField.label}</Label>
-                                        <FormControl>
-                                            <Input
-                                                {...field}
-                                                autoComplete={formField.name === 'password' ? 'current-password' : 'on'}
-                                                type={formField.fieldType}
-                                                className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                                            />
-                                        </FormControl>
-                                        <FormDescription>
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
+                        formField.fieldType === FormFieldType.image ? <></> :
+                            <StandardFormField key={formField.name} formFieldSchema={formField} control={formContext.control} />
                     ))
                 }
                 <Button

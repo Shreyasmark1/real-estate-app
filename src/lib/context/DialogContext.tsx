@@ -1,14 +1,22 @@
 import NotificationDialog from "@/components/NotificationDialog";
+import { logOnDev } from "@/utils/logger";
 import { ReactNode, createContext, useState } from "react";
 
 type DialogContentType = {
     showDialog: (object: ShowDialogProps) => void
+    showSnackBar : (object: ShowSnackBarProps) => void
 }
 
 type ShowDialogProps = {
     message: string,
     title?: string,
     isError?: boolean
+}
+
+type ShowSnackBarProps = {
+    message: string,
+    title?: string,
+    isError? : boolean
 }
 
 type DialogContextProp = {
@@ -29,6 +37,10 @@ const DialogContextProvider = ({ children }: DialogContextProp) => {
         setIsError(isError)
     }
 
+    const showSnackBar = ({ message, title = "", isError = false} : ShowSnackBarProps) => {
+        logOnDev({message, title, isError})
+    }
+
     const handleClose = () => {
         setMessage("")
         setTile("")
@@ -36,7 +48,7 @@ const DialogContextProvider = ({ children }: DialogContextProp) => {
     }
 
     return (
-        <NotificationDialogContext.Provider value={{ showDialog }}>
+        <NotificationDialogContext.Provider value={{ showDialog, showSnackBar }}>
             {children}
             <NotificationDialog message={message} title={title} open={message != ""} isError={isError} handleClose={handleClose} />
         </NotificationDialogContext.Provider>

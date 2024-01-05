@@ -1,13 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "../ui/form";
-import { Otp, OtpFormDefaults, OtpFormFields, OtpFormSchema } from "@schema/auth/otp-form-schema";
+import { Form } from "../ui/form";
+import { Otp, OtpFormSchema, otpFormDefaults, otpFormFields } from "@schema/auth/otp-form-schema";
 import { useNotification } from "@/lib/hooks/useNotificationDialog";
 import { useState } from "react";
 import { AuthService } from "@api/auth";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import StandardFormField from "./form-fields/InputField";
+import FormFieldWrapper from "./form-fields/FormFieldWrapper";
+import InputField from "./form-fields/InputField";
 
 const OtpVerificationForm = () => {
 
@@ -17,7 +19,7 @@ const OtpVerificationForm = () => {
 
     const formContext = useForm({
         resolver: zodResolver(OtpFormSchema),
-        defaultValues: OtpFormDefaults
+        defaultValues: otpFormDefaults
     })
 
     const onSubmit = async (formData: Otp) => {
@@ -43,21 +45,14 @@ const OtpVerificationForm = () => {
                         <Form {...formContext}>
                             <form onSubmit={formContext.handleSubmit(onSubmit)}>
                                 {
-                                    OtpFormFields.map((formField) => (
-                                        <FormField
-                                            name={formField.name}
+                                    otpFormFields.map((formField) => (
+                                        <FormFieldWrapper
+                                            key={formField.name}
+                                            formFieldSchema={formField}
                                             control={formContext.control}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormControl>
-                                                        <Input {...field} type={formField.fieldType} />
-                                                    </FormControl>
-                                                    <FormDescription>
-                                                    </FormDescription>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
+                                            Child={{
+                                                Component: InputField
+                                            }} />
                                     ))
                                 }
                                 <div className="flex flex-row my-4 mt-2 w-full">

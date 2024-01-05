@@ -1,11 +1,14 @@
 import MainLayout from "@/layout/MainLayout";
+import ProjectedPage from "@/layout/ProtectePage";
 import UserLayout from "@/layout/UserLayout";
 import LoginPage from "@/pages/Login";
 import RegisterPage from "@/pages/Register";
-import NewProjectPage from "@/pages/project/AddProject";
-import UserDashboard from "@/pages/user/UserDashboard";
-import { APP_NAME } from "@/utils/constants";
+import NewProjectPage from "@/pages/AddProject";
+import SubscribtionPage from "@/pages/Subscription";
+import UserDashboard from "@/pages/UserDashboard";
 import { ReactNode } from "react";
+import PaymentGuard from "@/layout/PaymentGauard";
+import SearchProjectPage from "@/pages/SearchProjects";
 
 type RouteDefinition = {
     path?: string,
@@ -20,37 +23,40 @@ const RouteBuilder = (): RouteDefinition[] => {
         {
             element: <MainLayout />,
             children: [
-                { path: "", element: <div>Hellow world</div> },
+                { path: "/", element: <div>Hellow world</div> },
                 { path: "/login", element: <LoginPage /> },
                 { path: "/register", element: <RegisterPage /> },
                 {
-                    element: <UserLayout />,
+                    element: <ProjectedPage><UserLayout /></ProjectedPage>,
                     children: [
                         {
-                            path: "/dashboard",
+                            path: "dashboard",
                             element: <UserDashboard />,
-                            name: APP_NAME
                         },
                         {
-                            path: "/explore",
-                            element: <div>Search project</div>
+                            path: "search",
+                            element: <SearchProjectPage />
                         },
                         {
-                            path: "/project",
-                            element: <> Project page</>
+                            path: "explore",
+                            element: <PaymentGuard><div> Page under development</div></PaymentGuard>
                         },
                         {
-                            path: "/settings",
-                            element: <> Project 1</>
+                            path: "project",
+                            element: <PaymentGuard> <div> Page under development</div></PaymentGuard>
                         },
                         {
-                            path: "/add-project",
-                            element: <NewProjectPage />
+                            path: "add-project",
+                            element: <PaymentGuard> <NewProjectPage /> </PaymentGuard>
+                        },
+                        {
+                            path: "subscription",
+                            element: <SubscribtionPage />
                         }
                     ]
                 },
                 {
-                    path: "/admin",
+                    path: "admin",
                     element: <div>Admin </div>
                 }
             ]

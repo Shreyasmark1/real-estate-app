@@ -1,23 +1,23 @@
 import { z } from "zod"
-import { FormField } from "../from-field"
+import { FormFieldSchema, FormFieldType } from "../from-field"
 
-export const OtpFormFields : FormField[] = [
+export const otpFormFields: FormFieldSchema[] = [
     {
         name: "otp",
         fieldValidation: z.string().min(6, "Invalid OTP").max(6, "Invalid OTP"),
-        fieldType: "number",
+        fieldType: FormFieldType.number,
         label: "Enter OTP sent to your mobile",
         defaultValue: ""
     }
 ]
 
-export const OtpFormDefaults = Object.fromEntries(
-    OtpFormFields.map((field) => [field.name, field.defaultValue])
+export const otpFormDefaults = Object.fromEntries(
+    otpFormFields.map((field) => [field.name, field.defaultValue])
 )
 
 export const OtpFormSchema = z.object(
     Object.fromEntries(
-        OtpFormFields.map((field) => [field.name, field.fieldValidation])
+        otpFormFields.map((field) => [field.name, field.fieldValidation])
     )
 )
 

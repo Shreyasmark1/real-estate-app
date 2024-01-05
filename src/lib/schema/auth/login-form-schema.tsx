@@ -1,30 +1,30 @@
 import { z } from "zod";
-import { FormField } from "../from-field";
+import { FormFieldSchema, FormFieldType } from "../from-field";
 
-export const LoginFormFields: FormField[] = [
+export const loginFormFields: FormFieldSchema[] = [
     {
         name: "userName",
-        fieldValidation:z.string().min(5, "Invalid user name"),
-        fieldType: "text",
+        fieldValidation: z.string().min(5, "Invalid user name"),
+        fieldType: FormFieldType.text,
         label: "Mobile/Email",
         defaultValue: ""
     },
     {
         name: "password",
-        fieldValidation:  z.string().min(6, "Invalid password"),
-        fieldType: "password",
+        fieldValidation: z.string().min(6, "Invalid password"),
+        fieldType: FormFieldType.password,
         label: "Password",
         defaultValue: "",
     }
 ]
 
-export const LoginFormDefaults = Object.fromEntries(
-    LoginFormFields.map((field) => [field.name, field.defaultValue])
+export const loginFormDefaults = Object.fromEntries(
+    loginFormFields.map((field) => [field.name, field.defaultValue])
 )
 
 export const LoginFormSchema = z.object(
     Object.fromEntries(
-        LoginFormFields.map((field) => [field.name, field.fieldValidation])
+        loginFormFields.map((field) => [field.name, field.fieldValidation])
     )
 )
 

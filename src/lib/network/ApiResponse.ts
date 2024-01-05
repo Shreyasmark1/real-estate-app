@@ -15,4 +15,8 @@ export class ApiResponse {
     get isSuccess() {
         return this.status === SUCCESS || this.status === SUCCESS_DEFAULT || this.status === SUCCESS_INFO
     }
+
+    get isFailed(){
+        return !this.isSuccess
+    }
 }
