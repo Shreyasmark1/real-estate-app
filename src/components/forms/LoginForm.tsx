@@ -26,17 +26,14 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
             <form onSubmit={formContext.handleSubmit(onSubmit)}>
                 {
                     loginFormFields.map((formField) => (
-                        <FormFieldWrapper
-                            key={formField.name}
-                            formFieldSchema={formField}
-                            control={formContext.control}
-                            Child={{
-                                Component: InputField,
-                                props: <SearchIcon
-                                    name="your-icon-name"
-                                    className="absolute left-3 top-1/2 transform -translate-y-1/2"
-                                />
-                            }} />
+                        <FormFieldWrapper 
+                        key={formField.name} 
+                        formFieldSchema={formField} 
+                        control={formContext.control} 
+                        Child={{
+                            Component: InputField,
+                            props: {fieldType: formField.fieldType}
+                        }} />
                     ))
                 }
                 <Button

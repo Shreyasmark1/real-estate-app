@@ -4,23 +4,26 @@ type Props = {
     name?: string,
     fieldType?: string,
     onChangeHandler?: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    rightIcon?: JSX.Element
+    leftIcon?: JSX.Element,
+    className?: string,
+    placeHolder?: string
 }
 
-const InputField = ({ name, fieldType, onChangeHandler, rightIcon }: Props) => {
+const InputField = ({ name, fieldType, onChangeHandler, leftIcon, className, placeHolder }: Props) => {
 
     return (
         <>
             <Input
                 name={name}
-                autoComplete={ name? name === 'password' ? 'current-password' : 'on' : 'on'}
+                autoComplete={name ? name === 'password' ? 'current-password' : 'on' : 'on'}
                 type={fieldType}
+                placeholder={placeHolder}
                 onChange={onChangeHandler ? (e) => onChangeHandler(e) : undefined}
-                className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                className={"w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 " + className}
             />
-            {rightIcon &&
-                <div className="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none">
-                    {rightIcon}
+            {leftIcon &&
+                <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
+                    {leftIcon}
                 </div>
             }
         </>

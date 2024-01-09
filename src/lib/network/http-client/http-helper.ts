@@ -11,17 +11,23 @@ Axios.interceptors.response.use(onResponse, onError);
 interface HttpPostParam {
     path: string,
     queryParams?: any,
-    body: any
+    body: any,
+    abortController?: any
 }
 
 interface HttpGetParam {
     path: string,
-    queryParams?: any
+    queryParams?: any,
+    abortController?: any
 }
 
-const get = ({ path, queryParams = null }: HttpGetParam): Promise<ApiResponse> => {
+const get = ({ path, queryParams = null, abortController = undefined}: HttpGetParam): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
-        Axios.get(path, { params: queryParams })
+        Axios.get(path, 
+            { 
+                params: queryParams,
+                signal: abortController
+            })
             .then((res) => {
                 const response = new ApiResponse(res)
 
@@ -38,9 +44,13 @@ const get = ({ path, queryParams = null }: HttpGetParam): Promise<ApiResponse> =
 
 }
 
-const post = ({ path, queryParams = null, body = null }: HttpPostParam): Promise<ApiResponse> => {
+const post = ({ path, queryParams = null, body = null, abortController = undefined }: HttpPostParam): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
-        Axios.post(path, body, { params: queryParams })
+        Axios.post(path, body,
+            {
+                params: queryParams,
+                signal: abortController
+            })
             .then((res) => {
                 const response = new ApiResponse(res)
 

@@ -1,5 +1,4 @@
-import { logOnDev } from '@/utils/logger';
-import { UploadCloudIcon } from 'lucide-react';
+import { ArrowUpFromDotIcon } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const ScrollToTop = () => {
@@ -22,12 +21,12 @@ const ScrollToTop = () => {
         return () => window.removeEventListener('scroll', checkScrollTop);
     });
 
-    useEffect(() => {
-        logOnDev(visible)
-    }, [visible])
+    // useEffect(() => {
+    //     logOnDev(visible)
+    // }, [visible])
 
     return (
-        <UploadCloudIcon
+        <ArrowUpFromDotIcon
             className={`scrollTop fixed bottom-5 right-2 z-10 cursor-pointer animate-fadeIn transition-opacity duration-400 opacity-50 ${visible ? 'flex' : 'hidden'}`}
             onClick={scrollTop}
             style={{ height: 40 }}

@@ -9,6 +9,7 @@ import UserDashboard from "@/pages/UserDashboard";
 import { ReactNode } from "react";
 import PaymentGuard from "@/layout/PaymentGauard";
 import SearchProjectPage from "@/pages/SearchProjects";
+import ProjectDetailPage from "@/pages/ProjectDetail";
 
 type RouteDefinition = {
     path?: string,
@@ -38,16 +39,16 @@ const RouteBuilder = (): RouteDefinition[] => {
                             element: <SearchProjectPage />
                         },
                         {
-                            path: "explore",
-                            element: <PaymentGuard><div> Page under development</div></PaymentGuard>
-                        },
-                        {
                             path: "project",
-                            element: <PaymentGuard> <div> Page under development</div></PaymentGuard>
+                            element: <ProjectDetailPage />
                         },
                         {
                             path: "add-project",
                             element: <PaymentGuard> <NewProjectPage /> </PaymentGuard>
+                        },
+                        {
+                            path: "explore",
+                            element: <PaymentGuard><div> Page under development</div></PaymentGuard>
                         },
                         {
                             path: "subscription",

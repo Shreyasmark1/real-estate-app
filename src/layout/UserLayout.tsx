@@ -14,7 +14,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 
 const UserLayout = () => {
 
-    const [pageName, setPageName] = useState("Home");
+    const [pageName, setPageName] = useState("Dashboard");
 
     let navigate = useNavigate()
 
