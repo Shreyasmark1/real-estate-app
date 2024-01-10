@@ -1,16 +1,11 @@
-import { useRoutes } from "react-router-dom";
-import RouteBuilder from "./route/RouteBuilder";
 import DialogContextProvider from "./lib/context/DialogContext";
+import MainLayout from "./layout/MainLayout";
 
 const App = () => {
-
-    const routing = useRoutes(RouteBuilder())
-
-    /* TODO: theme, providers */
     return (
         <>
             <DialogContextProvider>
-                {routing}
+                <MainLayout/>
             </DialogContextProvider>
         </>
     );

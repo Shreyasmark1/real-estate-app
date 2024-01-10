@@ -1,4 +1,4 @@
-import { FILE_EXTENTIONS } from "./constants";
+import { ADMIN, FILE_EXTENTIONS, SUPER_ADMIN, USER } from "./constants";
 
 export const validateImageFileType = (file: File): boolean => {
 
@@ -8,4 +8,10 @@ export const validateImageFileType = (file: File): boolean => {
     }
 
     return false;
+}
+
+export function getUserType(type: number){
+    if(type === 1) return SUPER_ADMIN;
+    if(type === 2) return ADMIN;
+    return USER;
 }

@@ -3,7 +3,7 @@ import LoginForm from "@/components/forms/LoginForm";
 import { Login } from "@schema/auth/login-form-schema";
 import { AuthService } from "@api/auth";
 import { useState } from "react";
-import { useNotification } from "@/lib/hooks/useNotificationDialog";
+import { useNotification } from "@/lib/hooks/useNotification";
 import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
 
 const LoginPage = () => {

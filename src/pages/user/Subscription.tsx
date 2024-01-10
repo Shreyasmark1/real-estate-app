@@ -1,7 +1,7 @@
 import SubscriptionPlanCard from "@/components/SubscriptionPlanCard";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { usePageName } from "@/lib/context/PageContext";
-import { useNotification } from "@/lib/hooks/useNotificationDialog";
+import { useNotification } from "@/lib/hooks/useNotification";
 import { SubscriptionService } from "@/lib/network/api/subscription";
 import { getPaymentStatus, getPlanName } from "@/lib/store/local-storage/local-storage";
 import { useEffect, useState } from "react";

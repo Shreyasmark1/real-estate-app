@@ -33,8 +33,8 @@ const FilterProjectForm = () => {
     const [value, setValue] = useState("")
 
     return (
-        <div className="w-2/6 h-full">
-            <div className="bg-gray-100 rounded-3xl flex flex-wrap px-8 py-6 relative transform -translate-y-44 translate-x-4 ">
+        <div className="w-2/6">
+            <div className="bg-gray-100 rounded-3xl flex flex-wrap px-8 py-6">
                 <div className="flex justify-between w-full px-2">
                     <Badge variant="outline" className="cursor-pointer">Filter</Badge>
                     <Badge variant="outline" className="cursor-pointer">Reset</Badge>
@@ -47,19 +47,17 @@ const FilterProjectForm = () => {
                 </div>
                 <div className="w-full">
                     <Label className="ml-1">Price range</Label>
-                    <div className="flex gap-0.5">
-                        <div className="relative">
-                            <InputField
-                                className="pl-9"
-                                leftIcon={<IndianRupeeIcon size={16} />}
-                            />
-                        </div>
-                        <div className="relative">
-                            <InputField
-                                className="pl-9"
-                                leftIcon={<IndianRupeeIcon size={16} />}
-                            />
-                        </div>
+                    <div className="flex gap-1">
+                        <InputField
+                            className="pl-9"
+                            fieldType="number"
+                            leftIcon={<IndianRupeeIcon size={16} />}
+                        />
+                        <InputField
+                            className="pl-9"
+                            fieldType="number"
+                            leftIcon={<IndianRupeeIcon size={16} />}
+                        />
                     </div>
                 </div>
                 <ComboBox

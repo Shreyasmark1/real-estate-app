@@ -4,10 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { Login, LoginFormSchema, loginFormDefaults, loginFormFields } from "@schema/auth/login-form-schema";
-import StandardFormField from "./form-fields/InputField";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
 import InputField from "./form-fields/InputField";
-import { SearchIcon } from "lucide-react";
 
 type LoginFormProps = {
     isSubmitting: boolean

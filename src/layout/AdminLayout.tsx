@@ -1,17 +1,16 @@
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+
 import user from "@/assets/user.jpg"
-import { PlusIcon, SearchIcon } from "lucide-react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import ScrollToTop from "@/components/ScrollToTop";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 import { PageContextType } from "@/lib/context/PageContext";
 import { drawerNavigation } from "@/route/DrawerNavigation";
-import ScrollToTop from "@/components/ScrollToTop";
+import { useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
-const UserLayout = () => {
-
+const AdminLayout = () => {
     const [pageName, setPageName] = useState("Dashboard");
 
     let navigate = useNavigate()
@@ -22,17 +21,6 @@ const UserLayout = () => {
             <nav className="flex items-center justify-between py-2 md:py-4 px-4 md:px-8 sticky top-0 bg-white">
                 <div className="text-lg md:text-2xl font-semibold">{pageName}</div>
                 <div className="flex items-center space-x-4">
-                    <Link to={"/search"}>
-                        <Avatar className="overflow-hidden text-gray-500 rounded-full">
-                            <SearchIcon className="w-7 h-7 mt-1 mx-2" />
-                        </Avatar>
-                    </Link>
-                    <Link to={"/add-project"}>
-                        <Button variant="outline" className="overflow-hidden text-gray-500">
-                            <PlusIcon className="w-7 h-7" />
-                            <span className="hidden md:block">New project</span>
-                        </Button>
-                    </Link>
                     <div className="font-semibold">John Doe</div>
                     <Sheet>
                         <SheetTrigger asChild>
@@ -79,7 +67,7 @@ const UserLayout = () => {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default UserLayout;
+export default AdminLayout;

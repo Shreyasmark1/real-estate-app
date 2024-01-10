@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Otp, OtpFormSchema, otpFormDefaults, otpFormFields } from "@schema/auth/otp-form-schema";
-import { useNotification } from "@/lib/hooks/useNotificationDialog";
+import { useNotification } from "@/lib/hooks/useNotification";
 import { useState } from "react";
 import { AuthService } from "@api/auth";
 import { useNavigate } from "react-router-dom";

@@ -2,8 +2,9 @@ import axios from "axios";
 import { onError, onRequest, onResponse } from "./http-interceptor";
 import { ApiResponse } from "../ApiResponse";
 import { generateApiMessage } from "../util";
+import { BASE_URL } from "@/utils/env-helper";
 
-export const Axios = axios.create({ baseURL: "http://localhost:8080" })
+export const Axios = axios.create({ baseURL: BASE_URL })
 
 Axios.interceptors.request.use(onRequest, onError);
 Axios.interceptors.response.use(onResponse, onError);

@@ -15,22 +15,20 @@ const ProjectListCard = () => {
             </Link>
             <div className="basis-3/6 my-4">
                 <Link to={"/project"}> 3 room, modern apartment</Link>
-                <div> Suratkal </div>
+                <p> Suratkal </p>
                 <br />
-                <div className="flex gap-1.5">
-                    <Badge variant="outline" className="border-white bg-blue-300 h-8">
+                <Badge variant="outline" className="flex gap-1.5 rounded-lg bg-slate-50">
+                    <Badge variant="outline" className="border-slate-50 h-8">
                         <BedDoubleIcon className="mr-2" size={16} /> 2
                     </Badge>
-                    <Badge variant="outline" className="border-white bg-blue-300 ">
-                        <RulerSquareIcon className="mr-2" /> 64 m<sup>2</sup>
+                    <Badge variant="outline" className="border-slate-50">
+                        <RulerSquareIcon className="mr-2" /> 64 ft<sup>2</sup>
                     </Badge>
-                </div>
+                </Badge>
             </div>
             <div className="basis-1/6 flex flex-col justify-between my-6 items-center">
                 <div className="text-lg"> ₹30,00,000</div>
-                <div>
-                    <HeartIcon fill="red" stroke="red" />
-                </div>
+                <HeartIcon fill="red" stroke="red" />
             </div>
         </div>
     );

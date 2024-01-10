@@ -3,7 +3,7 @@ import RegisterForm from "@/components/forms/RegisterForm";
 import { Register } from "@schema/auth/register-form-schema";
 import { useState } from "react";
 import { AuthService } from "@/lib/network/api/auth";
-import { useNotification } from "@/lib/hooks/useNotificationDialog";
+import { useNotification } from "@/lib/hooks/useNotification";
 import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
 
 const RegisterPage = () => {

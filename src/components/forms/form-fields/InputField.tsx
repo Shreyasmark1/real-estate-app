@@ -12,7 +12,7 @@ type Props = {
 const InputField = ({ name, fieldType, onChangeHandler, leftIcon, className, placeHolder }: Props) => {
 
     return (
-        <>
+        <div className="relative">
             <Input
                 name={name}
                 autoComplete={name ? name === 'password' ? 'current-password' : 'on' : 'on'}
@@ -26,7 +26,7 @@ const InputField = ({ name, fieldType, onChangeHandler, leftIcon, className, pla
                     {leftIcon}
                 </div>
             }
-        </>
+        </div>
 
     );
 }
