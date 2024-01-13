@@ -5,11 +5,13 @@ import { useState } from "react";
 import { AuthService } from "@/lib/network/api/auth";
 import { useNotification } from "@/lib/hooks/useNotification";
 import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
+import { useAuth } from "@/lib/hooks/useAuth";
 
 const RegisterPage = () => {
   const [verifyOtp, setVerifyOtp] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { showDialog } = useNotification()
+  const { login } = useAuth()
 
   const onSubmit = async (formData: Register) => {
     setIsSubmitting(true)
@@ -29,7 +31,7 @@ const RegisterPage = () => {
   return (
     <>
       {
-        verifyOtp ? <OtpVerificationForm /> :
+        verifyOtp ? <OtpVerificationForm handleVerification={login} /> :
           <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="relative flex flex-col m-5 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
               <div className="flex flex-col justify-center px-10 py-8">

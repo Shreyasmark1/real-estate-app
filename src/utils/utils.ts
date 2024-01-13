@@ -1,7 +1,6 @@
-import { ADMIN, FILE_EXTENTIONS, SUPER_ADMIN, USER } from "./constants";
+import { FILE_EXTENTIONS } from "./constants";
 
 export const validateImageFileType = (file: File): boolean => {
-
     if (file?.name) {
         const fieldType = file.name.split(".").pop();
         if (fieldType === FILE_EXTENTIONS.JPEG || fieldType === FILE_EXTENTIONS.PNG) return true;
@@ -10,8 +9,10 @@ export const validateImageFileType = (file: File): boolean => {
     return false;
 }
 
-export function getUserType(type: number){
-    if(type === 1) return SUPER_ADMIN;
-    if(type === 2) return ADMIN;
-    return USER;
-}
+export function findByMatchingProperties(set: any[], properties: any) {
+    return set.filter((entry) => {
+      return Object.keys(properties).every((key) => {
+        return entry[key] === properties[key];
+      });
+    });
+  }

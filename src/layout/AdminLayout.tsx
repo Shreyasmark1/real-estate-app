@@ -61,11 +61,7 @@ const AdminLayout = () => {
                     </Sheet>
                 </div>
             </nav>
-            <div className="h-full">
-                <div className="py-2 md:py-5 px-4 md:px-8 bg-gray-100 flex-1">
-                    <Outlet context={{ pageName: pageName, setPageName: setPageName } satisfies PageContextType} />
-                </div>
-            </div>
+            <Outlet context={{ pageName: pageName, setPageName: setPageName } satisfies PageContextType} />
         </div>
     )
 }

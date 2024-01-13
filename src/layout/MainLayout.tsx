@@ -1,22 +1,46 @@
+import { useAuth } from "@/lib/hooks/useAuth";
 import LoginPage from "@/pages/Login";
-import RouteBuilder from "@/route/RouteBuilder";
-import { getUserType } from "@/utils/utils";
+import RouteBuilder, { RouteDefinition } from "@/route/RouteBuilder";
+import { logOnDev } from "@/utils/logger";
+import { useEffect } from "react";
 import { useRoutes } from "react-router-dom";
 
-const Logout = () => {
-    // TODO: logout
-    // clear cache, storage
-    return <LoginPage />
-}
-
 const MainLayout = () => {
+
+    const { authority, isLoggedIn, logout } = useAuth()
+
+    const getFeatureRoutes = (): RouteDefinition[] => {
+        console.log("hi")
+        if (isLoggedIn) {
+            return RouteBuilder({ authority })
+        }
+        return []
+    }
+
+    const Logout = () => {
+        useEffect(() => {
+            logout();
+        }, []);
+
+        return null;
+    }
 
     const routing = useRoutes([
         { path: "/login", element: <LoginPage /> },
         { path: "/register", element: <LoginPage /> },
         { path: "/logout", element: <Logout /> },
-        ...RouteBuilder({ user: getUserType(1) })
+        ...getFeatureRoutes()
     ])
+
+    useEffect(() => {
+        // Navigate to authority dashbaord
+        logOnDev(authority)
+        logOnDev(routing)
+    }, [authority])
+
+    useEffect(() => {
+        console.log(routing)
+    },[routing])
 
     return (
         <>

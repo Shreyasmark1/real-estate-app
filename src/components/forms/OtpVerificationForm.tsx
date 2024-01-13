@@ -5,15 +5,17 @@ import { Otp, OtpFormSchema, otpFormDefaults, otpFormFields } from "@schema/auth
 import { useNotification } from "@/lib/hooks/useNotification";
 import { useState } from "react";
 import { AuthService } from "@api/auth";
-import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
 import InputField from "./form-fields/InputField";
 
-const OtpVerificationForm = () => {
+type Props = {
+    handleVerification : (data: any) => void
+}
+
+const OtpVerificationForm = ({ handleVerification } : Props) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
-    let navigate = useNavigate()
     const { showDialog } = useNotification()
 
     const formContext = useForm({
@@ -25,8 +27,9 @@ const OtpVerificationForm = () => {
         setIsSubmitting(true)
         try {
 
-            await AuthService.verifyOtp(formData);
-            navigate("/dashboard")
+            const { data } = await AuthService.verifyOtp(formData);
+
+            handleVerification(data.userType)
 
         } catch (error: any) {
             showDialog({ message: error, isError: true })

@@ -1,55 +1,54 @@
 import UserLayout from "@/layout/UserLayout";
-import NewProjectPage from "@/pages/AddProject";
+import NewProjectPage from "@/pages/user/AddProject";
 import SubscribtionPage from "@/pages/user/Subscription";
 import UserDashboard from "@/pages/user/UserDashboard";
 import { ReactNode } from "react";
 import PaymentGuard from "@/layout/guards/PaymentGauard";
 import SearchProjectPage from "@/pages/user/SearchProjects";
-import ProjectDetailPage from "@/pages/ProjectDetail";
+import ProjectDetailPage from "@/pages/user/ProjectDetail";
 import AuthGuard from "@/layout/guards/AuthGuard";
 import UsersPage from "@/pages/admin/Users";
 import AdminLayout from "@/layout/AdminLayout";
-import { ADMIN, SUPER_ADMIN } from "@/utils/constants";
+import AdminDashBoard from "@/pages/admin/AdminDashboard";
+import { AUTHORITY_ADMIN, AUTHORITY_SUPER_ADMIN, AUTHORITY_USER } from "@/utils/constants";
 
-type RouteDefinition = {
+export type RouteDefinition = {
     path?: string,
     element: ReactNode,
     children?: RouteDefinition[]
 }
 
 type Prop = {
-    user: string
+    authority?: string
 }
 
-const RouteBuilder = ({ user }: Prop): RouteDefinition[] => {
+const RouteBuilder = ({ authority }: Prop): RouteDefinition[] => {
 
-    if (user === ADMIN) {
-        return ([
-            {
-                path:"/admin",
-                element: <AuthGuard><AdminLayout/></AuthGuard>,
-                children: [
-                    { path: "", element: <div>Admin</div>},
-                    { path: "dashboard", element: <div>Admin</div> },
-                    { path: "users", element: <UsersPage/>}
-                ]
-            }
-        ])
-    }
+    const adminRoutes = [
+        {
+            path:"/admin",
+            element: <AuthGuard><AdminLayout/></AuthGuard>,
+            children: [
+                { path: "", element: <div>Admin</div>},
+                { path: "dashboard", element: <AdminDashBoard/> },
+                { path: "users", element: <UsersPage/>}
+            ]
+        }
+    ]
 
-    if (user == SUPER_ADMIN) {
-        return ([
-            {
-                path:"/super-admin",
-                element: <AuthGuard><UserLayout /></AuthGuard>,
-                children: [
-                    { path: "/", element: <div>Super admin</div> }
-                ]
-            }
-        ])
-    }
+    const superAdminRoutes = [
+        {
+            path:"/super-admin",
+            element: <AuthGuard><AdminLayout /></AuthGuard>,
+            children: [
+                { path: "", element: <div>Admin</div>},
+                { path: "dashboard", element: <AdminDashBoard/> },
+                { path: "users", element: <UsersPage/>}
+            ]
+        }
+    ]
 
-    return ([
+    const userRoutes = [
         {
             element: <AuthGuard><UserLayout /></AuthGuard>,
             children: [
@@ -79,7 +78,17 @@ const RouteBuilder = ({ user }: Prop): RouteDefinition[] => {
                 }
             ]
         }
-    ])
+    ]
+
+    console.log("auth" +authority)
+
+    if(!authority) return []
+    switch(authority){
+        case AUTHORITY_ADMIN : return adminRoutes;
+        case AUTHORITY_SUPER_ADMIN : return superAdminRoutes;
+        case AUTHORITY_USER : return userRoutes;
+        default:  return []
+    }
 }
 
 export default RouteBuilder;

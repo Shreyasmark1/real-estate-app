@@ -1,16 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginForm from "@/components/forms/LoginForm";
 import { Login } from "@schema/auth/login-form-schema";
 import { AuthService } from "@api/auth";
 import { useState } from "react";
 import { useNotification } from "@/lib/hooks/useNotification";
 import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
+import { useAuth } from "@/lib/hooks/useAuth";
 
 const LoginPage = () => {
     const [verifyOtp, setVerifyOtp] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { showDialog } = useNotification()
-    let navigate = useNavigate()
+    const { login } = useAuth()
 
     const onSubmit = async (formData: Login) => {
         setIsSubmitting(true)
@@ -20,7 +21,7 @@ const LoginPage = () => {
             if (data.verifyOtp === true) {
                 setVerifyOtp(true)
             } else {
-                navigate("/dashboard")
+                login(data.userType)
             }
 
         } catch (error: any) {
@@ -32,7 +33,7 @@ const LoginPage = () => {
     return (
         <>
             {
-                verifyOtp ? <OtpVerificationForm /> :
+                verifyOtp ? <OtpVerificationForm handleVerification={login} /> :
                     <div className="flex items-center justify-center min-h-screen bg-gray-100">
                         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
                             <div className="flex flex-col justify-center p-8 md:p-14">
