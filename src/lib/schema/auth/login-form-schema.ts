@@ -7,7 +7,8 @@ export const loginFormFields: FormFieldSchema[] = [
         fieldValidation: z.string().min(5, "Invalid user name"),
         fieldType: FormFieldType.text,
         label: "Mobile/Email",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     },
     {
         name: "password",
@@ -15,6 +16,7 @@ export const loginFormFields: FormFieldSchema[] = [
         fieldType: FormFieldType.password,
         label: "Password",
         defaultValue: "",
+        render: true
     }
 ]
 

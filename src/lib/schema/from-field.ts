@@ -5,7 +5,7 @@ export type FormFieldSchema = {
     label:string,
     defaultValue: any,
     className?: string,
-    render?: boolean
+    render: boolean
 }
 
 export enum FormFieldType {
@@ -15,5 +15,7 @@ export enum FormFieldType {
     password,
     checkbox,
     dropdown,
-    image
+    image,
+    textArea,
+    stringArray
 }

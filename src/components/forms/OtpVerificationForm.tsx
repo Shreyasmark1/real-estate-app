@@ -7,7 +7,6 @@ import { useState } from "react";
 import { AuthService } from "@api/auth";
 import { Button } from "../ui/button";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
-import InputField from "./form-fields/InputField";
 
 type Props = {
     handleVerification : (data: any) => void
@@ -52,9 +51,7 @@ const OtpVerificationForm = ({ handleVerification } : Props) => {
                                             key={formField.name}
                                             formFieldSchema={formField}
                                             control={formContext.control}
-                                            Child={{
-                                                Component: InputField
-                                            }} />
+                                            />
                                     ))
                                 }
                                 <div className="flex flex-row my-4 mt-2 w-full">

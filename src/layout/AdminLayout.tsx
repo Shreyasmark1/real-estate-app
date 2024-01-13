@@ -6,19 +6,22 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 import { PageContextType } from "@/lib/context/PageContext";
-import { drawerNavigation } from "@/route/DrawerNavigation";
+import { useAuth } from "@/lib/hooks/useAuth";
+import { getDrawerNavigation } from "@/route/DrawerNavigation";
 import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const AdminLayout = () => {
     const [pageName, setPageName] = useState("Dashboard");
 
+    const { authority } = useAuth()
+
     let navigate = useNavigate()
 
     return (
         <div className="z-10">
             <ScrollToTop />
-            <nav className="flex items-center justify-between py-2 md:py-4 px-4 md:px-8 sticky top-0 bg-white">
+            <nav className="flex items-center justify-between py-2 md:py-4 px-4 md:px-8 sticky top-0 bg-white shadow-sm">
                 <div className="text-lg md:text-2xl font-semibold">{pageName}</div>
                 <div className="flex items-center space-x-4">
                     <div className="font-semibold">John Doe</div>
@@ -40,7 +43,7 @@ const AdminLayout = () => {
                             <Separator />
                             <ul className="w-full">
                                 {
-                                    drawerNavigation.map((drawerNav) => (
+                                    getDrawerNavigation(authority).map((drawerNav) => (
                                         <SheetClose asChild className="w-full" key={drawerNav.locationName}>
                                             <Link to={drawerNav.url}>
                                                 <Button className="text-lg w-full" variant="ghost"> {drawerNav.locationName} </Button> <br />

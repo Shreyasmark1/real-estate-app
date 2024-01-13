@@ -1,6 +1,6 @@
-import InputField from "@/components/forms/form-fields/InputField";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { usePageName } from "@/lib/context/PageContext";
 import { FormFieldType } from "@/lib/schema/from-field";
 import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } from "@/lib/schema/project/project-form-schema";
@@ -32,7 +32,7 @@ const AddProjectPage = () => {
                     {
                         projectFormFields.map((formField) => (
                             formField.fieldType === FormFieldType.image || formField.fieldType === FormFieldType.dropdown ? (<></>) :
-                                <InputField key={formField.name} />
+                                <Input key={formField.name} />
                         ))
                     }
                     <Button

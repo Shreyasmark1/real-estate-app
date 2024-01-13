@@ -7,35 +7,40 @@ export const registerFormFields: FormFieldSchema[] = [
         fieldValidation: z.string().min(3, "Invalid name"),
         fieldType: FormFieldType.text,
         label: "Name",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     },
     {
         name: "mobile",
         fieldValidation: z.string().length(10, "Invalid mobile number"),
         fieldType: FormFieldType.number,
         label: "Mobile number",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     },
     {
         name: "email",
         fieldValidation: z.string().email("Invalid email"),
         fieldType: FormFieldType.email,
         label: "Email address",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     },
     {
         name: "password",
         fieldValidation: z.string().min(6, "Password must be atleast 6 characters"),
         fieldType: FormFieldType.password,
         label: "Create a new Password",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     },
     {
         name: "confirmPassword",
         fieldValidation: z.string(),
         fieldType: FormFieldType.password,
         label: "Confirm password",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     }
 ]
 

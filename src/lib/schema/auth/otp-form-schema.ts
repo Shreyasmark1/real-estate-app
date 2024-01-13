@@ -7,7 +7,8 @@ export const otpFormFields: FormFieldSchema[] = [
         fieldValidation: z.string().min(6, "Invalid OTP").max(6, "Invalid OTP"),
         fieldType: FormFieldType.number,
         label: "Enter OTP sent to your mobile",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     }
 ]
 

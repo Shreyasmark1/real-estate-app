@@ -1,9 +1,9 @@
 import { useState } from "react";
-import InputField from "./form-fields/InputField";
 import { IndianRupeeIcon, SearchIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import ComboBox from "./form-fields/ComboBox";
+import { Input } from "../ui/input";
 
 const options = [
     {
@@ -40,7 +40,7 @@ const FilterProjectForm = () => {
                     <Badge variant="outline" className="cursor-pointer">Reset</Badge>
                 </div>
                 <div className="relative w-full mt-1">
-                    <InputField
+                    <Input
                         className="pl-10"
                         leftIcon={<SearchIcon />}
                     />
@@ -48,14 +48,14 @@ const FilterProjectForm = () => {
                 <div className="w-full">
                     <Label className="ml-1">Price range</Label>
                     <div className="flex gap-1">
-                        <InputField
+                        <Input
                             className="pl-9"
-                            fieldType="number"
+                            type="number"
                             leftIcon={<IndianRupeeIcon size={16} />}
                         />
-                        <InputField
+                        <Input
                             className="pl-9"
-                            fieldType="number"
+                            type="number"
                             leftIcon={<IndianRupeeIcon size={16} />}
                         />
                     </div>

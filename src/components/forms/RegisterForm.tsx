@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { Register, registerFormDefaults, registerFormFields, RegisterFormSchema } from "@schema/auth/register-form-schema";
-import InputField from "./form-fields/InputField";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
 
 type RegisterFormProps = {
@@ -27,9 +26,7 @@ const RegisterForm = ({ onSubmit, isSubmitting }: RegisterFormProps) => {
                             key={formField.name}
                             formFieldSchema={formField}
                             control={formContext.control}
-                            Child={{
-                                Component: InputField
-                            }} />
+                        />
                     ))
                 }
                 <Button

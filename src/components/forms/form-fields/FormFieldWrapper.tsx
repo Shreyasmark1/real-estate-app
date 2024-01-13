@@ -1,42 +1,55 @@
 import { FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { FormFieldSchema, FormFieldType } from "@/lib/schema/from-field";
 import { Label } from "@radix-ui/react-label";
 import { Control } from "react-hook-form";
 
-type FormField = {
-    Component: any,
-    props?: any,
-}
-
 type Props = {
     formFieldSchema?: FormFieldSchema,
     control?: Control<{ [x: string]: any; }> | undefined,
-    Child: FormField,
-    className?: string
+    className?: string,
+    childProps?: any,
+    Child?: any
 }
 
-const FormFieldWrapper = ({ formFieldSchema, control, Child, className }: Props) => {
+const FormFieldWrapper = ({ formFieldSchema, control, className, childProps, Child }: Props) => {
 
-    let fieldType = "text";
+    if (!formFieldSchema?.render) return <></>
 
-    if (formFieldSchema) {
+    let Component = Child ? Child.Component : Input;
+
+    Input.defaultProps?.type
+
+    if (formFieldSchema && !Child) {
         switch (formFieldSchema.fieldType) {
             case FormFieldType.text:
-                fieldType = "text";
+                if (Component.defaultProps?.type) {
+                    Component.defaultProps.type = "text"
+                }
                 break;
 
             case FormFieldType.number:
-                fieldType = "number";
+                if (Component.defaultProps?.type) {
+                    Component.defaultProps.type = "number"
+                }
                 break;
 
             case FormFieldType.email:
-                fieldType = "email";
+                if (Component.defaultProps?.type) {
+                    Component.defaultProps.type = "email"
+                }
                 break;
 
             case FormFieldType.password:
-                fieldType = "password";
+                if (Component.defaultProps?.type) {
+                    Component.defaultProps.type = "password"
+                }
                 break;
 
+            case FormFieldType.textArea:
+                Component = Textarea
+                break
             default: throw new Error(`${FormFieldType[formFieldSchema.fieldType]} is invalid input field create a custom UI for it`)
         }
     }
@@ -50,7 +63,7 @@ const FormFieldWrapper = ({ formFieldSchema, control, Child, className }: Props)
                     <FormItem>
                         <Label>{formFieldSchema ? formFieldSchema.label : ""}</Label>
                         <FormControl>
-                            <Child.Component {...field} {...Child.props} />
+                            <Component {...field} {...childProps} />
                         </FormControl>
                         <FormDescription>
                         </FormDescription>

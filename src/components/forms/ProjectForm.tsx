@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import StandardFormField from "./form-fields/InputField";
 import { FormFieldType } from "@/lib/schema/from-field";
+import InputField from "./form-fields/InputField";
 
 const ProjectForm = () => {
 
@@ -26,7 +26,7 @@ const ProjectForm = () => {
                 {
                     projectFormFields.map((formField) => (
                         formField.fieldType === FormFieldType.image ? <></> :
-                            <StandardFormField key={formField.name} formFieldSchema={formField} control={formContext.control} />
+                            <InputField key={formField.name} />
                     ))
                 }
                 <Button

@@ -5,7 +5,6 @@ import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { Login, LoginFormSchema, loginFormDefaults, loginFormFields } from "@schema/auth/login-form-schema";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
-import InputField from "./form-fields/InputField";
 
 type LoginFormProps = {
     isSubmitting: boolean
@@ -28,10 +27,7 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
                         key={formField.name} 
                         formFieldSchema={formField} 
                         control={formContext.control} 
-                        Child={{
-                            Component: InputField,
-                            props: {fieldType: formField.fieldType}
-                        }} />
+                        />
                     ))
                 }
                 <Button

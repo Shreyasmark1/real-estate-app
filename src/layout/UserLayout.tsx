@@ -7,12 +7,15 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { PageContextType } from "@/lib/context/PageContext";
-import { drawerNavigation } from "@/route/DrawerNavigation";
+import { getDrawerNavigation } from "@/route/DrawerNavigation";
 import ScrollToTop from "@/components/ScrollToTop";
+import { useAuth } from "@/lib/hooks/useAuth";
 
 const UserLayout = () => {
 
     const [pageName, setPageName] = useState("Dashboard");
+
+    const { authority } = useAuth()
 
     let navigate = useNavigate()
 
@@ -52,7 +55,7 @@ const UserLayout = () => {
                             <Separator />
                             <ul className="w-full">
                                 {
-                                    drawerNavigation.map((drawerNav) => (
+                                    getDrawerNavigation(authority).map((drawerNav) => (
                                         <SheetClose asChild className="w-full" key={drawerNav.locationName}>
                                             <Link to={drawerNav.url}>
                                                 <Button className="text-lg w-full" variant="ghost"> {drawerNav.locationName} </Button> <br />

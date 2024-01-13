@@ -11,6 +11,7 @@ import UsersPage from "@/pages/admin/Users";
 import AdminLayout from "@/layout/AdminLayout";
 import AdminDashBoard from "@/pages/admin/AdminDashboard";
 import { AUTHORITY_ADMIN, AUTHORITY_SUPER_ADMIN, AUTHORITY_USER } from "@/utils/constants";
+import Plans from "@/pages/super-admin/Plans";
 
 export type RouteDefinition = {
     path?: string,
@@ -24,7 +25,7 @@ type Prop = {
 
 const RouteBuilder = ({ authority }: Prop): RouteDefinition[] => {
 
-    const adminRoutes = [
+    const adminRoutes: RouteDefinition[]  = [
         {
             path:"/admin",
             element: <AuthGuard><AdminLayout/></AuthGuard>,
@@ -36,19 +37,19 @@ const RouteBuilder = ({ authority }: Prop): RouteDefinition[] => {
         }
     ]
 
-    const superAdminRoutes = [
+    const superAdminRoutes: RouteDefinition[] = [
         {
             path:"/super-admin",
             element: <AuthGuard><AdminLayout /></AuthGuard>,
             children: [
                 { path: "", element: <div>Admin</div>},
                 { path: "dashboard", element: <AdminDashBoard/> },
-                { path: "users", element: <UsersPage/>}
+                { path: "plans", element: <Plans/>}
             ]
         }
     ]
 
-    const userRoutes = [
+    const userRoutes: RouteDefinition[]  = [
         {
             element: <AuthGuard><UserLayout /></AuthGuard>,
             children: [
