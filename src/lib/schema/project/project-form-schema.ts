@@ -9,14 +9,16 @@ export const projectFormFields: FormFieldSchema[] = [
         fieldValidation: z.string().min(3),
         fieldType: FormFieldType.text,
         label: "Project name",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     },
     {
         name: "projType",
         fieldValidation: z.string().length(36),
         fieldType: FormFieldType.dropdown,
         label: "Project type",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     },
     // {
     //     name: "saleType",
@@ -30,21 +32,24 @@ export const projectFormFields: FormFieldSchema[] = [
         fieldValidation: z.number(),
         fieldType: FormFieldType.number,
         label: "Price",
-        defaultValue: 0
+        defaultValue: 0,
+        render: true
     },
     {
         name: "description",
         fieldValidation: z.string().min(20),
         fieldType: FormFieldType.dropdown,
         label: "Description",
-        defaultValue: ""
+        defaultValue: "",
+        render: true
     },
     {
         name: "area",
         fieldValidation: z.number(),
         fieldType: FormFieldType.number,
         label: "Area (sq. meter)",
-        defaultValue: 0
+        defaultValue: 0,
+        render: true
     },
     {
         name: "Project Image",
@@ -54,7 +59,8 @@ export const projectFormFields: FormFieldSchema[] = [
             .refine((file) => validateImageFileType(file), "Only .png, .jpeg formats are supported."),
         fieldType: FormFieldType.image,
         label: "Project Image",
-        defaultValue: null
+        defaultValue: null,
+        render: true
     }
 ]
 

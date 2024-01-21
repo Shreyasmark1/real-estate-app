@@ -11,6 +11,7 @@ Axios.interceptors.response.use(onResponse, onError);
 
 interface HttpPostParam {
     path: string,
+    pathVariable?: string | number | boolean | null
     queryParams?: any,
     body: any,
     abortController?: any
@@ -22,10 +23,10 @@ interface HttpGetParam {
     abortController?: any
 }
 
-const get = ({ path, queryParams = null, abortController = undefined}: HttpGetParam): Promise<ApiResponse> => {
+const get = ({ path, queryParams = null, abortController = undefined }: HttpGetParam): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
-        Axios.get(path, 
-            { 
+        Axios.get(path,
+            {
                 params: queryParams,
                 signal: abortController
             })
@@ -45,7 +46,10 @@ const get = ({ path, queryParams = null, abortController = undefined}: HttpGetPa
 
 }
 
-const post = ({ path, queryParams = null, body = null, abortController = undefined }: HttpPostParam): Promise<ApiResponse> => {
+const post = ({ path, pathVariable = null, queryParams = null, body = null, abortController = undefined }: HttpPostParam): Promise<ApiResponse> => {
+
+    if (pathVariable !== null) path = path + `/${pathVariable}`
+
     return new Promise((resolve, reject) => {
         Axios.post(path, body,
             {

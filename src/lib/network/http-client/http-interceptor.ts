@@ -1,10 +1,11 @@
 import { InternalAxiosRequestConfig, AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
-import { OPEN_URL_LIST, MULTIPART_URL_LIST, CONTENT_TYPE_FORM, CONTENT_TYPE_JSON, AUTH_URL } from "../config";
+import { CONTENT_TYPE_FORM, CONTENT_TYPE_JSON } from "../config";
 import { logOnDev } from "@/utils/logger";
 import SecureStorageService from "../../store/local-storage/local-storage-secure";
 import { LS_ACESS_TOKEN_KEY, LS_REFRESH_TOKEN_KEY, LS_TRANSACTION_TOKEN_KEY } from "@/utils/env-helper";
 import { ApiResponse } from "../ApiResponse";
 import { generateApiMessage } from "../util";
+import { OPEN_URL_LIST, AUTH_URL, MULTIPART_URL_LIST } from "../url-list";
 
 export const onRequest = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
 

@@ -11,7 +11,7 @@ import UsersPage from "@/pages/admin/Users";
 import AdminLayout from "@/layout/AdminLayout";
 import AdminDashBoard from "@/pages/admin/AdminDashboard";
 import { AUTHORITY_ADMIN, AUTHORITY_SUPER_ADMIN, AUTHORITY_USER } from "@/utils/constants";
-import Plans from "@/pages/super-admin/Plans";
+import SubscriptionPlanList from "@/pages/admin/SubscriptionPlanList";
 
 export type RouteDefinition = {
     path?: string,
@@ -44,7 +44,7 @@ const RouteBuilder = ({ authority }: Prop): RouteDefinition[] => {
             children: [
                 { path: "", element: <div>Admin</div>},
                 { path: "dashboard", element: <AdminDashBoard/> },
-                { path: "plans", element: <Plans/>}
+                { path: "plans", element: <SubscriptionPlanList/>}
             ]
         }
     ]
@@ -80,8 +80,6 @@ const RouteBuilder = ({ authority }: Prop): RouteDefinition[] => {
             ]
         }
     ]
-
-    console.log("auth" +authority)
 
     if(!authority) return []
     switch(authority){

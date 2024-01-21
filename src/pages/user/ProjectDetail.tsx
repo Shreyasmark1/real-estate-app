@@ -1,4 +1,4 @@
-import { usePageName } from "@/lib/context/PageContext";
+import { usePageName } from "@/lib/hooks/usePageName";
 import searchBackground from "@/assets/search-background.jpg"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

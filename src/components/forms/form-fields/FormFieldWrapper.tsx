@@ -2,49 +2,43 @@ import { FormControl, FormDescription, FormField, FormItem, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FormFieldSchema, FormFieldType } from "@/lib/schema/from-field";
+import { cn } from "@/lib/utils";
 import { Label } from "@radix-ui/react-label";
 import { Control } from "react-hook-form";
 
 type Props = {
     formFieldSchema?: FormFieldSchema,
     control?: Control<{ [x: string]: any; }> | undefined,
-    className?: string,
     childProps?: any,
-    Child?: any
+    Child?: any,
+    className?: string
 }
 
-const FormFieldWrapper = ({ formFieldSchema, control, className, childProps, Child }: Props) => {
+const FormFieldWrapper = ({ formFieldSchema, control, childProps, Child, className }: Props) => {
 
+    //if a hidden field
     if (!formFieldSchema?.render) return <></>
 
+    // if child component is provided 
     let Component = Child ? Child.Component : Input;
 
-    Input.defaultProps?.type
+    let type = "text"
 
     if (formFieldSchema && !Child) {
         switch (formFieldSchema.fieldType) {
             case FormFieldType.text:
-                if (Component.defaultProps?.type) {
-                    Component.defaultProps.type = "text"
-                }
                 break;
 
             case FormFieldType.number:
-                if (Component.defaultProps?.type) {
-                    Component.defaultProps.type = "number"
-                }
+                type = "number"
                 break;
 
             case FormFieldType.email:
-                if (Component.defaultProps?.type) {
-                    Component.defaultProps.type = "email"
-                }
+                type = "email"
                 break;
 
             case FormFieldType.password:
-                if (Component.defaultProps?.type) {
-                    Component.defaultProps.type = "password"
-                }
+                type = "password"
                 break;
 
             case FormFieldType.textArea:
@@ -55,23 +49,21 @@ const FormFieldWrapper = ({ formFieldSchema, control, className, childProps, Chi
     }
 
     return (
-        <div className={className ? className : "grid w-full max-w-sm items-center gap-1.5 text-md"}>
-            <FormField
-                name={formFieldSchema ? formFieldSchema.name : ""}
-                control={control}
-                render={({ field }) => (
-                    <FormItem>
-                        <Label>{formFieldSchema ? formFieldSchema.label : ""}</Label>
-                        <FormControl>
-                            <Component {...field} {...childProps} />
-                        </FormControl>
-                        <FormDescription>
-                        </FormDescription>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-        </div>
+        <FormField
+            name={formFieldSchema ? formFieldSchema.name : ""}
+            control={control}
+            render={({ field }) => (
+                <FormItem className={cn("", className)}>
+                    <Label>{formFieldSchema ? formFieldSchema.label : ""}</Label>
+                    <FormControl {...field}>
+                        <Component type={type} {...childProps} />
+                    </FormControl>
+                    <FormDescription>
+                    </FormDescription>
+                    <FormMessage />
+                </FormItem>
+            )}
+        />
     );
 }
 

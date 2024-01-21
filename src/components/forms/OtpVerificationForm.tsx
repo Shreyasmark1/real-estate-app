@@ -4,9 +4,9 @@ import { Form } from "../ui/form";
 import { Otp, OtpFormSchema, otpFormDefaults, otpFormFields } from "@schema/auth/otp-form-schema";
 import { useNotification } from "@/lib/hooks/useNotification";
 import { useState } from "react";
-import { AuthService } from "@api/auth";
 import { Button } from "../ui/button";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
+import { AuthService } from "@/services/AuthService";
 
 type Props = {
     handleVerification : (data: any) => void

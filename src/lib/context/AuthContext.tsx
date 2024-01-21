@@ -19,8 +19,8 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 const AuthContextProvider = ({ children }: AuthContextProp) => {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(true)
-    const [authority, setAuthority] = useState<string | undefined>("SUPER_ADMIN")
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [authority, setAuthority] = useState<string | undefined>()
     const [authorities, setAuthorities] = useState<string[]>([])
 
     const login = (userType: number) => {

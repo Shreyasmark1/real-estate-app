@@ -1,53 +1,23 @@
 import SubscriptionPlanCard from "@/components/SubscriptionPlanCard";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { usePageName } from "@/lib/context/PageContext";
-import { useNotification } from "@/lib/hooks/useNotification";
-import { SubscriptionService } from "@/lib/network/api/subscription";
+import { usePageName } from "@/lib/hooks/usePageName";
+import { SubscriptionPlan } from "@/lib/schema/subscription-plan/subscription-plan-form-schema";
 import { getPaymentStatus, getPlanName } from "@/lib/store/local-storage/local-storage";
-import { useEffect, useState } from "react";
+import { useSubscriptionService } from "@/services/SubscriptionSerivce";
+import { Key, useEffect } from "react";
 
 const SubscribtionPage = () => {
     const PAGE_NAME = "Pricing"
-
-    const [plans, setPlans] = useState([]);
-
     const { setPageName } = usePageName();
-
-    const { showDialog } = useNotification()
 
     const paymentStatus = getPaymentStatus();
 
     const planName = getPlanName();
 
-    const handler = async (planId: string) => {
-        try {
-
-            const res = await SubscriptionService.choosePlan(planId);
-
-            window.location.replace(res.data.url)
-
-        } catch (error: any) {
-            showDialog({ message: error, isError: true })
-        }
-    }
-
-    const fetchPlans = async () => {
-        try {
-
-            const { data } = await SubscriptionService.getPlans()
-            if (data.plans.length > 0) {
-                setPlans(data.plans)
-            }
-
-        } catch (error: any) {
-            showDialog({ message: error, isError: true })
-
-        }
-    }
+    const { plans, choosePlan } = useSubscriptionService()
 
     useEffect(() => {
         setPageName(PAGE_NAME)
-        fetchPlans()
     }, [])
 
     return (
@@ -64,8 +34,8 @@ const SubscribtionPage = () => {
                             <div className="flex flex-col sm:flex-row items-center justify-center">
                                 {
                                     plans.length > 0 ? (
-                                        plans.map((plan, index) => (
-                                            <SubscriptionPlanCard key={index} plan={plan} handler={handler} />
+                                        plans.map((plan: SubscriptionPlan, index: Key | null | undefined) => (
+                                            <SubscriptionPlanCard key={index} plan={plan} handler={choosePlan} />
                                         ))
                                     ) : <div> Plans are not available for now </div>
                                 }

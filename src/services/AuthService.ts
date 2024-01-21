@@ -1,9 +1,9 @@
 import { Login } from "@schema/auth/login-form-schema"
-import { API_URL_LOGIN, API_URL_REGISTER, API_URL_VERIFY_OTP } from "../config"
-import { Http } from "../http-client/http-helper"
 import { Otp } from "@schema/auth/otp-form-schema"
 import { Register } from "@/lib/schema/auth/register-form-schema"
-import { ApiResponse } from "../ApiResponse"
+import { ApiResponse } from "@/lib/network/ApiResponse"
+import { Http } from "@/lib/network/http-client/http-helper"
+import { API_URL_LOGIN, API_URL_REGISTER, API_URL_VERIFY_OTP } from "@/lib/network/url-list"
 
 const login = (body: Login): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {

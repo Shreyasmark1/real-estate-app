@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
-import { PageContextType } from "@/lib/context/PageContext";
+import { PageContextType } from "@/lib/hooks/usePageName";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { getDrawerNavigation } from "@/route/DrawerNavigation";
 import { useState } from "react";
@@ -19,9 +19,9 @@ const AdminLayout = () => {
     let navigate = useNavigate()
 
     return (
-        <div className="z-10">
+        <div>
             <ScrollToTop />
-            <nav className="flex items-center justify-between py-2 md:py-4 px-4 md:px-8 sticky top-0 bg-white shadow-sm">
+            <nav className="flex items-center justify-between py-2 md:py-4 px-4 md:px-8 sticky top-0 bg-white shadow-sm z-10">
                 <div className="text-lg md:text-2xl font-semibold">{pageName}</div>
                 <div className="flex items-center space-x-4">
                     <div className="font-semibold">John Doe</div>

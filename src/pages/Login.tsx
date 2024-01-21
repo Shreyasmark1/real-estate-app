@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import LoginForm from "@/components/forms/LoginForm";
 import { Login } from "@schema/auth/login-form-schema";
-import { AuthService } from "@api/auth";
 import { useState } from "react";
 import { useNotification } from "@/lib/hooks/useNotification";
 import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
 import { useAuth } from "@/lib/hooks/useAuth";
+import { AuthService } from "@/services/AuthService";
 
 const LoginPage = () => {
     const [verifyOtp, setVerifyOtp] = useState(false)

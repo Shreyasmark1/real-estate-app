@@ -1,16 +1,18 @@
 import { useAuth } from "@/lib/hooks/useAuth";
 import LoginPage from "@/pages/Login";
+import RegisterPage from "@/pages/Register";
 import RouteBuilder, { RouteDefinition } from "@/route/RouteBuilder";
-import { logOnDev } from "@/utils/logger";
+import { AUTHORITY_ADMIN, AUTHORITY_SUPER_ADMIN, AUTHORITY_USER } from "@/utils/constants";
 import { useEffect } from "react";
-import { useRoutes } from "react-router-dom";
+import { useNavigate, useRoutes } from "react-router-dom";
 
 const MainLayout = () => {
 
     const { authority, isLoggedIn, logout } = useAuth()
 
+    const navigate = useNavigate();
+
     const getFeatureRoutes = (): RouteDefinition[] => {
-        console.log("hi")
         if (isLoggedIn) {
             return RouteBuilder({ authority })
         }
@@ -27,20 +29,18 @@ const MainLayout = () => {
 
     const routing = useRoutes([
         { path: "/login", element: <LoginPage /> },
-        { path: "/register", element: <LoginPage /> },
+        { path: "/register", element: <RegisterPage /> },
         { path: "/logout", element: <Logout /> },
         ...getFeatureRoutes()
     ])
 
     useEffect(() => {
-        // Navigate to authority dashbaord
-        logOnDev(authority)
-        logOnDev(routing)
+        if(authority === AUTHORITY_SUPER_ADMIN) navigate("/super-admin")
+        if(authority === AUTHORITY_ADMIN) navigate("/admin")
+        if(authority === AUTHORITY_USER) navigate("/dashboard")
+        if(!authority) navigate("/login")
+        console.log(authority)
     }, [authority])
-
-    useEffect(() => {
-        console.log(routing)
-    },[routing])
 
     return (
         <>

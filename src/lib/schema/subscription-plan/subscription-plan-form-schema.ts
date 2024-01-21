@@ -1,18 +1,18 @@
 import { z } from "zod";
 import { FormFieldSchema, FormFieldType } from "../from-field";
 
-export const planFormFields: FormFieldSchema[] = [
+export const subscriptionPlanFormFields: FormFieldSchema[] = [
     {
         name: "uniqueId",
         fieldValidation: z.optional(z.string()),
-        fieldType: FormFieldType.textArea,
-        label: "Project name",
+        fieldType: FormFieldType.text,
+        label: "Unique Id",
         defaultValue: "",
         render: false
     },
     {
         name: "planName",
-        fieldValidation: z.string().min(3).max(100),
+        fieldValidation: z.string().min(3, "Minimum 3 characters").max(100, "Maximun 100 characters allowed"),
         fieldType: FormFieldType.text,
         label: "Plan Name",
         defaultValue: "",
@@ -20,10 +20,13 @@ export const planFormFields: FormFieldSchema[] = [
     },
     {
         name: "price",
-        fieldValidation: z.number().min(2).max(5),
+        fieldValidation: z.preprocess(
+            (a) => parseInt(z.any().parse(a), 10),
+            z.number().positive().min(100, "Minimun amount of 100").max(100000, "Max amount of 99,999")
+          ),
         fieldType: FormFieldType.number,
         label: "Amount",
-        defaultValue: 0,
+        defaultValue: "",
         render: true
     },
     {
@@ -36,7 +39,7 @@ export const planFormFields: FormFieldSchema[] = [
     },
     {
         name: "createdAt",
-        fieldValidation: z.optional(z.string()),
+        fieldValidation: z.string().nullable().optional(),
         fieldType: FormFieldType.text,
         label: "Created At",
         defaultValue: "",
@@ -44,7 +47,7 @@ export const planFormFields: FormFieldSchema[] = [
     },
     {
         name: "updatedAt",
-        fieldValidation: z.optional(z.string()),
+        fieldValidation: z.string().nullable().optional(),
         fieldType: FormFieldType.text,
         label: "Updated At",
         defaultValue: "",
@@ -52,14 +55,14 @@ export const planFormFields: FormFieldSchema[] = [
     }
 ]
 
-export const planFormDefaults = Object.fromEntries(
-    planFormFields.map((field) => [field.name, field.defaultValue])
+export const subscriptionPlanFormDefaults = Object.fromEntries(
+    subscriptionPlanFormFields.map((field) => [field.name, field.defaultValue])
 )
 
-export const PlanFormSchema = z.object(
+export const subscriptionPlanFormSchema = z.object(
     Object.fromEntries(
-        planFormFields.map((field) => [field.name, field.fieldValidation])
+        subscriptionPlanFormFields.map((field) => [field.name, field.fieldValidation])
     )
 )
 
-export type Plan = z.infer<typeof PlanFormSchema>
+export type SubscriptionPlan = z.infer<typeof subscriptionPlanFormSchema>
