@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 import { PageContextType } from "@/lib/hooks/usePageName";
 import { useAuth } from "@/lib/hooks/useAuth";
-import { getDrawerNavigation } from "@/route/DrawerNavigation";
+import { getDrawerNavigation } from "@/feature/route/DrawerNavigation";
 import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 

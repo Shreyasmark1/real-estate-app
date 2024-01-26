@@ -1,20 +1,23 @@
-import SubscriptionPlanCard from "@/components/SubscriptionPlanCard";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import SubscriptionPlanCard from "@/feature/subscription/components/SubscriptionPlanCard";
+import { useSubscriptionService } from "@/feature/subscription/services/SubscriptionSerivce";
 import { usePageName } from "@/lib/hooks/usePageName";
-import { SubscriptionPlan } from "@/lib/schema/subscription-plan/subscription-plan-form-schema";
+import { SubscriptionPlan } from "@/feature/subscription/schema/subscription-plan-form-schema";
 import { getPaymentStatus, getPlanName } from "@/lib/store/local-storage/local-storage";
-import { useSubscriptionService } from "@/services/SubscriptionSerivce";
 import { Key, useEffect } from "react";
 
 const SubscribtionPage = () => {
     const PAGE_NAME = "Pricing"
     const { setPageName } = usePageName();
-
     const paymentStatus = getPaymentStatus();
 
     const planName = getPlanName();
 
-    const { plans, choosePlan } = useSubscriptionService()
+    const { plans, selectPlan } = useSubscriptionService()
+
+    const choosePlan = (planUniqueId: string) => {
+        selectPlan.mutate(planUniqueId)
+    }
 
     useEffect(() => {
         setPageName(PAGE_NAME)
@@ -33,9 +36,9 @@ const SubscribtionPage = () => {
                             <br />
                             <div className="flex flex-col sm:flex-row items-center justify-center">
                                 {
-                                    plans.length > 0 ? (
-                                        plans.map((plan: SubscriptionPlan, index: Key | null | undefined) => (
-                                            <SubscriptionPlanCard key={index} plan={plan} handler={choosePlan} />
+                                    plans.data.length > 0 ? (
+                                        plans.data.map((plan: SubscriptionPlan, index: Key | null | undefined) => (
+                                            <SubscriptionPlanCard key={index} plan={plan} handler={choosePlan} disabled={selectPlan.isPending} />
                                         ))
                                     ) : <div> Plans are not available for now </div>
                                 }

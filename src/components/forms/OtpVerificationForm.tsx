@@ -2,11 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Otp, OtpFormSchema, otpFormDefaults, otpFormFields } from "@schema/auth/otp-form-schema";
-import { useNotification } from "@/lib/hooks/useNotification";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
-import { AuthService } from "@/services/AuthService";
+import { AuthService } from "@/features/auth/services/AuthService";
+import { useAlert } from "@/lib/hooks/useAlert";
+import { useFormErrorToast } from "@/lib/hooks/useFormError";
 
 type Props = {
     handleVerification : (data: any) => void
@@ -15,12 +16,14 @@ type Props = {
 const OtpVerificationForm = ({ handleVerification } : Props) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const { showDialog } = useNotification()
+    const { showDialogAlert } = useAlert()
 
     const formContext = useForm({
         resolver: zodResolver(OtpFormSchema),
         defaultValues: otpFormDefaults
     })
+
+    useFormErrorToast({formContext})
 
     const onSubmit = async (formData: Otp) => {
         setIsSubmitting(true)
@@ -31,7 +34,7 @@ const OtpVerificationForm = ({ handleVerification } : Props) => {
             handleVerification(data.userType)
 
         } catch (error: any) {
-            showDialog({ message: error, isError: true })
+            showDialogAlert({ message: error, isError: true })
         }
         setIsSubmitting(false)
     }

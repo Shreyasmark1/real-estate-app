@@ -1,8 +1,8 @@
 import { useAuth } from "@/lib/hooks/useAuth";
-import LoginPage from "@/pages/Login";
-import RegisterPage from "@/pages/Register";
-import RouteBuilder, { RouteDefinition } from "@/route/RouteBuilder";
-import { AUTHORITY_ADMIN, AUTHORITY_SUPER_ADMIN, AUTHORITY_USER } from "@/utils/constants";
+import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
+import RouteBuilder, { RouteDefinition } from "@/feature/route/RouteBuilder";
+import { AUTHORITY_ADMIN, AUTHORITY_SUPER_ADMIN, AUTHORITY_USER } from "@/config/constants";
 import { useEffect } from "react";
 import { useNavigate, useRoutes } from "react-router-dom";
 
@@ -39,7 +39,7 @@ const MainLayout = () => {
         if(authority === AUTHORITY_ADMIN) navigate("/admin")
         if(authority === AUTHORITY_USER) navigate("/dashboard")
         if(!authority) navigate("/login")
-        console.log(authority)
+        console.log("authority",authority)
     }, [authority])
 
     return (

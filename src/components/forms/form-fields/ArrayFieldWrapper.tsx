@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Control, FieldValues, useFieldArray } from "react-hook-form";
 import FormFieldWrapper from "./FormFieldWrapper";
-import { FormFieldSchema } from "@/lib/schema/from-field";
+import { FormFieldSchema } from "@/feature/types/from-field";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

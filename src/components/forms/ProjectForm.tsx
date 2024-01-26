@@ -1,10 +1,10 @@
-import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } from "@/lib/schema/project/project-form-schema";
+import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } from "@/feature/project/project-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { FormFieldType } from "@/lib/schema/from-field";
+import { FormFieldType } from "@/feature/types/from-field";
 import InputField from "./form-fields/InputField";
 
 const ProjectForm = () => {

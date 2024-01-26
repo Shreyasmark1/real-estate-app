@@ -1,6 +1,6 @@
-import LoginPage from "@/pages/Login";
+import LoginPage from "@/pages/LoginPage";
 import { ReactNode, createContext, useState } from "react";
-import { USER_AUTHPRITIES } from "@/utils/constants";
+import { USER_AUTHPRITIES } from "@/config/constants";
 
 type AuthContextType = {
     isLoggedIn: boolean;

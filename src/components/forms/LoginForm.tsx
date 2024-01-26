@@ -5,6 +5,7 @@ import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { Login, LoginFormSchema, loginFormDefaults, loginFormFields } from "@schema/auth/login-form-schema";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
+import { useFormErrorToast } from "@/lib/hooks/useFormError";
 
 type LoginFormProps = {
     isSubmitting: boolean
@@ -18,15 +19,17 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
         defaultValues: loginFormDefaults
     });
 
+    useFormErrorToast({formContext})
+
     return (
         <Form {...formContext}>
             <form onSubmit={formContext.handleSubmit(onSubmit)}>
                 {
                     loginFormFields.map((formField) => (
-                        <FormFieldWrapper 
-                        key={formField.name} 
-                        formFieldSchema={formField} 
-                        control={formContext.control} 
+                        <FormFieldWrapper
+                            key={formField.name}
+                            formFieldSchema={formField}
+                            control={formContext.control}
                         />
                     ))
                 }

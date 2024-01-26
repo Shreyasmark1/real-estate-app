@@ -1,4 +1,4 @@
-import { FILE_EXTENTIONS } from "./constants";
+import { FILE_EXTENTIONS } from "@/config/file-constants";
 
 export const validateImageFileType = (file: File): boolean => {
   if (file?.name) {

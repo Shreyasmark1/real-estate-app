@@ -4,6 +4,7 @@ import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { Register, registerFormDefaults, registerFormFields, RegisterFormSchema } from "@schema/auth/register-form-schema";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
+import { useFormErrorToast } from "@/lib/hooks/useFormError";
 
 type RegisterFormProps = {
     onSubmit: SubmitHandler<Register>,
@@ -16,6 +17,8 @@ const RegisterForm = ({ onSubmit, isSubmitting }: RegisterFormProps) => {
         resolver: zodResolver(RegisterFormSchema),
         defaultValues: registerFormDefaults
     });
+
+    useFormErrorToast({formContext})
 
     return (
         <Form {...formContext}>

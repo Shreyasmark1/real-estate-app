@@ -1,7 +1,7 @@
 import { FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { FormFieldSchema, FormFieldType } from "@/lib/schema/from-field";
+import { FormFieldSchema, FormFieldType } from "@/feature/types/from-field";
 import { cn } from "@/lib/utils";
 import { Label } from "@radix-ui/react-label";
 import { Control } from "react-hook-form";
