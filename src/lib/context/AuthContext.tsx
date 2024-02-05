@@ -1,5 +1,5 @@
 import LoginPage from "@/pages/LoginPage";
-import { ReactNode, createContext, useState } from "react";
+import { PropsWithChildren, ReactNode, createContext, useState } from "react";
 import { USER_AUTHPRITIES } from "@/config/constants";
 
 type AuthContextType = {
@@ -8,16 +8,12 @@ type AuthContextType = {
     logout: () => ReactNode;
     login: (userType: number) => void;
     hasAuthority: (authorityName: string) => boolean;
-    setAuthority: (authorityName: string) => void
-}
-
-type AuthContextProp = {
-    children: ReactNode
+    setAuthority: (authorityName: string) => void;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-const AuthContextProvider = ({ children }: AuthContextProp) => {
+const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [authority, setAuthority] = useState<string | undefined>()

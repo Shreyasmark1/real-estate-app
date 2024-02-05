@@ -1,11 +1,11 @@
-import { FormFieldSchema, FormFieldType } from "@/feature/types/from-field"
+import { FormFieldSchema } from "@/schema/from-field"
 import { z } from "zod"
 
 export const otpFormFields: FormFieldSchema[] = [
     {
         name: "otp",
         fieldValidation: z.string().min(6, "Invalid OTP").max(6, "Invalid OTP"),
-        fieldType: FormFieldType.number,
+        fieldType: "number",
         label: "Enter OTP sent to your mobile",
         defaultValue: "",
         render: true

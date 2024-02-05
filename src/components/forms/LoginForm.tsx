@@ -3,9 +3,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
-import { Login, LoginFormSchema, loginFormDefaults, loginFormFields } from "@schema/auth/login-form-schema";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
+import { Login, LoginFormSchema, loginFormDefaults, loginFormFields } from "@/schema/auth/login-form-schema";
+import { Input } from "../ui/input";
 
 type LoginFormProps = {
     isSubmitting: boolean
@@ -19,7 +20,7 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
         defaultValues: loginFormDefaults
     });
 
-    useFormErrorToast({formContext})
+    useFormErrorToast({ formContext })
 
     return (
         <Form {...formContext}>
@@ -30,7 +31,9 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
                             key={formField.name}
                             formFieldSchema={formField}
                             control={formContext.control}
-                        />
+                        >
+                            <Input type={formField.fieldType} autoComplete={formField.fieldType === "password"? "current-password": "on"}/>
+                        </FormFieldWrapper>
                     ))
                 }
                 <Button

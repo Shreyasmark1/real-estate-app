@@ -1,10 +1,13 @@
 import { InternalAxiosRequestConfig, AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
-import { AUTH_URL, CONTENT_TYPE_FORM, CONTENT_TYPE_JSON, MULTIPART_URL_LIST, OPEN_URL_LIST } from "../../config/api-constants";
 import { logOnDev } from "@/utils/console-logger";
 import SecureStorageService from "../store/local-storage/local-storage-secure";
 import { LS_ACESS_TOKEN_KEY, LS_REFRESH_TOKEN_KEY, LS_TRANSACTION_TOKEN_KEY } from "@/config/env-helper";
 import { ApiResponse } from "../../api/response-type/ApiResponse";
 import { generateApiMessage } from "@/utils/api-util";
+import { isEmptyString, isString } from "@/utils/string-util";
+import { CONTENT_TYPE_FORM, CONTENT_TYPE_JSON } from "@/config/api-constants";
+import { AUTH_URL, OPEN_URL_LIST } from "@/api/authentication-api";
+import { MULTIPART_URL_LIST } from "@/api/urls-groups";
 
 export const onRequest = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
 
@@ -51,17 +54,17 @@ export const onResponse = (response: AxiosResponse): any => {
         const refreshToken = res.data?.refreshToken
         const transactionToken = res.data?.token
 
-        if(accessToken){
+        if (accessToken) {
             SecureStorageService.setItem(LS_ACESS_TOKEN_KEY, accessToken)
             delete res.data.accessToken
         }
 
-        if(refreshToken){
+        if (refreshToken) {
             SecureStorageService.setItem(LS_REFRESH_TOKEN_KEY, refreshToken)
             delete res.data.refreshToken
         }
 
-        if(transactionToken){
+        if (transactionToken) {
             SecureStorageService.setItem(LS_TRANSACTION_TOKEN_KEY, transactionToken)
             delete res.data.token
         }
@@ -77,7 +80,7 @@ export const onError = (error: AxiosError | Error) => {
         const { method, url, baseURL } = error.config as AxiosRequestConfig;
         const { statusText, status } = error.response as AxiosResponse ?? {};
 
-        logOnDev(`🚨 [API] ${method?.toUpperCase()} ${baseURL}${url} | Error ${status ? status : ""} : ${statusText ? statusText : ""} \n ${message? message: ""}`, true);
+        logOnDev(`🚨 [API] ${method?.toUpperCase()} ${baseURL}${url} | Error ${status ? status : ""} : ${statusText ? statusText : ""} \n ${message ? message : ""}`, true);
 
         switch (status) {
             case 401: {
@@ -107,20 +110,20 @@ export const onError = (error: AxiosError | Error) => {
         }
     }
 
-    return handleErrorMessage(error);
+    return Promise.reject(handleServerErrorMessage(error));
 }
 
-const handleErrorMessage = (error: any) => {
+const handleServerErrorMessage = (error: AxiosError | Error | any): Error => {
 
-    let errorMessage = "Something went wrong"
-
-    if (error.message) {
-        errorMessage = error.message
+    // handled server error 
+    if (error.response?.data) {
+        error.message = generateApiMessage(error.response.data);
     }
 
-    if (error && error.response && error.response.data) {
-        errorMessage = generateApiMessage(error.response.data)
+    // unhandled server error
+    if (!isString(error.message) || isEmptyString(error.message)) {
+        error.message = "Something went wrong while processing your request"
     }
 
-    return Promise.reject(errorMessage)
+    return error as Error
 }

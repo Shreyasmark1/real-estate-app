@@ -1,11 +1,10 @@
-import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } from "@/feature/project/project-form-schema";
+import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } from "@/schema/project/project-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { FormFieldType } from "@/feature/types/from-field";
-import InputField from "./form-fields/InputField";
+import { Input } from "../ui/input";
 
 const ProjectForm = () => {
 
@@ -25,8 +24,8 @@ const ProjectForm = () => {
             <form onSubmit={formContext.handleSubmit(onSubmit)}>
                 {
                     projectFormFields.map((formField) => (
-                        formField.fieldType === FormFieldType.image ? <></> :
-                            <InputField key={formField.name} />
+                        formField.fieldType === "image" ? <></> :
+                            <Input key={formField.name} />
                     ))
                 }
                 <Button

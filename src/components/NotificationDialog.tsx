@@ -1,29 +1,33 @@
 import { Dialog, DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { DialogClose, DialogContent, DialogFooter, DialogHeader } from "./ui/dialog";
 import { Button } from "./ui/button";
-import { isNotEmptyString } from "@/utils/string-util";
 
 type NotificationDialogProp = {
     title?: string,
     message: string,
     isError?: boolean,
+    isOpen: boolean
     handleClose?: () => void
 }
 
-const NotificationDialog = ({ message, title, isError, handleClose }: NotificationDialogProp) => {
+const NotificationDialog = ({ message, title, isError, isOpen, handleClose }: NotificationDialogProp) => {
+
+    const handleDialogClose = () => {
+        handleClose && handleClose();
+    }
 
     return (
-        <Dialog open={isNotEmptyString(message)} onOpenChange={handleClose}>
+        <Dialog open={isOpen} onOpenChange={handleClose}>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
-                    <DialogTitle className={isError ? "text-red-500" : ""}>{title}</DialogTitle>
+                    <DialogTitle className={isError ? "text-red-500" : ""}>{title? title: "ERROR"}</DialogTitle>
                     <DialogDescription>
                         {message}
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="sm:justify-start">
                     <DialogClose asChild>
-                        <Button onClick={() => handleClose? handleClose(): undefined} type="button" variant="secondary">
+                        <Button onClick={handleDialogClose} type="button" variant="secondary">
                             Close
                         </Button>
                     </DialogClose>

@@ -1,14 +1,14 @@
 import { ApiResponse } from "@/api/response-type/ApiResponse"
 import { HttpClient } from "@/lib/network/http-helper"
-import { SubscriptionPlan } from "@/feature/subscription/schema/subscription-plan-form-schema"
+import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema"
 import { isEmptyString } from "@/utils/string-util"
 
 const API_URL_PLANS = "/subscription/plan"
-const API_URL_INNIT_PAYMENT = "/subscription/choose-plan"
+const API_URL_CHOOSE_PLAN = "/subscription/choose-plan"
 
 const choosePlan = (planId: string): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
-        HttpClient.post({ path: API_URL_INNIT_PAYMENT + "/" + planId, body: null })
+        HttpClient.post({ path: API_URL_CHOOSE_PLAN + "/" + planId, body: null })
             .then((res: ApiResponse) => {
                 resolve(res)
             })

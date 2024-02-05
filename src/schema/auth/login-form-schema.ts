@@ -1,11 +1,12 @@
-import { FormFieldSchema, FormFieldType } from "@/feature/types/from-field";
+import { FormFieldSchema } from "@/schema/from-field";
 import { z } from "zod";
 
+// form fields can be configured from backend and validation can be regex
 export const loginFormFields: FormFieldSchema[] = [
     {
         name: "userName",
-        fieldValidation: z.string().min(5, "Invalid user name"),
-        fieldType: FormFieldType.text,
+        fieldValidation: z.string().min(5, "Invalid Mobile/Email"),
+        fieldType: "text" ,
         label: "Mobile/Email",
         defaultValue: "",
         render: true
@@ -13,7 +14,7 @@ export const loginFormFields: FormFieldSchema[] = [
     {
         name: "password",
         fieldValidation: z.string().min(6, "Invalid password"),
-        fieldType: FormFieldType.password,
+        fieldType: "password" ,
         label: "Password",
         defaultValue: "",
         render: true

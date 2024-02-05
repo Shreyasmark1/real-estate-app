@@ -1,26 +1,21 @@
 import { Card } from "@/components/ui/card";
 import { Control, FieldValues, useFieldArray } from "react-hook-form";
 import FormFieldWrapper from "./FormFieldWrapper";
-import { FormFieldSchema } from "@/feature/types/from-field";
+import { FormFieldSchema } from "@/schema/from-field";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { PlusCircleIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { PropsWithChildren } from "react";
 
-type FormField = {
-    Component: any,
-    props?: any,
-}
-
-type Props = {
+type Props = PropsWithChildren & {
     formFieldSchema?: FormFieldSchema,
     control?: Control<FieldValues> | undefined,
-    Child?: FormField,
     className?: string,
 }
 
-const ArrayFieldWrapper = ({ formFieldSchema, control, Child, className }: Props) => {
+const ArrayFieldWrapper = ({ formFieldSchema, control, children, className }: Props) => {
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -41,12 +36,11 @@ const ArrayFieldWrapper = ({ formFieldSchema, control, Child, className }: Props
                     return (
                         <div key={field.id} className="flex items-center gap-3">
                             <Badge variant="outline">{`${index + 1}`}</Badge>
-                            <FormFieldWrapper
-                                formFieldSchema={newFormFieldSchema}
-                                childProps={Child?.props}
-                                Child={Child} />
+                            <FormFieldWrapper formFieldSchema={newFormFieldSchema}>
+                                {children}
+                            </FormFieldWrapper>
                             <Badge
-                            className="h-10"
+                                className="h-10"
                                 variant="destructive"
                                 onClick={() => remove(index)}
                             >
@@ -57,10 +51,10 @@ const ArrayFieldWrapper = ({ formFieldSchema, control, Child, className }: Props
                 })
             }
             <Button
-            variant="ghost"
+                variant="ghost"
                 onClick={() => append("")}
             >
-                <PlusCircleIcon/>
+                <PlusCircleIcon />
             </Button>
         </Card>
     );

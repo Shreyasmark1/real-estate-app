@@ -1,7 +1,7 @@
 import { useAuth } from "@/lib/hooks/useAuth";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
-import RouteBuilder, { RouteDefinition } from "@/feature/route/RouteBuilder";
+import RouteBuilder, { RouteDefinition } from "@/routing/RouteBuilder";
 import { AUTHORITY_ADMIN, AUTHORITY_SUPER_ADMIN, AUTHORITY_USER } from "@/config/constants";
 import { useEffect } from "react";
 import { useNavigate, useRoutes } from "react-router-dom";

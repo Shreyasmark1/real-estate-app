@@ -1,52 +1,20 @@
 import { FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { FormFieldSchema, FormFieldType } from "@/feature/types/from-field";
+import { FormFieldSchema } from "@/schema/from-field";
 import { cn } from "@/lib/utils";
 import { Label } from "@radix-ui/react-label";
+import { PropsWithChildren } from "react";
 import { Control } from "react-hook-form";
 
-type Props = {
+type Props = PropsWithChildren & {
     formFieldSchema?: FormFieldSchema,
-    control?: Control<{ [x: string]: any; }> | undefined,
-    childProps?: any,
-    Child?: any,
+    control?: Control<{ [x: string]: any; }> | undefined
     className?: string
 }
 
-const FormFieldWrapper = ({ formFieldSchema, control, childProps, Child, className }: Props) => {
-
-    //if a hidden field
+const FormFieldWrapper = ({ formFieldSchema, control, children, className }: Props) => {
     if (!formFieldSchema?.render) return <></>
 
-    // if child component is provided 
-    let Component = Child ? Child.Component : Input;
-
-    let type = "text"
-
-    if (formFieldSchema && !Child) {
-        switch (formFieldSchema.fieldType) {
-            case FormFieldType.text:
-                break;
-
-            case FormFieldType.number:
-                type = "number"
-                break;
-
-            case FormFieldType.email:
-                type = "email"
-                break;
-
-            case FormFieldType.password:
-                type = "password"
-                break;
-
-            case FormFieldType.textArea:
-                Component = Textarea
-                break
-            default: throw new Error(`${FormFieldType[formFieldSchema.fieldType]} is invalid input field create a custom UI for it`)
-        }
-    }
+    // default: throw new Error(`${FormFieldType[formFieldSchema.fieldType]} is invalid input field create a custom UI for it`)
 
     return (
         <FormField
@@ -56,7 +24,7 @@ const FormFieldWrapper = ({ formFieldSchema, control, childProps, Child, classNa
                 <FormItem className={cn("", className)}>
                     <Label>{formFieldSchema ? formFieldSchema.label : ""}</Label>
                     <FormControl {...field}>
-                        <Component type={type} {...childProps} />
+                        {children}
                     </FormControl>
                     <FormDescription>
                     </FormDescription>

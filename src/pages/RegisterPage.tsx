@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import RegisterForm from "@/components/forms/RegisterForm";
-import { Register } from "@schema/auth/register-form-schema";
 import { useState } from "react";
 import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
 import { useAuth } from "@/lib/hooks/useAuth";
-import { AuthService } from "@/features/auth/services/AuthService";
 import { useAlert } from "@/lib/hooks/useAlert";
+import { Register } from "@tanstack/react-query";
+import { AuthenticationApi } from "@/api/authentication-api";
 
 const RegisterPage = () => {
   const [verifyOtp, setVerifyOtp] = useState(false)
@@ -17,13 +17,13 @@ const RegisterPage = () => {
     setIsSubmitting(true)
     try {
 
-      const { data } = await AuthService.register(formData)
+      const { data } = await AuthenticationApi.register(formData)
       if (data.verifyOtp || true) {
         setVerifyOtp(true)
       }
 
     } catch (error: any) {
-      showDialogAlert({ message: error, isError: true })
+      showDialogAlert({ message: error.message, type: "error" })
     }
     setIsSubmitting(false)
   }

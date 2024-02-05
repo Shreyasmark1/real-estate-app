@@ -1,11 +1,11 @@
-import { FormFieldSchema, FormFieldType } from "@/feature/types/from-field";
+import { FormFieldSchema } from "@/schema/from-field";
 import { z } from "zod";
 
 export const registerFormFields: FormFieldSchema[] = [
     {
         name: "fullName",
         fieldValidation: z.string().min(3, "Invalid name"),
-        fieldType: FormFieldType.text,
+        fieldType: "text",
         label: "Name",
         defaultValue: "",
         render: true
@@ -13,7 +13,7 @@ export const registerFormFields: FormFieldSchema[] = [
     {
         name: "mobile",
         fieldValidation: z.string().length(10, "Invalid mobile number"),
-        fieldType: FormFieldType.number,
+        fieldType: "number",
         label: "Mobile number",
         defaultValue: "",
         render: true
@@ -21,7 +21,7 @@ export const registerFormFields: FormFieldSchema[] = [
     {
         name: "email",
         fieldValidation: z.string().email("Invalid email"),
-        fieldType: FormFieldType.email,
+        fieldType: "email",
         label: "Email address",
         defaultValue: "",
         render: true
@@ -29,7 +29,7 @@ export const registerFormFields: FormFieldSchema[] = [
     {
         name: "password",
         fieldValidation: z.string().min(6, "Password must be atleast 6 characters"),
-        fieldType: FormFieldType.password,
+        fieldType: "password",
         label: "Create a new Password",
         defaultValue: "",
         render: true
@@ -37,7 +37,7 @@ export const registerFormFields: FormFieldSchema[] = [
     {
         name: "confirmPassword",
         fieldValidation: z.string(),
-        fieldType: FormFieldType.password,
+        fieldType: "password",
         label: "Confirm password",
         defaultValue: "",
         render: true

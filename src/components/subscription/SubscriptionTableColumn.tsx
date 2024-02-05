@@ -1,8 +1,8 @@
 import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu"
-import { Button } from "../../../components/ui/button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import { Button } from "../ui/button"
 import { ColumnDef } from "@tanstack/react-table"
-import { SubscriptionPlan } from "@/feature/subscription/schema/subscription-plan-form-schema"
+import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema"
 import { CircleIcon } from "lucide-react"
 import { formatDate } from "@/utils/utils"
 

@@ -1,12 +1,12 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import SubscriptionPlanCard from "@/feature/subscription/components/SubscriptionPlanCard";
-import { useSubscriptionService } from "@/feature/subscription/services/SubscriptionSerivce";
+import SubscriptionPlanCard from "@/components/subscription/SubscriptionPlanCard";
+import { useSubscriptionService } from "@/services/SubscriptionSerivce";
 import { usePageName } from "@/lib/hooks/usePageName";
-import { SubscriptionPlan } from "@/feature/subscription/schema/subscription-plan-form-schema";
+import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema";
 import { getPaymentStatus, getPlanName } from "@/lib/store/local-storage/local-storage";
 import { Key, useEffect } from "react";
 
-const SubscribtionPage = () => {
+const SubscriptionPage = () => {
     const PAGE_NAME = "Pricing"
     const { setPageName } = usePageName();
     const paymentStatus = getPaymentStatus();
@@ -68,4 +68,4 @@ const SubscribtionPage = () => {
     );
 }
 
-export default SubscribtionPage;
+export default SubscriptionPage;

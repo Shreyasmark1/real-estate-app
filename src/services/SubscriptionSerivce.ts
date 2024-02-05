@@ -1,5 +1,5 @@
 import { SubscriptionApi } from "@/api/subscription-api";
-import { SubscriptionPlan } from "@/feature/subscription/schema/subscription-plan-form-schema"
+import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema"
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 const QUERY_KEY = "plans";

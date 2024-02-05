@@ -2,8 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { usePageName } from "@/lib/hooks/usePageName";
-import { FormFieldType } from "@/feature/types/from-field";
-import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } from "@/feature/project/project-form-schema";
+import { Project, ProjectFormSchema, projectFormDefaults, projectFormFields } from "@/schema/project/project-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -17,7 +16,7 @@ const AddProjectPage = () => {
         setPageName(PAGE_NAME)
     }, [])
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitting, _setIsSubmitting] = useState(false);
 
     const formContext = useForm<Project>({
         resolver: zodResolver(ProjectFormSchema),
@@ -31,7 +30,7 @@ const AddProjectPage = () => {
                 <form className="flex flex-wrap md:w-4/5">
                     {
                         projectFormFields.map((formField) => (
-                            formField.fieldType === FormFieldType.image || formField.fieldType === FormFieldType.dropdown ? (<></>) :
+                            formField.fieldType === "image" || formField.fieldType === "dropdown" ? (<></>) :
                                 <Input key={formField.name} />
                         ))
                     }

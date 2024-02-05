@@ -1,19 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
-import { Otp, OtpFormSchema, otpFormDefaults, otpFormFields } from "@schema/auth/otp-form-schema";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
-import { AuthService } from "@/features/auth/services/AuthService";
 import { useAlert } from "@/lib/hooks/useAlert";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
+import { OtpFormSchema, otpFormDefaults, Otp, otpFormFields } from "@/schema/auth/otp-form-schema";
+import { Input } from "../ui/input";
+import { AuthenticationApi } from "@/api/authentication-api";
 
 type Props = {
-    handleVerification : (data: any) => void
+    handleVerification: (data: any) => void
 }
 
-const OtpVerificationForm = ({ handleVerification } : Props) => {
+const OtpVerificationForm = ({ handleVerification }: Props) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { showDialogAlert } = useAlert()
@@ -23,18 +24,22 @@ const OtpVerificationForm = ({ handleVerification } : Props) => {
         defaultValues: otpFormDefaults
     })
 
-    useFormErrorToast({formContext})
+    useFormErrorToast({ formContext })
 
     const onSubmit = async (formData: Otp) => {
         setIsSubmitting(true)
         try {
 
-            const { data } = await AuthService.verifyOtp(formData);
+            const { data } = await AuthenticationApi.verifyOtp(formData);
 
             handleVerification(data.userType)
 
         } catch (error: any) {
-            showDialogAlert({ message: error, isError: true })
+            if(typeof error.message === "string"){
+                console.log(error.message)
+            }
+            
+            showDialogAlert({ message: error.message, type: "error" })
         }
         setIsSubmitting(false)
     }
@@ -54,7 +59,9 @@ const OtpVerificationForm = ({ handleVerification } : Props) => {
                                             key={formField.name}
                                             formFieldSchema={formField}
                                             control={formContext.control}
-                                            />
+                                        >
+                                            <Input type={formField.fieldType} autoComplete={formField.fieldType === "password" ? "current-password" : "on"} />
+                                        </FormFieldWrapper>
                                     ))
                                 }
                                 <div className="flex flex-row my-4 mt-2 w-full">

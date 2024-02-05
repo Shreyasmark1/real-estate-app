@@ -2,9 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
-import { Register, registerFormDefaults, registerFormFields, RegisterFormSchema } from "@schema/auth/register-form-schema";
 import FormFieldWrapper from "./form-fields/FormFieldWrapper";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
+import { RegisterFormSchema, registerFormDefaults, registerFormFields } from "@/schema/auth/register-form-schema";
+import { Register } from "@tanstack/react-query";
+import { Input } from "../ui/input";
 
 type RegisterFormProps = {
     onSubmit: SubmitHandler<Register>,
@@ -18,7 +20,7 @@ const RegisterForm = ({ onSubmit, isSubmitting }: RegisterFormProps) => {
         defaultValues: registerFormDefaults
     });
 
-    useFormErrorToast({formContext})
+    useFormErrorToast({ formContext })
 
     return (
         <Form {...formContext}>
@@ -29,7 +31,9 @@ const RegisterForm = ({ onSubmit, isSubmitting }: RegisterFormProps) => {
                             key={formField.name}
                             formFieldSchema={formField}
                             control={formContext.control}
-                        />
+                        >
+                            <Input type={formField.fieldType}  autoComplete={formField.fieldType === "password"? "current-password": "on"} />
+                        </FormFieldWrapper>
                     ))
                 }
                 <Button

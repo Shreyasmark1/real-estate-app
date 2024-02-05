@@ -4,8 +4,8 @@ import { useState } from "react";
 import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { useAlert } from "@/lib/hooks/useAlert";
-import { Login } from "@/feature/auth/schema/login-form-schema";
-import { AuthService } from "@/feature/auth/services/AuthService";
+import { Login } from "@/schema/auth/login-form-schema";
+import { AuthenticationApi } from "@/api/authentication-api";
 
 const LoginPage = () => {
     const [verifyOtp, setVerifyOtp] = useState(false)
@@ -17,7 +17,7 @@ const LoginPage = () => {
         setIsSubmitting(true)
         try {
 
-            const { data } = await AuthService.login(formData)
+            const { data } = await AuthenticationApi.login(formData)
             if (data.verifyOtp === true) {
                 setVerifyOtp(true)
             } else {
@@ -25,7 +25,7 @@ const LoginPage = () => {
             }
 
         } catch (error: any) {
-            showDialogAlert({ message: error, isError: true })
+            showDialogAlert({ message: error.message, type: "error"})
         }
         setIsSubmitting(false)
     }

@@ -8,7 +8,7 @@ type Props = {
 
 export const useFormErrorToast = ({ formContext }: Props) => {
     
-    const { showToastAlert } = useAlert()
+    const { showToastAlert, showDialogAlert } = useAlert()
     const { formState } = formContext;
     const { errors } = formState;
 
@@ -16,11 +16,11 @@ export const useFormErrorToast = ({ formContext }: Props) => {
         if (Object.keys(errors).length > 0) {
             const [_field, error] = Object.entries(errors)[0];
             if (Array.isArray(error)) {
-                error.forEach(err => showToastAlert({ message: `${err.message}` }));
+                error.forEach(err => showToastAlert({ message: `${err.message}`, type: "error" }));
             } else if (error?.message) {
-                showToastAlert({ message: `${error.message}` });
+                showToastAlert({ message: `${error.message}`, type: "error" });
             } else {
-                showToastAlert({ message: "Please check the data you entered", isError: true })
+                showDialogAlert({ message: "Please check the data you entered", type: "error" })
             }
         }
     }, [errors]);

@@ -23,6 +23,16 @@ interface HttpGetParam {
     abortController?: any
 }
 
+// type HttpParam = {
+//     path: string,
+//     pathVariable?: string | number | boolean | null,
+//     queryParams?: any,
+//     abortController?: any
+// } & ({ body: any } | {});
+
+// type HttpGetParam = HttpParam & { body?: never };
+
+
 const get = ({ path, queryParams = null, abortController = undefined }: HttpGetParam): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
         Axios.get(path,
@@ -63,7 +73,7 @@ const post = ({ path, pathVariable = null, queryParams = null, body = null, abor
                     return resolve(response)
                 }
 
-                return reject(generateApiMessage(response))
+                return reject(new Error(generateApiMessage(response)))
             })
             .catch(e => {
                 reject(e);

@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { FormFieldSchema, FormFieldType } from "../../types/from-field";
+import { FormFieldSchema } from "../from-field";
 
 export const subscriptionPlanFormFields: FormFieldSchema[] = [
     {
         name: "uniqueId",
         fieldValidation: z.optional(z.string()),
-        fieldType: FormFieldType.text,
+        fieldType: "text",
         label: "Unique Id",
         defaultValue: "",
         render: false
@@ -13,7 +13,7 @@ export const subscriptionPlanFormFields: FormFieldSchema[] = [
     {
         name: "planName",
         fieldValidation: z.string().min(3, "Plan name should be minimum 3 characters long").max(100, "Plan name cannot be more than 100 characers"),
-        fieldType: FormFieldType.text,
+        fieldType: "text",
         label: "Plan Name",
         defaultValue: "",
         render: true
@@ -24,7 +24,7 @@ export const subscriptionPlanFormFields: FormFieldSchema[] = [
             (a) => parseInt(z.any().parse(a), 10),
             z.number().positive("Amount cannot be Negative").min(100, "Amount cannot be less than 100").max(100000, "Amount cannot be more than 99,999")
           ),
-        fieldType: FormFieldType.number,
+        fieldType: "number",
         label: "Amount",
         defaultValue: "0",
         render: true
@@ -32,7 +32,7 @@ export const subscriptionPlanFormFields: FormFieldSchema[] = [
     {
         name: "features",
         fieldValidation: z.array(z.string().min(6, "Feature needs to be 6 chracters long").max(100, "Feature cannot be more than 100 chracters")).max(15, "There can be Max of 15 features").min(1, "There needs to be atleast 1 feature"),
-        fieldType: FormFieldType.stringArray,
+        fieldType: "text-array",
         label: "Features",
         defaultValue: [],
         render: true
@@ -40,7 +40,7 @@ export const subscriptionPlanFormFields: FormFieldSchema[] = [
     {
         name: "createdAt",
         fieldValidation: z.string().nullable().optional(),
-        fieldType: FormFieldType.text,
+        fieldType: "text",
         label: "Created At",
         defaultValue: "",
         render: false
@@ -48,7 +48,7 @@ export const subscriptionPlanFormFields: FormFieldSchema[] = [
     {
         name: "updatedAt",
         fieldValidation: z.string().nullable().optional(),
-        fieldType: FormFieldType.text,
+        fieldType: "text",
         label: "Updated At",
         defaultValue: "",
         render: false
