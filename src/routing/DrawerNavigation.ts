@@ -1,18 +1,18 @@
-import { AUTHORITY_ADMIN, AUTHORITY_SUPER_ADMIN, AUTHORITY_USER } from "@/config/constants"
+import { ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_USER } from "@/config/constants";
 
 type DrawerNavigation = {
     locationName: string,
     url: string
 }
 
-export const getDrawerNavigation = (authorityName: string | undefined): DrawerNavigation[] => {
+export const getDrawerNavigation = (roleName: string | undefined): DrawerNavigation[] => {
 
-    if (!authorityName) return []
+    if (!roleName) return []
 
-    switch (authorityName) {
-        case AUTHORITY_SUPER_ADMIN: return superAdminDrawerNavigation;
-        case AUTHORITY_ADMIN: return adminDrawerNavigation;
-        case AUTHORITY_USER: return userDrawerNavigation;
+    switch (roleName) {
+        case ROLE_SUPER_ADMIN: return superAdminDrawerNavigation;
+        case ROLE_ADMIN: return adminDrawerNavigation;
+        case ROLE_USER: return userDrawerNavigation;
         default: return []
     }
 }

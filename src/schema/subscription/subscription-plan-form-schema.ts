@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { FormFieldSchema } from "../from-field";
+import { PlanStatus } from "./subscription-types";
 
 export const subscriptionPlanFormFields: FormFieldSchema[] = [
     {
@@ -36,6 +37,14 @@ export const subscriptionPlanFormFields: FormFieldSchema[] = [
         label: "Features",
         defaultValue: [],
         render: true
+    },
+    {
+        name: "status",
+        fieldValidation: z.nativeEnum(PlanStatus),
+        fieldType: "undefined",
+        label: "Status",
+        defaultValue: PlanStatus.DISABLED,
+        render: false
     },
     {
         name: "createdAt",

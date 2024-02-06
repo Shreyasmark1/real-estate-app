@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import RegisterForm from "@/components/forms/RegisterForm";
+import RegisterForm from "@/components/auth/RegisterForm";
 import { useState } from "react";
-import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
+import OtpVerificationForm from "@/components/auth/OtpVerificationForm";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { useAlert } from "@/lib/hooks/useAlert";
 import { Register } from "@tanstack/react-query";

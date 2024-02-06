@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
-import FormFieldWrapper from "./form-fields/FormFieldWrapper";
+import FormFieldWrapper from "../forms/form-fields/FormFieldWrapper";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
 import { RegisterFormSchema, registerFormDefaults, registerFormFields } from "@/schema/auth/register-form-schema";
 import { Register } from "@tanstack/react-query";

@@ -40,7 +40,7 @@ const ArrayFieldWrapper = ({ formFieldSchema, control, children, className }: Pr
                                 {children}
                             </FormFieldWrapper>
                             <Badge
-                                className="h-10"
+                                className="h-10 cursor-pointer"
                                 variant="destructive"
                                 onClick={() => remove(index)}
                             >

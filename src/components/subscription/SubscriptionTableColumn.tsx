@@ -4,7 +4,9 @@ import { Button } from "../ui/button"
 import { ColumnDef } from "@tanstack/react-table"
 import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema"
 import { CircleIcon } from "lucide-react"
-import { formatDate } from "@/utils/utils"
+import { formatDate } from "@/lib/utils/utils"
+import { PlanStatus } from "@/schema/subscription/subscription-types"
+import SuperAdminGuard from "@/layout/guards/SuperAdminGuard"
 
 // export const SubscriptionTableColumnRef = (setOpenSheet: { (value: SetStateAction<boolean>): void; (arg0: () => JSX.Element): void }): ColumnDef<SubscriptionPlan>[] => [
 
@@ -13,10 +15,12 @@ export const SubscriptionTableColumnRef = (toggleSheet: (plans?: SubscriptionPla
         id: "status",
         enableHiding: false,
         header: "Status",
-        cell: () => {
+        cell: ({ row }) => {
+
+            const status: PlanStatus = row.getValue("status")
 
             return (
-                <CircleIcon fill="#7fff00" stroke="none" className="mx-2" size={10} />
+                <CircleIcon fill={status === PlanStatus.ACTIVE ? "#7fff00" : "#8c8c8c"} stroke="none" className="mx-2" size={10} />
             )
 
         }
@@ -56,7 +60,7 @@ export const SubscriptionTableColumnRef = (toggleSheet: (plans?: SubscriptionPla
             )
         },
         cell: ({ row }) => {
-            const createdAt: string  = new String(row.getValue("createdAt")).toString()
+            const createdAt: string = new String(row.getValue("createdAt")).toString()
             return (
                 <div>
                     {formatDate(createdAt)}
@@ -79,10 +83,10 @@ export const SubscriptionTableColumnRef = (toggleSheet: (plans?: SubscriptionPla
             )
         },
         cell: ({ row }) => {
-            const updatedAt = row.getValue("updatedAt")  
+            const updatedAt = row.getValue("updatedAt")
             return (
                 <div>
-                    {!updatedAt? "No data available": formatDate(new String(updatedAt).toString())}
+                    {!updatedAt ? "No data available" : formatDate(new String(updatedAt).toString())}
                 </div>
             )
         }
@@ -103,15 +107,17 @@ export const SubscriptionTableColumnRef = (toggleSheet: (plans?: SubscriptionPla
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="text-center">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(plan.uniqueId)}
-                        >
-                            <span className="w-full"> Copy ID </span>
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => toggleSheet(plan)}><span className="w-full"> Edit </span></DropdownMenuItem>
-                        <DropdownMenuItem><span className="w-full">Disable</span></DropdownMenuItem>
-                        <DropdownMenuItem className="bg-destructive text-destructive-foreground hover:bg-destructive/90"><span className="w-full">Delete</span></DropdownMenuItem>
+                        <SuperAdminGuard>
+                            <DropdownMenuItem
+                                onClick={() => navigator.clipboard.writeText(plan.uniqueId)}
+                            >
+                                <span className="w-full"> Copy ID </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem onClick={() => toggleSheet(plan)}><span className="w-full"> Edit </span></DropdownMenuItem>
+                        </SuperAdminGuard>
+                        <DropdownMenuItem><span className="w-full">{plan.status === PlanStatus.ACTIVE ? "Disable" : "Enable"}</span></DropdownMenuItem>
+                        {/* <DropdownMenuItem className="bg-destructive text-destructive-foreground hover:bg-destructive/90"><span className="w-full">Delete</span></DropdownMenuItem> */}
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

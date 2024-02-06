@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import FormFieldWrapper from "./form-fields/FormFieldWrapper";
+import FormFieldWrapper from "../forms/form-fields/FormFieldWrapper";
 import { useAlert } from "@/lib/hooks/useAlert";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
 import { OtpFormSchema, otpFormDefaults, Otp, otpFormFields } from "@/schema/auth/otp-form-schema";

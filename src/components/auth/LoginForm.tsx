@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
-import FormFieldWrapper from "./form-fields/FormFieldWrapper";
+import FormFieldWrapper from "../forms/form-fields/FormFieldWrapper";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
 import { Login, LoginFormSchema, loginFormDefaults, loginFormFields } from "@/schema/auth/login-form-schema";
 import { Input } from "../ui/input";

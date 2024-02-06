@@ -21,36 +21,24 @@ export const OPEN_URL_LIST: string[] = [
 const login = (body: Login): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
         HttpClient.post({ path: API_URL_LOGIN, body: body })
-            .then((res: ApiResponse) => {
-                resolve(res)
-            })
-            .catch((e) => {
-                reject(e)
-            })
+            .then((res: ApiResponse) => resolve(res))
+            .catch((e) => reject(e))
     })
 }
 
 const register = (body: Register): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
         HttpClient.post({ path: API_URL_REGISTER, body: body })
-            .then((res: ApiResponse) => {
-                resolve(res)
-            })
-            .catch((e) => {
-                reject(e)
-            })
+            .then((res: ApiResponse) => resolve(res))
+            .catch((e) =>  reject(e))
     })
 }
 
 const verifyOtp = (body: Otp): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
         HttpClient.post({ path: API_URL_VERIFY_OTP, body: body })
-            .then((res: ApiResponse) => {
-                resolve(res)
-            })
-            .catch((e) => {
-                reject(e)
-            })
+            .then((res: ApiResponse) => resolve(res))
+            .catch((e) => reject(e))
     })
 }
 

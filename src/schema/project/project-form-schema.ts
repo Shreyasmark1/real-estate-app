@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { FormFieldSchema } from "../from-field";
-import { validateImageFileType } from "@/utils/utils";
+import { validateImageFileType } from "@/lib/utils/utils";
 import { MAX_IMG_FILE_SIZE } from "@/config/file-constants";
 
 export const projectFormFields: FormFieldSchema[] = [

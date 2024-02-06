@@ -1,4 +1,4 @@
-import { ENVIRONMENT } from "../config/env-helper";
+import { ENVIRONMENT } from "../../config/env-helper";
 
 // For Making Log on Develop Mode
 export const logOnDev = (message: any, isError?: boolean) => {

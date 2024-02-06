@@ -7,39 +7,14 @@ import { Button } from "@/components/ui/button";
 import { useUserService } from "../../services/UserService";
 import SuperAdminGuard from "@/layout/guards/SuperAdminGuard";
 import tubeSpinner from "../../assets/tube-spinner.svg";
-import { useAlert } from "@/lib/hooks/useAlert";
-import { ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER } from "@/config/constants";
-import { useEffect } from "react";
+import { USER_TYPE_ADMIN, USER_TYPE_SUPER_ADMIN } from "@/config/constants";
+import { ReactNode } from "react";
 
-export const UserTableColumnRef = (toggleSheet: (user?: User) => void): ColumnDef<User>[] => {
-    const { makeUserAdmin } = useUserService()
-    const { showToastAlert } = useAlert()
+export const UserTableColumnRef = (): ColumnDef<User>[] => {
+    const { changeUserRole } = useUserService()
 
-    const makeAdmin = (uniqueId: string) => {
-        makeUserAdmin.mutate(uniqueId)
-    }
-
-    useEffect(() => {
-        if (makeUserAdmin.isError) {
-            showToastAlert({ message: makeUserAdmin.error.message, type: "error" })
-        }
-    
-        if (makeUserAdmin.isSuccess) {
-            showToastAlert({ message: "Made this user admin", type: "info" })
-        }
-    },[makeUserAdmin])
-
-    const renderName = (fullName: string, role: number): string => {
-        if (role === ROLE_SUPER_ADMIN) {
-            return `${fullName} (super admin)`
-        }
-
-        if (role === ROLE_ADMIN) {
-            return `${fullName} (admin)`
-        }
-
-        return fullName;
-    }
+    const makeAdmin = (uniqueId: string, fullName: string) => changeUserRole.mutate({ uniqueId, asAdmin: true, fullName })
+    const makeUser = (uniqueId: string, fullName: string) => changeUserRole.mutate({ uniqueId, asAdmin: false, fullName })
 
     return [
         {
@@ -55,7 +30,7 @@ export const UserTableColumnRef = (toggleSheet: (user?: User) => void): ColumnDe
             header: "Full Name",
             cell: ({ row }) => {
                 const user = row.original
-                return <span>{renderName(user.fullName, user.role)}</span>
+                return renderName(user.fullName, user.role)
             }
         },
         {
@@ -73,6 +48,8 @@ export const UserTableColumnRef = (toggleSheet: (user?: User) => void): ColumnDe
             cell: ({ row }) => {
                 const user = row.original
 
+                if(user.role === USER_TYPE_SUPER_ADMIN) return (<></>)
+
                 return (
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -89,21 +66,28 @@ export const UserTableColumnRef = (toggleSheet: (user?: User) => void): ColumnDe
                                 </DropdownMenuItem>
                             </SuperAdminGuard>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => toggleSheet(user)}><span className="w-full"> Edit </span></DropdownMenuItem>
-                            <DropdownMenuItem><span className="w-full">Disable</span></DropdownMenuItem>
+                            {/* <DropdownMenuItem onClick={() => toggleSheet(user)}><span className="w-full"> Edit </span></DropdownMenuItem>
+                            <DropdownMenuItem><span className="w-full">Disable</span></DropdownMenuItem> */}
                             <SuperAdminGuard>
                                 {
-                                    makeUserAdmin.isPending ? (
+                                    changeUserRole.isPending ? (
                                         <DropdownMenuItem className="flex justify-center"><img height={20} width={20} src={tubeSpinner} /></DropdownMenuItem>
                                     ) :
                                         (
                                             <>
                                                 {
-                                                    user.role === ROLE_USER ? (
-                                                        <DropdownMenuItem>
-                                                            <span className="w-full" onClick={() => makeAdmin(user.uniqueId)}>Make Admin</span>
-                                                        </DropdownMenuItem>
-                                                    ): <></>
+                                                    user.role === USER_TYPE_SUPER_ADMIN ? (<></>) :
+                                                        user.role === USER_TYPE_ADMIN ?
+                                                            (
+                                                                <DropdownMenuItem>
+                                                                    <span className="w-full" onClick={() => makeUser(user.uniqueId, user.fullName)}>Make User</span>
+                                                                </DropdownMenuItem>
+                                                            ) :
+                                                            (
+                                                                <DropdownMenuItem>
+                                                                    <span className="w-full" onClick={() => makeAdmin(user.uniqueId, user.fullName)}>Make Admin</span>
+                                                                </DropdownMenuItem>
+                                                            )
                                                 }
                                                 {/* <DropdownMenuItem className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
                                                     <span className="w-full">Delete</span>
@@ -118,4 +102,12 @@ export const UserTableColumnRef = (toggleSheet: (user?: User) => void): ColumnDe
             },
         },
     ]
+}
+
+const renderName = (fullName: string, role: number): ReactNode => {
+        
+    if (role === USER_TYPE_SUPER_ADMIN) return (<> {fullName} <span className="text-violet-700"> (super admin) </span></>)
+    if (role === USER_TYPE_ADMIN) return (<> {fullName} <span className="text-violet-700"> (admin)</span></>)
+
+    return <span>{fullName}</span>;
 }

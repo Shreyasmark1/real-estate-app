@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import LoginForm from "@/components/forms/LoginForm";
+import LoginForm from "@/components/auth/LoginForm";
 import { useState } from "react";
-import OtpVerificationForm from "@/components/forms/OtpVerificationForm";
+import OtpVerificationForm from "@/components/auth/OtpVerificationForm";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { useAlert } from "@/lib/hooks/useAlert";
 import { Login } from "@/schema/auth/login-form-schema";

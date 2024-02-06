@@ -1,10 +1,10 @@
 import { InternalAxiosRequestConfig, AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
-import { logOnDev } from "@/utils/console-logger";
+import { logOnDev } from "@/lib/utils/console-logger";
 import SecureStorageService from "../store/local-storage/local-storage-secure";
 import { LS_ACESS_TOKEN_KEY, LS_REFRESH_TOKEN_KEY, LS_TRANSACTION_TOKEN_KEY } from "@/config/env-helper";
 import { ApiResponse } from "../../api/response-type/ApiResponse";
-import { generateApiMessage } from "@/utils/api-util";
-import { isEmptyString, isString } from "@/utils/string-util";
+import { generateApiMessage } from "@/lib/utils/api-util";
+import { isEmptyString, isString } from "@/lib/utils/string-util";
 import { CONTENT_TYPE_FORM, CONTENT_TYPE_JSON } from "@/config/api-constants";
 import { AUTH_URL, OPEN_URL_LIST } from "@/api/authentication-api";
 import { MULTIPART_URL_LIST } from "@/api/urls-groups";
@@ -116,14 +116,15 @@ export const onError = (error: AxiosError | Error) => {
 const handleServerErrorMessage = (error: AxiosError | Error | any): Error => {
 
     // handled server error 
-    if (error.response?.data) {
-        error.message = generateApiMessage(error.response.data);
-    }
+    if (error.response?.data) error.message = generateApiMessage(error.response.data);
 
     // unhandled server error
     if (!isString(error.message) || isEmptyString(error.message)) {
         error.message = "Something went wrong while processing your request"
     }
+
+    // prevent Axios Error: network error when using react query
+    if(error instanceof AxiosError) error.name = ""
 
     return error as Error
 }

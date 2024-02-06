@@ -12,35 +12,25 @@ const UsersPage = () => {
     const [openSheet, setOpenSheet] = useState<any>()
 
     const { users } = useUserService()
-    const { showToastAlert } = useAlert()
+    const { showToastError } = useAlert()
     const { setPageName } = usePageName()
 
-    const toggleSheet = () => {
-        // setOpenSheet(<PlanForm defaultValues={plans} closeForm={closeSheet} />)
-    }
+    const closeSheet = () => setOpenSheet(null)
 
-    const closeSheet = () => {
-        setOpenSheet(null)
-    }
-
-    const columnRef = UserTableColumnRef(toggleSheet)
+    const columnRef = UserTableColumnRef()
 
     useEffect(() => {
         setPageName("Users")
     }, [])
 
-    if (users.isError) {
-        showToastAlert({ message: users.error.message, type: "error", title: "ERROR" })
-    }
+    useEffect(() => {
+        if (users.isError) showToastError(users.error.message)
+    }, [users.isError])
 
     return (
         <div className="page-style flex justify-center">
             <Card className="w-full p-2 h-full">
-                {
-                    users.isError ? (<div>Error getting data</div>) :
-                        users.isLoading ? <div>Loading...</div> :
-                            <DataTable columns={columnRef} data={users.data} />
-                }
+                <DataTable columns={columnRef} data={users.data} />
             </Card>
             <Sheet open={!!openSheet} onOpenChange={closeSheet}>
                 <SheetContent className="w-4/6 sm:max-w-none">

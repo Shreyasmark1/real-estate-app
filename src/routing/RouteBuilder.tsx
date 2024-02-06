@@ -10,9 +10,9 @@ import AuthGuard from "@/layout/guards/AuthGuard";
 import UsersPage from "@/pages/admin/UsersPage";
 import AdminLayout from "@/layout/AdminLayout";
 import AdminDashBoardPage from "@/pages/admin/AdminDashboardPage";
-import { AUTHORITY_ADMIN, AUTHORITY_SUPER_ADMIN, AUTHORITY_USER } from "@/config/constants";
-import SubscriptionPage from "@/pages/admin/SubscriptionPage";
-import SubscriptionPlanPage from "@/pages/admin/SubscriptionPage";
+import SubscriptionPage from "@/pages/admin/PlansPage";
+import SubscriptionPlanPage from "@/pages/admin/PlansPage";
+import { ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER } from "@/config/constants";
 
 export type RouteDefinition = {
     path?: string,
@@ -21,16 +21,16 @@ export type RouteDefinition = {
 }
 
 type Prop = {
-    authority?: string
+    role?: string
 }
 
-const RouteBuilder = ({ authority }: Prop): RouteDefinition[] => {
+const RouteBuilder = ({ role }: Prop): RouteDefinition[] => {
 
-    if (!authority) return []
-    switch (authority) {
-        case AUTHORITY_ADMIN: return adminRoutes;
-        case AUTHORITY_SUPER_ADMIN: return superAdminRoutes;
-        case AUTHORITY_USER: return userRoutes;
+    if (!role) return []
+    switch (role) {
+        case ROLE_ADMIN: return adminRoutes;
+        case ROLE_SUPER_ADMIN: return superAdminRoutes;
+        case ROLE_USER: return userRoutes;
         default: return []
     }
 }

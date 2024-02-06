@@ -1,19 +1,34 @@
 import { UsersApi } from "@/api/user-api";
+import { useAlert } from "@/lib/hooks/useAlert";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 const QUERY_KEY = "users";
 
+type MutationVariables = {
+    uniqueId: string;
+    asAdmin: boolean;
+    fullName: string;
+};
+
 export const useUserService = () => {
     const queryClient = useQueryClient()
 
-    const users = useQuery({ queryKey: [QUERY_KEY], queryFn: UsersApi.getUsers , initialData: [], retry: false})
+    const { showToastSuccess, showToastError } = useAlert()
 
-    const makeUserAdmin = useMutation({
-        mutationFn: (uniqueId: string) => UsersApi.makeUserAsAdmin(uniqueId),
-        onSuccess(_data, _variables, _context) {
+    const users = useQuery({ queryKey: [QUERY_KEY], queryFn: UsersApi.getUsers, initialData: [], retry: false })
+
+    // Need to check the effect on being called on mutiple page
+    // doesn't suit all use case
+    if (users.isError) showToastError(users.error.message)
+
+    const changeUserRole = useMutation({
+        mutationFn: ({ uniqueId, asAdmin }: MutationVariables) => UsersApi.changeUserRole(uniqueId, asAdmin),
+        onSuccess(_data, variables, _context) {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
+            showToastSuccess(`Made ${variables.fullName} as ${variables.asAdmin ? "Admin" : "User"}`)
         },
+        onError(error) { showToastError(error.message) }
     })
 
-    return { users, makeUserAdmin };
+    return { users, changeUserRole };
 }

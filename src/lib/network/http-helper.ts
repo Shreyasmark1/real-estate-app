@@ -2,7 +2,7 @@ import axios from "axios";
 import { onError, onRequest, onResponse } from "./http-interceptor";
 import { ApiResponse } from "../../api/response-type/ApiResponse";
 import { BASE_URL } from "@/config/env-helper";
-import { generateApiMessage } from "@/utils/api-util";
+import { generateApiMessage } from "@/lib/utils/api-util";
 
 const Axios = axios.create({ baseURL: BASE_URL })
 
@@ -42,16 +42,10 @@ const get = ({ path, queryParams = null, abortController = undefined }: HttpGetP
             })
             .then((res) => {
                 const response = new ApiResponse(res)
-
-                if (response.isSuccess) {
-                    return resolve(response)
-                }
-
+                if (response.isSuccess) return resolve(response)
                 return reject(generateApiMessage(response))
             })
-            .catch(e => {
-                reject(e);
-            })
+            .catch(e => reject(e))
     })
 
 }
@@ -68,16 +62,10 @@ const post = ({ path, pathVariable = null, queryParams = null, body = null, abor
             })
             .then((res) => {
                 const response = new ApiResponse(res)
-
-                if (response.isSuccess) {
-                    return resolve(response)
-                }
-
+                if (response.isSuccess) return resolve(response)
                 return reject(new Error(generateApiMessage(response)))
             })
-            .catch(e => {
-                reject(e);
-            })
+            .catch(e => reject(e))
     })
 }
 

@@ -8,4 +8,5 @@ export type FormFieldSchema = {
     render: boolean
 }
 
-type fieldType = "text" | "email" | "number" | "password" | "text-area" | "dropdown" | "image" | "text-array"
+type fieldType =
+ "text" | "email" | "number" | "password" | "text-area" | "dropdown" | "image" | "text-array" | "undefined"
