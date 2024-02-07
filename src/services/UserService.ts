@@ -27,7 +27,7 @@ export const useUserService = () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
             showToastSuccess(`Made ${variables.fullName} as ${variables.asAdmin ? "Admin" : "User"}`)
         },
-        onError(error) { showToastError(error.message) }
+        onError: ({error} : any) => showToastError(error.message)
     })
 
     return { users, changeUserRole };

@@ -32,7 +32,6 @@ const PlanForm = ({ defaultValues, closeForm }: Props) => {
 
     return (
         <Form {...formContext}>
-
             <form onSubmit={formContext.handleSubmit(onSubmit)} className="p-2 flex flex-wrap gap-10">
                 {
                     subscriptionPlanFormFields.map((formField) => (

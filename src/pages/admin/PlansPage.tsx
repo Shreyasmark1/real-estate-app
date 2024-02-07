@@ -24,14 +24,12 @@ const SubscriptionPlanPage = () => {
 
     const columnRef = SubscriptionTableColumnRef(toggleSheet)
 
-    useEffect(() => {
-        setPageName("Plans")
-    }, [])
+    useEffect(() => setPageName("Plans"), [])
 
     return (
         <div className="page-style flex justify-center">
             <Card className="w-full p-2 h-full">
-            <DataTable columns={columnRef} data={plans.data} />
+                <DataTable columns={columnRef} data={plans.data} />
             </Card>
             <Sheet open={!!openSheet} onOpenChange={closeSheet}>
                 <SheetContent className="w-4/6 sm:max-w-none">

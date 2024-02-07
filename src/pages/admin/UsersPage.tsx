@@ -4,7 +4,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { UserTableColumnRef } from "@/components/user/UsersTableColumnRef";
 import { useUserService } from "@/services/UserService";
-import { useAlert } from "@/lib/hooks/useAlert";
 import { usePageName } from "@/lib/hooks/usePageName";
 import { useEffect, useState } from "react";
 
@@ -12,20 +11,13 @@ const UsersPage = () => {
     const [openSheet, setOpenSheet] = useState<any>()
 
     const { users } = useUserService()
-    const { showToastError } = useAlert()
     const { setPageName } = usePageName()
 
     const closeSheet = () => setOpenSheet(null)
 
     const columnRef = UserTableColumnRef()
 
-    useEffect(() => {
-        setPageName("Users")
-    }, [])
-
-    useEffect(() => {
-        if (users.isError) showToastError(users.error.message)
-    }, [users.isError])
+    useEffect(() => setPageName("Users"), [])
 
     return (
         <div className="page-style flex justify-center">
