@@ -23,7 +23,13 @@ export const useSubscriptionService = () => {
         onError(error) { showToastError(error.message) }
     })
 
-    const selectPlan = useMutation({ mutationFn: (planId: string) => SubscriptionApi.choosePlan(planId) })
+    const selectPlan = useMutation({
+        mutationFn: (planId: string) => SubscriptionApi.choosePlan(planId),
+        onSuccess(data, _variables, _context) {
+            window.location.replace(data.data.url)
+        },
+        onError(error) { showToastError(error.message) }
+    })
 
     return { plans, savePlan, selectPlan };
 }

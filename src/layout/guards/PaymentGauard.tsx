@@ -9,7 +9,7 @@ type props = {
 const PaymentGuard = ({ children }: props) => {
 
     const isLoggedIn = getPaymentStatus();
-    return isLoggedIn ? (children) : <Navigate to="/subscription" />
+    return true ? (children) : <Navigate to="/subscription" />
 }
 
 export default PaymentGuard;

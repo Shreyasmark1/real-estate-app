@@ -51,7 +51,8 @@ const PlanForm = ({ defaultValues, closeForm }: Props) => {
                                 <FormFieldWrapper
                                     className="w-[300px]"
                                     key={formField.name}
-                                    formFieldSchema={formField}
+                                    name={formField.name}
+                                    label={formField.label}
                                     control={formContext.control}
                                 >
                                     <Input type={formField.fieldType} />

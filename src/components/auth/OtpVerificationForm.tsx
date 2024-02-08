@@ -35,10 +35,10 @@ const OtpVerificationForm = ({ handleVerification }: Props) => {
             handleVerification(data.userType)
 
         } catch (error: any) {
-            if(typeof error.message === "string"){
+            if (typeof error.message === "string") {
                 console.log(error.message)
             }
-            
+
             showDialogAlert({ message: error.message, type: "error" })
         }
         setIsSubmitting(false)
@@ -57,7 +57,8 @@ const OtpVerificationForm = ({ handleVerification }: Props) => {
                                     otpFormFields.map((formField) => (
                                         <FormFieldWrapper
                                             key={formField.name}
-                                            formFieldSchema={formField}
+                                            name={formField.name}
+                                            label={formField.label}
                                             control={formContext.control}
                                         >
                                             <Input type={formField.fieldType} autoComplete={formField.fieldType === "password" ? "current-password" : "on"} />

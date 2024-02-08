@@ -43,9 +43,7 @@ const ComboBox = ({ onChange, onBlur, value, disabled, ref, name, options, label
         options.forEach(option => {
             const label = option[labelField].toLowerCase();
             const value = option[valueField].toLowerCase();
-            if (newLookupTable[value]) {
-                throw new Error(`Duplicate value found: ${value}`);
-            }
+            if (newLookupTable[value]) throw new Error(`Duplicate value found: ${value}`);
             newLookupTable[value] = [label];
         });
 

@@ -20,9 +20,9 @@ const UserLayout = () => {
     let navigate = useNavigate()
 
     return (
-        <div className="z-10">
+        <div>
             <ScrollToTop />
-            <nav className="flex items-center justify-between py-2 md:py-4 px-4 md:px-8 sticky top-0 bg-white">
+            <nav className="flex items-center justify-between py-2 md:py-4 px-4 md:px-8 sticky top-0 bg-white shadow-sm z-10">
                 <div className="text-lg md:text-2xl font-semibold">{pageName}</div>
                 <div className="flex items-center space-x-4">
                     <Link to={"/search"}>

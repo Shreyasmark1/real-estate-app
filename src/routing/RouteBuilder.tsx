@@ -1,7 +1,7 @@
 import UserLayout from "@/layout/UserLayout";
-import NewProjectPage from "@/pages/user/AddProject";
-import SubscribtionPage from "@/pages/user/Subscription";
-import UserDashboard from "@/pages/user/UserDashboard";
+import NewProjectPage from "@/pages/user/AddProjectPage";
+import SubscribtionPage from "@/pages/user/ChooseSubscriptionPage";
+import UserDashboard from "@/pages/user/UserDashboardPage";
 import { ReactNode } from "react";
 import PaymentGuard from "@/layout/guards/PaymentGauard";
 import SearchProjectPage from "@/pages/user/SearchProjects";

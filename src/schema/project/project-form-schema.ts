@@ -64,14 +64,18 @@ export const projectFormFields: FormFieldSchema[] = [
     }
 ]
 
-export const projectFormDefaults = Object.fromEntries(
-    projectFormFields.map((field) => [field.name, field.defaultValue])
-)
+export const projectFormDefaults: Project = {
+    projName: "",
+    projType: "",
+    price: 0,
+    area: 0,
+}
 
-export const ProjectFormSchema = z.object(
-    Object.fromEntries(
-        projectFormFields.map((field) => [field.name, field.fieldValidation])
-    )
-)
+export const ProjectFormSchema = z.object({
+    projName: z.string().min(3),
+    projType: z.string().length(36),
+    price: z.number(),
+    area: z.number(),
+})
 
 export type Project = z.infer<typeof ProjectFormSchema>

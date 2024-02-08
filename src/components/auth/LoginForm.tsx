@@ -29,10 +29,11 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
                     loginFormFields.map((formField) => (
                         <FormFieldWrapper
                             key={formField.name}
-                            formFieldSchema={formField}
+                            name={formField.name}
+                            label={formField.label}
                             control={formContext.control}
                         >
-                            <Input type={formField.fieldType} autoComplete={formField.fieldType === "password"? "current-password": "on"}/>
+                            <Input type={formField.fieldType} autoComplete={formField.fieldType === "password" ? "current-password" : "on"} />
                         </FormFieldWrapper>
                     ))
                 }
