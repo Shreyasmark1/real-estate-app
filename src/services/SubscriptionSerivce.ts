@@ -1,9 +1,15 @@
 import { SubscriptionApi } from "@/api/subscription-api";
 import { useAlert } from "@/lib/hooks/useAlert";
 import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema"
+import { PlanStatus } from "@/schema/subscription/subscription-types";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 const QUERY_KEY = "plans";
+
+type MutationVariables = {
+    uniqueId: string;
+    status: PlanStatus;
+};
 
 export const useSubscriptionService = () => {
 
@@ -31,5 +37,14 @@ export const useSubscriptionService = () => {
         onError(error) { showToastError(error.message) }
     })
 
-    return { plans, savePlan, selectPlan };
+    const togglePlanStatus = useMutation({
+        mutationFn: ({ uniqueId, status } : MutationVariables) => SubscriptionApi.togglePlanStatus(uniqueId, status),
+        onSuccess(_data, variables, _context) {
+            queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
+            showToastSuccess(variables.status === PlanStatus.ACTIVE? "Enabled This Plan" : "Disabled This Plan")
+        },
+        onError(error) { showToastError(error.message) }
+    })
+
+    return { plans, savePlan, selectPlan, togglePlanStatus };
 }
