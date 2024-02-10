@@ -8,8 +8,8 @@ type props = {
 
 const PaymentGuard = ({ children }: props) => {
 
-    const isLoggedIn = getPaymentStatus();
-    return true ? (children) : <Navigate to="/subscription" />
+    const isSubscribed = getPaymentStatus();
+    return isSubscribed ? (children) : <Navigate to="/subscription" />
 }
 
 export default PaymentGuard;
