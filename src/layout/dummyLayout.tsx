@@ -30,10 +30,10 @@ const UserLayout = () => {
                             <SearchIcon className="w-7 h-7 mt-1 mx-2" />
                         </Avatar>
                     </Link>
-                    <Link to={"/add-project"}>
+                    <Link to={"/add-property"}>
                         <Button variant="outline" className="overflow-hidden text-gray-500">
                             <PlusIcon className="w-7 h-7" />
-                            <span className="hidden md:block">New project</span>
+                            <span className="hidden md:block">New Property</span>
                         </Button>
                     </Link>
                     <div className="font-semibold">John Doe</div>
@@ -85,4 +85,4 @@ const UserLayout = () => {
     );
 }
 
-export default UserLayout;
+// export default UserLayout;

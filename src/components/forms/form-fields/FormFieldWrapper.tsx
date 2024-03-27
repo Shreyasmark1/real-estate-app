@@ -12,7 +12,7 @@ type Props = PropsWithChildren & {
     label?: string
 }
 
-const FormFieldWrapper = ({ ...props }: Props) => {
+const FormFieldWrapper = (props: Props) => {
     // default: throw new Error(`${FormFieldType[formFieldSchema.fieldType]} is invalid input field create a custom UI for it`)
 
     return (

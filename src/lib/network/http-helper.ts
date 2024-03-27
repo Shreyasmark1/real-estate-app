@@ -73,8 +73,17 @@ const put = () => {
     throw new Error("HTTP put not implemented")
 }
 
-const multipartPost = () => {
-    throw new Error("HTTP multipart post not implemented")
+const multipartPost = (path : string, formData: FormData) : Promise<ApiResponse> => {
+
+    return new Promise((resolve, reject) => {
+        Axios.post(path, formData)
+            .then((res) => {
+                const response = new ApiResponse(res)
+                if (response.isSuccess) return resolve(response)
+                return reject(new Error(generateApiMessage(response)))
+            })
+            .catch(e => reject(e))
+    })
 }
 
 export const HttpClient = {

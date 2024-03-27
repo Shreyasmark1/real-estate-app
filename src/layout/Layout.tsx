@@ -10,13 +10,14 @@ import { useAuth } from "@/lib/hooks/useAuth";
 import { getDrawerNavigation } from "@/routing/DrawerNavigation";
 import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { PlusIcon, SearchIcon } from "lucide-react";
 
-const AdminLayout = () => {
+const Layout = () => {
     const [pageName, setPageName] = useState("Dashboard");
 
     const { authority } = useAuth()
 
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
     return (
         <div>
@@ -24,6 +25,17 @@ const AdminLayout = () => {
             <nav className="flex items-center justify-between py-2 md:py-4 px-4 md:px-8 sticky top-0 bg-white shadow-sm z-10">
                 <div className="text-lg md:text-2xl font-semibold">{pageName}</div>
                 <div className="flex items-center space-x-4">
+                    <Link to={"/search"}>
+                        <Avatar className="overflow-hidden text-gray-500 rounded-full">
+                            <SearchIcon className="w-7 h-7 mt-1 mx-2" />
+                        </Avatar>
+                    </Link>
+                    <Link to={"/add-property"}>
+                        <Button variant="outline" className="overflow-hidden text-gray-500">
+                            <PlusIcon className="w-7 h-7" />
+                            <span className="hidden md:block">New Property</span>
+                        </Button>
+                    </Link>
                     <div className="font-semibold">John Doe</div>
                     <Sheet>
                         <SheetTrigger asChild>
@@ -69,4 +81,4 @@ const AdminLayout = () => {
     )
 }
 
-export default AdminLayout;
+export default Layout;

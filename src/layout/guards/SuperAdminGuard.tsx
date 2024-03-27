@@ -4,11 +4,9 @@ import { PropsWithChildren } from "react";
 
 const SuperAdminGuard = ({ children } : PropsWithChildren) => {
 
-    const { authority } = useAuth()
+    const { authority } = useAuth();
 
-    const isSuperAdmin: boolean = authority === ROLE_SUPER_ADMIN
-
-    return isSuperAdmin? (children): <></>
+    return authority === ROLE_SUPER_ADMIN? (children): <></>
 }
  
 export default SuperAdminGuard;

@@ -1,9 +1,9 @@
 import NotificationDialog from "@/components/NotificationDialog";
-import { Toaster } from "@/components/ui/toaster";
-import { toast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/sonner";
 import { isNotEmptyString } from "@/lib/utils/string-util";
 import { PropsWithChildren, useState } from "react";
 import { createContext } from "react";
+import { toast } from "sonner";
 
 type AlertType = "error" | "info" | "warning" | "success"
 
@@ -16,9 +16,10 @@ type AlertProps = {
 type AlertContentType = {
     showDialogAlert: (object: AlertProps) => void
     showDialogError: (message: string) => void
-    showToastAlert: (object: AlertProps) => void
-    showToastError: (message: string) => void
     showToastSuccess: (message: string) => void
+    showToastInfo: (mesage: string) => void,
+    showToastWarning: (message: string) => void,
+    showToastError: (message: string) => void
 }
 
 export const AlertContext = createContext<AlertContentType | undefined>(undefined)
@@ -40,27 +41,22 @@ const AlertContextProvider = ({ children }: PropsWithChildren) => {
         setType("info")
     }
 
-    const showToastAlert = ({ message, title = "", type = "info" }: AlertProps) => {
+    const showToastSuccess = (message: string) => {
+        toast.success(message)
+    }
 
-        type = type === "warning" ? "error" : type
-
-        toast({
-            title: title,
-            description: message,
-            duration: 2000,
-            variant: type
-            // action: (
-            //     <ToastAction altText="Close" >Close</ToastAction>
-            // ),
-        })
+    const showToastInfo = (message: string) => {
+        toast.info(message)
     }
 
     const showToastError = (message: string) => {
-        showToastAlert({ message, title: "ERROR", type: "error" })
+        toast.error("ERROR", {
+            description: message
+        })
     }
 
-    const showToastSuccess = (message: string) => {
-        showToastAlert({ message, title: "", type: "success" })
+    const showToastWarning = (message: string) => {
+        toast.warning(message)
     }
 
     const showDialogError = (message: string) => {
@@ -68,10 +64,10 @@ const AlertContextProvider = ({ children }: PropsWithChildren) => {
     }
 
     return (
-        <AlertContext.Provider value={{ showDialogAlert, showToastAlert, showToastError, showDialogError, showToastSuccess }}>
+        <AlertContext.Provider value={{ showDialogAlert, showDialogError, showToastSuccess, showToastInfo, showToastWarning, showToastError, }}>
             {children}
             <NotificationDialog isOpen={isNotEmptyString(message)} message={message} title={title} isError={type === "error"} handleClose={handleDialogClose} />
-            <Toaster />
+            <Toaster richColors expand={false} />
         </AlertContext.Provider>
     );
 }
