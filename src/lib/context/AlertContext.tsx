@@ -41,33 +41,34 @@ const AlertContextProvider = ({ children }: PropsWithChildren) => {
         setType("info")
     }
 
-    const showToastSuccess = (message: string) => {
-        toast.success(message)
-    }
+    // toast
+    const showToastSuccess = (message: string) => toast.success(message)
+    const showToastInfo = (message: string) => toast.info(message)
+    const showToastError = (message: string) => toast.error("ERROR", { description: message })
+    const showToastWarning = (message: string) => toast.warning(message)
 
-    const showToastInfo = (message: string) => {
-        toast.info(message)
-    }
+    // dialog
+    const showDialogError = (message: string) => showDialogAlert({ message, title: "ERROR", type: "error" })
 
-    const showToastError = (message: string) => {
-        toast.error("ERROR", {
-            description: message
-        })
-    }
-
-    const showToastWarning = (message: string) => {
-        toast.warning(message)
-    }
-
-    const showDialogError = (message: string) => {
-        showDialogAlert({ message, title: "ERROR", type: "error" })
-    }
 
     return (
-        <AlertContext.Provider value={{ showDialogAlert, showDialogError, showToastSuccess, showToastInfo, showToastWarning, showToastError, }}>
+        <AlertContext.Provider
+            value={{
+                showDialogAlert,
+                showDialogError,
+                showToastSuccess,
+                showToastInfo,
+                showToastWarning,
+                showToastError
+            }}>
             {children}
-            <NotificationDialog isOpen={isNotEmptyString(message)} message={message} title={title} isError={type === "error"} handleClose={handleDialogClose} />
-            <Toaster richColors expand={false} />
+            <NotificationDialog
+                isOpen={isNotEmptyString(message)}
+                message={message}
+                title={title}
+                isError={type === "error"}
+                handleClose={handleDialogClose} />
+            <Toaster expand={false} closeButton />
         </AlertContext.Provider>
     );
 }

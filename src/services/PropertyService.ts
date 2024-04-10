@@ -13,7 +13,7 @@ export const usePropertyService = () => {
             return PropertyApi.uploadPropertyImage(uniqueId, file)
         },
         onSuccess(_data, _variables, _context) {},
-        onError: ({ error }: any) => showToastError(error.message)
+        onError(error) { showToastError(error.message) }
     })
 
     const uploadPropertyImg = useMutation({
@@ -21,7 +21,7 @@ export const usePropertyService = () => {
             return PropertyApi.uploadPropertyImage(uniqueId, file)
         },
         onSuccess(_data, _variables, _context) {},
-        onError: ({ error }: any) => showToastError(error.message)
+        onError(error) { showToastError(error.message) }
     })
 
     return { uploadPropertyBannerImg, uploadPropertyImg}

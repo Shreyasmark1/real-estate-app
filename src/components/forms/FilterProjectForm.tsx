@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { IndianRupeeIcon, SearchIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
-import ComboBox from "./form-fields/ComboBox";
 import { Input } from "../ui/input";
 
 const options = [
@@ -30,11 +28,10 @@ const options = [
 
 
 const FilterProjectForm = () => {
-    const [value, setValue] = useState("")
 
     return (
-        <div className="w-2/6">
-            <div className="bg-gray-100 rounded-3xl flex flex-wrap px-8 py-6">
+        <>
+            <div className="bg-gray-200 rounded-3xl flex flex-wrap px-8 py-6">
                 <div className="flex justify-between w-full px-2">
                     <Badge variant="outline" className="cursor-pointer">Filter</Badge>
                     <Badge variant="outline" className="cursor-pointer">Reset</Badge>
@@ -60,16 +57,16 @@ const FilterProjectForm = () => {
                         />
                     </div>
                 </div>
-                <ComboBox
-                    options={options}
-                    value={value}
-                    onChange={setValue}
-                    labelField={"label"}
-                    valueField={"value"}
+                {/* <ComboBox
+                    // options={options}
+                    // value={value}
+                    // onChange={setValue}
+                    // labelField={"label"}
+                    // valueField={"value"}
                     enableSearch
-                    className="w-[150px]" />
+                    className="w-[150px]" trigger={undefined} /> */}
             </div>
-        </div>
+        </>
     );
 }
 

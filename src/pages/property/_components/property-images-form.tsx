@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import SelectableImage from "../SelectableImage";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
+import SelectableImage from "../../../components/SelectableImage";
 import { usePropertyService } from "@/services/PropertyService";
 import { isEmptyString } from "@/lib/utils/string-util";
-import { Badge } from "../ui/badge";
+import { Badge } from "../../../components/ui/badge";
+import { BASE_URL } from "@/config/env-helper";
 
 const PropertyFormStep2 = () => {
 
@@ -44,9 +45,9 @@ const PropertyFormStep2 = () => {
             <CardContent className="flex flex-col items-center gap-5">
                 <CardTitle className="text-1xl">Banner Image</CardTitle>
                 <SelectableImage
-                    className="h-[250px] w-full flex justify-center"
+                    className="h-[250px] aspect-square flex justify-center"
                     onFileSelect={handleBannerSet}
-                    imageSrc={isEmptyString(bannerImage) ? "/no-image.jpg" : "http://localhost:8080/" + bannerImage}
+                    imageSrc={isEmptyString(bannerImage) ? "/no-image.jpg" : BASE_URL + bannerImage}
                 />
                 <CardTitle className="text-1xl">Additional Images</CardTitle>
 
@@ -56,7 +57,11 @@ const PropertyFormStep2 = () => {
                             (
                                 <Card key={img} className="h-[200px] md:h-[120px] w-full flex flex-col sm:flex-row justify-between p-2 gap-4">
                                     <div className="flex items-center overflow-hidden">
-                                        <SelectableImage disabled className="w-full overflow-hidden md:w-[150px]" onFileSelect={() => { }} imageSrc={"http://localhost:8080/" + img} />
+                                        <SelectableImage
+                                            disabled
+                                            className="w-full overflow-hidden md:w-[150px]"
+                                            onFileSelect={() => { }}
+                                            imageSrc={BASE_URL + img} />
                                     </div>
                                     <div className="flex items-center">
                                         <input
@@ -79,7 +84,7 @@ const PropertyFormStep2 = () => {
                         )) : <></>
                 }
                 <SelectableImage
-                    className="h-[100px]"
+                    className="h-[100px] aspect-square"
                     onFileSelect={handleAddAditionalImage}
                     imageSrc="/no-image.jpg" />
             </CardContent>

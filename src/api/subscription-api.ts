@@ -15,7 +15,7 @@ const choosePlan = (planId: string): Promise<ApiResponse> => {
     })
 }
 
-const createOrUpdatePlan = (plan: SubscriptionPlan) => {
+const createOrUpdatePlan = (plan: SubscriptionPlan): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
         const pathVariable = isEmptyString(plan.uniqueId) ? null : plan.uniqueId
         HttpClient.post({ path: API_URL_PLANS, pathVariable: pathVariable, body: plan })
@@ -32,7 +32,7 @@ const getPlans = (): Promise<SubscriptionPlan[]> => {
     })
 }
 
-const togglePlanStatus = (uniqueId: string, planStatus: PlanStatus) => {
+const togglePlanStatus = (uniqueId: string, planStatus: PlanStatus): Promise<ApiResponse> => {
 
     if (isEmptyString(uniqueId) || planStatus == null) Promise.reject("Invalid plan id or status");
 

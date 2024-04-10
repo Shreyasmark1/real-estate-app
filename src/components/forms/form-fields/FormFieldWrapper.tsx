@@ -8,8 +8,9 @@ type Props = PropsWithChildren & {
     // control?: Control<{ [x: string]: any; }> | undefined 
     control?: Control<any, any>
     className?: string,
+    labelStyle?: string,
     name?: string,
-    label?: string
+    label?: string,
 }
 
 const FormFieldWrapper = (props: Props) => {
@@ -20,8 +21,8 @@ const FormFieldWrapper = (props: Props) => {
             name={props.name ? props.name : ""}
             control={props.control}
             render={({ field }) => (
-                <FormItem className={cn("", props.className)}>
-                    <Label>{props.label ? props.label : ""}</Label>
+                <FormItem className={props.className}>
+                    <Label className={cn("w-full", props.label? props.labelStyle: "")}>{props.label ? props.label : ""}</Label>
                     <FormControl {...field}>
                         {props.children}
                     </FormControl>

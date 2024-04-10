@@ -12,4 +12,7 @@ export default defineConfig({
       "@schema": path.resolve(__dirname, "./src/lib/schema")
     },
   },
+  server: {
+    host: true,
+  },
 })

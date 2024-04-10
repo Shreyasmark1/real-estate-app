@@ -1,10 +1,10 @@
 import { useMultistepForm } from "@/lib/hooks/useMultiStepForm";
-import PropertyFormStep1 from "./PropertyFormStep1";
-import PropertyFormStep2 from "./PropertyFormStep2";
+import PropertyFormStep1 from "./property-basic-detail-form";
+import PropertyFormStep2 from "./property-images-form";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ReactElement } from "react";
-import PropertyFormStep3 from "./PropertyFormStep3";
+import PropertyFormStep3 from "./property-rooms-form";
 
 const MultiStepPropertyForm = () => {
 

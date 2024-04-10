@@ -9,7 +9,7 @@ const uploadPropertyImage = (uniqueId: string, file: any): Promise<ApiResponse> 
     return new Promise((resolve, reject) => {
         HttpClient.multipartPost("/property/" + uniqueId + "/images", form)
             .then((res: ApiResponse) => resolve(res))
-            .catch((e) => reject(new Error(e)))
+            .catch((e) => reject(e))
     })
 }
 

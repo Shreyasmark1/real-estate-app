@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Form } from "../ui/form";
+import { Form } from "../../../components/ui/form";
 import { useState } from "react";
-import { Button } from "../ui/button";
-import FormFieldWrapper from "../forms/form-fields/FormFieldWrapper";
+import { Button } from "../../../components/ui/button";
+import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
 import { useAlert } from "@/lib/hooks/useAlert";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
 import { OtpFormSchema, otpFormDefaults, Otp, otpFormFields } from "@/schema/auth/otp-form-schema";
-import { Input } from "../ui/input";
+import { Input } from "../../../components/ui/input";
 import { AuthenticationApi } from "@/api/authentication-api";
 
 type Props = {

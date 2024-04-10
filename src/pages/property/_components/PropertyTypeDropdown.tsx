@@ -1,15 +1,14 @@
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import ComboBox from "../forms/form-fields/ComboBox";
-import FormFieldWrapper from "../forms/form-fields/FormFieldWrapper";
-import { Button } from "../ui/button";
-import { Property } from "@/schema/property/property-form-schema";
+import ComboBox from "../../../components/forms/form-fields/ComboBox";
+import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
+import { Button } from "../../../components/ui/button";
 import { UseFormReturn } from "react-hook-form";
 import { SetStateAction, useState } from "react";
-import { CommandItem } from "../ui/command";
+import { CommandItem } from "../../../components/ui/command";
 import { cn } from "@/lib/utils";
 
 type Props = {
-    formContext?: UseFormReturn<Property, any, undefined>,
+    formContext?: UseFormReturn<any, any, undefined>,
 }
 
 const PropertyTypeDropdown = ({ formContext }: Props) => {

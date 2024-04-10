@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import FormFieldWrapper from "../forms/form-fields/FormFieldWrapper";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { Form } from "../ui/form";
-import { Input } from "../ui/input";
+import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
+import { Form } from "../../../components/ui/form";
 import { PropertyBasic, PropertyBasicFormSchema, propertyFormDefaults } from "@/schema/property/property-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Textarea } from "../ui/textarea";
+import { Textarea } from "../../../components/ui/textarea";
+import SingleDigitNumberInput from "../../../components/forms/form-fields/SingleDigitNumberInput";
 
 type Props = {
     next: () => void
@@ -23,51 +23,47 @@ const PropertyFormStep3 = ({ next }: Props) => {
     return (
         <Card className="w-full md:w-2/5 md:p-8 mx-auto"> {/* max-w-lg */}
             <CardHeader className="flex flex-col items-center">
-                <CardTitle className="text-2xl">Step 3</CardTitle>
-                <CardDescription>Fill in aditional details of your property</CardDescription>
+                <CardTitle className="text-2xl">Rooms</CardTitle>
+                <CardDescription>Tell us number of rooms this property has</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col items-center">
                 <Form {...formContext}>
-                    <form onSubmit={formContext.handleSubmit(onSubmit)}>
+                    <form className="w-full flex flex-col gap-2" onSubmit={formContext.handleSubmit(onSubmit)}>
                         <FormFieldWrapper
-                            className="w-full"
+                            className="w-full flex items-center justify-between"
                             name="basePrice"
                             label="Number of rooms:"
+                            labelStyle="font-medium"
                             control={formContext.control}
                         >
-                            <Input type="number" />
+                            <SingleDigitNumberInput maxValue={50} minValue={0} fieldName="basePrice" formContext={formContext} />
                         </FormFieldWrapper>
                         <FormFieldWrapper
-                            className="w-full"
+                            className="flex items-center justify-between"
                             name="basePrice"
-                            label="Number of bedroom:"
+                            label="Number of bedrooms:"
+                            labelStyle="font-medium"
                             control={formContext.control}
                         >
-                            <Input type="number" />
+                            <SingleDigitNumberInput maxValue={50} minValue={0} fieldName="basePrice" formContext={formContext} />
                         </FormFieldWrapper>
                         <FormFieldWrapper
-                            className="w-full"
+                            className="flex items-center justify-between"
                             name="basePrice"
-                            label="Number of kitchen:"
+                            label="Number of bathrooms:"
+                            labelStyle="font-medium"
                             control={formContext.control}
                         >
-                            <Input type="number" />
+                            <SingleDigitNumberInput maxValue={50} minValue={0} fieldName="basePrice" formContext={formContext} />
                         </FormFieldWrapper>
                         <FormFieldWrapper
-                            className="w-full"
+                            className="flex items-center justify-between"
                             name="basePrice"
-                            label="Number of bathroom:"
+                            label="Number of guest rooms:"
+                            labelStyle="font-medium"
                             control={formContext.control}
                         >
-                            <Input type="number" />
-                        </FormFieldWrapper>
-                        <FormFieldWrapper
-                            className="w-full"
-                            name="basePrice"
-                            label="Number of guest room:"
-                            control={formContext.control}
-                        >
-                            <Input type="number" />
+                            <SingleDigitNumberInput maxValue={50} minValue={0} fieldName="basePrice" formContext={formContext} />
                         </FormFieldWrapper>
                         <FormFieldWrapper
                             className="w-full"
@@ -77,18 +73,10 @@ const PropertyFormStep3 = ({ next }: Props) => {
                         >
                             <Textarea />
                         </FormFieldWrapper>
-                        <FormFieldWrapper
-                            className="w-full"
-                            name="basePrice"
-                            label="Address"
-                            control={formContext.control}
-                        >
-                            <Textarea />
-                        </FormFieldWrapper>
                     </form>
                 </Form>
-            </CardContent>
-        </Card>
+            </CardContent >
+        </Card >
     );
 }
 

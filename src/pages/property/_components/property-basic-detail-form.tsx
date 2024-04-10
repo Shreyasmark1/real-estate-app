@@ -1,14 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import FormFieldWrapper from "../forms/form-fields/FormFieldWrapper";
-import { Input } from "../ui/input";
-import { Form } from "../ui/form";
+import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
+import { Input } from "../../../components/ui/input";
+import { Form } from "../../../components/ui/form";
 import { PropertyBasic, PropertyBasicFormSchema, propertyFormDefaults } from "@/schema/property/property-form-schema";
 import PropertyTypeDropdown from "./PropertyTypeDropdown";
-import { Button } from "../ui/button";
-import EnumDropdown from "../forms/form-fields/EnumDropdown";
+import { Button } from "../../../components/ui/button";
+import EnumDropdown from "../../../components/forms/form-fields/EnumDropdown";
 import { AdvertiserType, SaleType } from "@/schema/property/enum";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
 import { useEffect } from "react";
 
 type Props = {
