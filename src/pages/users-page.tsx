@@ -2,7 +2,7 @@ import { DataTable } from "@/components/DataTable";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { UserTableColumnRef } from "@/components/user/UsersTableColumnRef";
+import { UserTableColumnRef } from "@/feature/user/_components/UsersTableColumnRef";
 import { useUserService } from "@/services/UserService";
 import { usePageName } from "@/lib/hooks/usePageName";
 import { useEffect, useState } from "react";

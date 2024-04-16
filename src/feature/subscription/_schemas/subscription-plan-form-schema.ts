@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { FormFieldSchema } from "../from-field";
+import { FormFieldSchema } from "../../../schema/from-field";
 import { PlanStatus } from "./subscription-types";
 
 export const subscriptionPlanFormFields: FormFieldSchema[] = [

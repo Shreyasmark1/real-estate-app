@@ -1,8 +1,8 @@
 import { ApiResponse } from "@/api/response-type/ApiResponse"
 import { HttpClient } from "@/lib/network/http-helper"
-import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema"
+import { SubscriptionPlan } from "@/feature/subscription/_schemas/subscription-plan-form-schema"
 import { isEmptyString } from "@/lib/utils/string-util"
-import { PlanStatus } from "@/schema/subscription/subscription-types"
+import { PlanStatus } from "@/feature/subscription/_schemas/subscription-types"
 
 const API_URL_PLANS = "/subscription/plan"
 const API_URL_CHOOSE_PLAN = "/subscription/choose-plan"

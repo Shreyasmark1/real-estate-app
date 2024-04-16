@@ -1,10 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { User } from "../../schema/user/user-form-schema";
+import { User } from "../_schemas/user-form-schema";
 import { CircleIcon } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
-import { useUserService } from "../../services/UserService";
+import { useUserService } from "../../../services/UserService";
 import SuperAdminGuard from "@/feature/super-admin/_gaurds/super-admin-guard";
 import tubeSpinner from "../../assets/tube-spinner.svg";
 import { USER_TYPE_ADMIN, USER_TYPE_SUPER_ADMIN } from "@/config/constants";

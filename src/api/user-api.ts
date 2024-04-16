@@ -1,7 +1,7 @@
 import { HttpClient } from "@/lib/network/http-helper";
 import { ApiResponse } from "./response-type/ApiResponse";
 import { isEmptyString } from "@/lib/utils/string-util";
-import { User } from "@/schema/user/user-form-schema";
+import { User } from "@/feature/user/_schemas/user-form-schema";
 
 const API_URL_USER = "/user";
 const generateUserApiUrl = (uniqueId: string, path?: string) => {

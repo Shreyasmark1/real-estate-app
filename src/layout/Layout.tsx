@@ -10,7 +10,6 @@ import { useAuth } from "@/lib/hooks/useAuth";
 import { getDrawerNavigation } from "@/routing/DrawerNavigation";
 import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { PlusIcon, SearchIcon } from "lucide-react";
 
 const Layout = () => {
     const [pageName, setPageName] = useState("Dashboard");

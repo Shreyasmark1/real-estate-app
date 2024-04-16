@@ -1,4 +1,4 @@
-import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema";
+import { SubscriptionPlan } from "@/feature/subscription/_schemas/subscription-plan-form-schema";
 import SubscriptionPlanCard from "./SubscriptionPlanCard";
 import { Key } from "react";
 import { useSubscriptionService } from "@/services/SubscriptionSerivce";

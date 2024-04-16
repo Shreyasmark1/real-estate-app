@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Form } from "../ui/form";
+import { Form } from "../../../components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormFieldWrapper from "../forms/form-fields/FormFieldWrapper";
-import ArrayFieldWrapper from "../forms/form-fields/ArrayFieldWrapper";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { SubscriptionPlan, subscriptionPlanFormDefaults, subscriptionPlanFormFields, subscriptionPlanFormSchema } from "@/schema/subscription/subscription-plan-form-schema";
+import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
+import ArrayFieldWrapper from "../../../components/forms/form-fields/ArrayFieldWrapper";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
+import { SubscriptionPlan, subscriptionPlanFormDefaults, subscriptionPlanFormFields, subscriptionPlanFormSchema } from "@/feature/subscription/_schemas/subscription-plan-form-schema";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
 import { useSubscriptionService } from "@/services/SubscriptionSerivce";
 

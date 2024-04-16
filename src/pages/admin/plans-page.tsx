@@ -1,13 +1,13 @@
 import { DataTable } from "@/components/DataTable";
-import PlanForm from "@/components/subscription/PlanForm";
+import PlanForm from "@/feature/subscription/_components/PlanForm";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { usePageName } from "@/lib/hooks/usePageName";
-import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema";
+import { SubscriptionPlan } from "@/feature/subscription/_schemas/subscription-plan-form-schema";
 import { PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { SubscriptionTableColumnRef } from "@/components/subscription/SubscriptionTableColumn";
+import { SubscriptionTableColumnRef } from "@/feature/subscription/_components/SubscriptionTableColumn";
 import { useSubscriptionService } from "@/services/SubscriptionSerivce";
 
 const SubscriptionPlanPage = () => {

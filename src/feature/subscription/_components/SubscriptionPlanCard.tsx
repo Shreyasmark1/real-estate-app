@@ -1,7 +1,7 @@
 
-import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-schema";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+import { SubscriptionPlan } from "@/feature/subscription/_schemas/subscription-plan-form-schema";
+import { Button } from "../../../components/ui/button";
+import { Separator } from "../../../components/ui/separator";
 
 type Props = {
     plan: SubscriptionPlan,

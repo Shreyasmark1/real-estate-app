@@ -3,7 +3,7 @@ import { useSubscriptionService } from "@/services/SubscriptionSerivce";
 import { usePageName } from "@/lib/hooks/usePageName";
 import { getPaymentStatus, getPlanName } from "@/lib/store/local-storage/local-storage";
 import { useEffect } from "react";
-import PlanListRenderer from "@/components/subscription/PlanListRenderer";
+import PlanListRenderer from "@/feature/subscription/_components/PlanListRenderer";
 
 const ChooseSubscriptionPage = () => {
     const PAGE_NAME = "Pricing"

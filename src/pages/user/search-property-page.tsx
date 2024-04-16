@@ -1,4 +1,4 @@
-import ProjectListCard from "@/components/ProjectListCard";
+import ProjectListCard from "@/feature/property/_components/property-list-card";
 import FilterProjectForm from "@/components/forms/FilterProjectForm";
 import { FilterIcon } from "lucide-react";
 import { useState } from "react";

@@ -1,10 +1,10 @@
 import searchBackground from "@/assets/search-background.jpg"
-import { Badge } from "./ui/badge";
+import { Badge } from "../../../components/ui/badge";
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent } from "../../../components/ui/card";
 import { BedDoubleIcon, ExpandIcon, HeartIcon, MapPinIcon } from "lucide-react";
 
-const ProjectListCard = () => {
+const PropertyListCard = () => {
 
     return (
         <Card className="md:h-full rounded-3xl md:1/3 transition-shadow duration-300 hover:shadow-lg">
@@ -61,4 +61,4 @@ const ProjectListCard = () => {
     );
 }
 
-export default ProjectListCard;
+export default PropertyListCard;

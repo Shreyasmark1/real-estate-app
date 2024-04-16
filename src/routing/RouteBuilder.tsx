@@ -2,7 +2,7 @@ import AddPropertyPage from "@/pages/user/add-property-page";
 import UserDashboard from "@/pages/user/user-dashboard-page";
 import { ReactNode } from "react";
 import PaymentGuard from "@/layout/guards/PaymentGauard";
-import ProjectDetailPage from "@/feature/user/user/ProjectDetail";
+import ProjectDetailPage from "@/feature/property/ProjectDetail";
 import AuthGuard from "@/feature/auth/_guards/AuthGuard";
 import UsersPage from "@/pages/users-page";
 import AdminDashBoardPage from "@/pages/admin/admin-dashboard-page";

@@ -3,28 +3,28 @@ import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 
-const options = [
-    {
-        value: "next.js",
-        label: "Apartment",
-    },
-    {
-        value: "sveltekit",
-        label: "Villa",
-    },
-    {
-        value: "nuxt.js",
-        label: "House",
-    },
-    {
-        value: "astro",
-        label: "Agricultural land",
-    },
-    {
-        value: "remix",
-        label: "Hotel",
-    },
-]
+// const options = [
+//     {
+//         value: "next.js",
+//         label: "Apartment",
+//     },
+//     {
+//         value: "sveltekit",
+//         label: "Villa",
+//     },
+//     {
+//         value: "nuxt.js",
+//         label: "House",
+//     },
+//     {
+//         value: "astro",
+//         label: "Agricultural land",
+//     },
+//     {
+//         value: "remix",
+//         label: "Hotel",
+//     },
+// ]
 
 
 const FilterProjectForm = () => {
