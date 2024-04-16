@@ -1,6 +1,6 @@
-import RegisterForm from "@/pages/auth/_components/register-form";
+import RegisterForm from "@/feature/auth/_components/register-form";
 import { useState } from "react";
-import OtpVerificationForm from "@/pages/auth/_components/otp-form";
+import OtpVerificationForm from "@/feature/auth/_components/otp-form";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { useAlert } from "@/lib/hooks/useAlert";
 import { Register } from "@tanstack/react-query";

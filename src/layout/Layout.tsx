@@ -25,17 +25,17 @@ const Layout = () => {
             <nav className="flex items-center justify-between py-2 md:py-4 px-4 md:px-8 sticky top-0 bg-white shadow-sm z-10">
                 <div className="text-lg md:text-2xl font-semibold">{pageName}</div>
                 <div className="flex items-center space-x-4">
-                    <Link to={"/search"}>
+                    {/* <Link to={"/search"}>
                         <Avatar className="overflow-hidden text-gray-500 rounded-full">
                             <SearchIcon className="w-7 h-7 mt-1 mx-2" />
                         </Avatar>
-                    </Link>
-                    <Link to={"/add-property"}>
+                    </Link> */}
+                    {/* <Link to={"/add-property"}>
                         <Button variant="outline" className="overflow-hidden text-gray-500">
                             <PlusIcon className="w-7 h-7" />
                             <span className="hidden md:block">New Property</span>
                         </Button>
-                    </Link>
+                    </Link> */}
                     <div className="font-semibold">John Doe</div>
                     <Sheet>
                         <SheetTrigger asChild>

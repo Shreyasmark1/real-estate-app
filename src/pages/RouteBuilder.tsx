@@ -1,17 +1,17 @@
 import AddPropertyPage from "@/pages/property/add-property-page";
-import SubscribtionPage from "@/pages/user/ChooseSubscriptionPage";
-import UserDashboard from "@/pages/dashboard/UserDashboardPage";
+import UserDashboard from "@/pages/user/user-dashboard-page";
 import { ReactNode } from "react";
 import PaymentGuard from "@/layout/guards/PaymentGauard";
-import ProjectDetailPage from "@/pages/user/ProjectDetail";
+import ProjectDetailPage from "@/feature/user/user/ProjectDetail";
 import AuthGuard from "@/layout/guards/AuthGuard";
-import UsersPage from "@/pages/admin/UsersPage";
-import AdminDashBoardPage from "@/pages/admin/AdminDashboardPage";
-import SubscriptionPage from "@/pages/admin/PlansPage";
-import SubscriptionPlanPage from "@/pages/admin/PlansPage";
+import UsersPage from "@/pages/users-page";
+import AdminDashBoardPage from "@/pages/admin-dashboard-page";
+import SubscriptionPage from "@/pages/plans-page";
+import SubscriptionPlanPage from "@/pages/plans-page";
 import { ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER } from "@/config/constants";
 import Layout from "@/layout/Layout";
-import SearchPropertyPage from "@/pages/property/search-property-page";
+import PropertyStatsPage from "@/pages/property/property-stats-page";
+import DataDictionaryPage from "@/pages/data-dictionary/data-dictionary-page";
 
 export type RouteDefinition = {
     path?: string,
@@ -44,7 +44,8 @@ const superAdminRoutes: RouteDefinition[] = [
             { path: "", element: <div>Super Admin</div> },
             { path: "dashboard", element: <AdminDashBoardPage /> },
             { path: "plans", element: <SubscriptionPage /> },
-            { path: "users", element: <UsersPage /> }
+            { path: "users", element: <UsersPage /> },
+            { path: "data-dictionary", element: <DataDictionaryPage /> }
         ]
     }
 ]
@@ -57,7 +58,8 @@ const adminRoutes: RouteDefinition[] = [
             { path: "", element: <div>Admin</div> },
             { path: "dashboard", element: <AdminDashBoardPage /> },
             { path: "plans", element: <SubscriptionPlanPage /> },
-            { path: "users", element: <UsersPage /> }
+            { path: "users", element: <UsersPage /> },
+            { path: "data-dictionary", element: <DataDictionaryPage /> }
         ]
     }
 ]
@@ -67,11 +69,13 @@ const userRoutes: RouteDefinition[] = [
         element: <AuthGuard><Layout /></AuthGuard>,
         children: [
             { path: "/dashboard", element: <UserDashboard /> },
-            { path: "/search", element: <SearchPropertyPage /> },
-            { path: "/project", element: <ProjectDetailPage /> },
-            { path: "/add-property", element: <PaymentGuard> <AddPropertyPage /> </PaymentGuard> },
-            { path: "/explore", element: <PaymentGuard><div> Page under development</div></PaymentGuard> },
-            { path: "/subscription", element: <SubscribtionPage /> }
+            // { path: "/search", element: <SearchPropertyPage /> },
+            { path: "/property/new", element: <PaymentGuard> <AddPropertyPage /> </PaymentGuard> },
+            { path: "/property/id", element: <ProjectDetailPage /> },
+            { path: "/property/id/edit", element: <PaymentGuard> <AddPropertyPage /> </PaymentGuard> },
+            { path: "/property/id/stats", element: <PaymentGuard> <PropertyStatsPage /> </PaymentGuard> }
+            // { path: "/explore", element: <PaymentGuard><div> Page under development</div></PaymentGuard> },
+            // { path: "/subscription", element: <SubscribtionPage /> }
         ]
     }
 ]

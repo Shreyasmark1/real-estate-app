@@ -25,6 +25,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Link } from "react-router-dom"
 
 type PropertyListProps = {
     list: any[]
@@ -91,9 +92,11 @@ function PropertyList({ list }: PropertyListProps) {
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end">
                                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                                <DropdownMenuItem>Preview</DropdownMenuItem>
                                                 <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                <DropdownMenuItem>Leads</DropdownMenuItem>
+                                                <Link to={"/property/id/stats"}><DropdownMenuItem>Leads</DropdownMenuItem></Link>
                                                 <DropdownMenuItem>Delete</DropdownMenuItem>
+                                                <DropdownMenuItem>Share</DropdownMenuItem>
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     </TableCell>

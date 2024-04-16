@@ -6,7 +6,7 @@ import { Button } from "../../../components/ui/button";
 import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
 import { useAlert } from "@/lib/hooks/useAlert";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
-import { OtpFormSchema, otpFormDefaults, Otp, otpFormFields } from "@/schema/auth/otp-form-schema";
+import { OtpFormSchema, otpFormDefaults, Otp, otpFormFields } from "@/feature/auth/_schemas/otp-form-schema";
 import { Input } from "../../../components/ui/input";
 import { AuthenticationApi } from "@/api/authentication-api";
 

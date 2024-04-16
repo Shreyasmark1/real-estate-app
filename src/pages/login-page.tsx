@@ -1,9 +1,9 @@
-import LoginForm from "@/pages/auth/_components/login-form";
+import LoginForm from "@/feature/auth/_components/login-form";
 import { useState } from "react";
-import OtpVerificationForm from "@/pages/auth/_components/otp-form";
+import OtpVerificationForm from "@/feature/auth/_components/otp-form";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { useAlert } from "@/lib/hooks/useAlert";
-import { Login } from "@/schema/auth/login-form-schema";
+import { Login } from "@/feature/auth/_schemas/login-form-schema";
 import { AuthenticationApi } from "@/api/authentication-api";
 
 const LoginPage = () => {

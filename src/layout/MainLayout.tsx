@@ -1,8 +1,8 @@
 import { ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_USER } from "@/config/constants";
 import { useAuth } from "@/lib/hooks/useAuth";
-import LoginPage from "@/pages/auth/login-page";
-import RegisterPage from "@/pages/auth/register-page";
-import RouteBuilder, { RouteDefinition } from "@/routing/RouteBuilder";
+import LoginPage from "@/pages/login-page";
+import RegisterPage from "@/pages/register-page";
+import RouteBuilder, { RouteDefinition } from "@/pages/RouteBuilder";
 import { useEffect } from "react";
 import { useNavigate, useRoutes } from "react-router-dom";
 

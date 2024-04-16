@@ -5,7 +5,7 @@ import { Form } from "../../../components/ui/form";
 import { Button } from "../../../components/ui/button";
 import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
-import { Login, LoginFormSchema, loginFormDefaults, loginFormFields } from "@/schema/auth/login-form-schema";
+import { Login, LoginFormSchema, loginFormDefaults, loginFormFields } from "@/feature/auth/_schemas/login-form-schema";
 import { Input } from "../../../components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../components/ui/card";
 import { Link } from "react-router-dom";

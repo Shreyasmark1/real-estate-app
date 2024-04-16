@@ -20,18 +20,20 @@ export const getDrawerNavigation = (roleName: string | undefined): DrawerNavigat
 const superAdminDrawerNavigation: DrawerNavigation[] = [
     { locationName: "Dashboard", url: "/super-admin/dashboard" },
     { locationName: "Plans", url: "/super-admin/plans" },
-    { locationName: "Users", url: "/super-admin/users" }
+    { locationName: "Users", url: "/super-admin/users" },
+    { locationName: "DataDictionary", url: "/super-admin/data-dictionary"}
 ]
 
 const adminDrawerNavigation: DrawerNavigation[] = [
     { locationName: "Dashboard", url: "/admin/dashboard" },
     { locationName: "Plans", url: "/admin/plans" },
-    { locationName: "Users", url: "/admin/users" }
+    { locationName: "Users", url: "/admin/users" },
+    { locationName: "DataDictionary", url: "/admin/data-dictionary"}
 ]
 
 const userDrawerNavigation: DrawerNavigation[] = [
     { locationName: "Dashboard", url: "/dashboard" },
-    { locationName: "Explore", url: "/dashboard" },
-    { locationName: "My Projects", url: "/dashbaord" },
-    { locationName: "Subscription", url: "/subscription" }
+    // { locationName: "Explore", url: "/dashboard" },
+    // { locationName: "My Projects", url: "/dashboard" },
+    // { locationName: "Subscription", url: "/subscription" }
 ]
