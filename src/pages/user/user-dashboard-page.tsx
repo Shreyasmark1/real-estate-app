@@ -1,4 +1,4 @@
-import { PropertyList } from "@/pages/property/_components/property-list";
+import { PropertyList } from "@/feature/property/_components/property-list";
 import { CTACard, StatsCard } from "../../feature/dashboard/_components/user-dashboard";
 import { Users } from "lucide-react";
 

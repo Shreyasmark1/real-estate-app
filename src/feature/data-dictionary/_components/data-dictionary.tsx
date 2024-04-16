@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import SuperAdminGuard from "@/layout/guards/SuperAdminGuard"
-import { DataDictionary } from "@/schema/data-dictionary/data-dictionary-form-schema"
+import SuperAdminGuard from "@/feature/super-admin/_gaurds/super-admin-guard"
+import { DataDictionary } from "@/feature/data-dictionary/_schemas/data-dictionary-form-schema"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { ColumnDef } from "@tanstack/react-table"
 

@@ -1,17 +1,17 @@
-import AddPropertyPage from "@/pages/property/add-property-page";
+import AddPropertyPage from "@/pages/user/add-property-page";
 import UserDashboard from "@/pages/user/user-dashboard-page";
 import { ReactNode } from "react";
 import PaymentGuard from "@/layout/guards/PaymentGauard";
 import ProjectDetailPage from "@/feature/user/user/ProjectDetail";
-import AuthGuard from "@/layout/guards/AuthGuard";
+import AuthGuard from "@/feature/auth/_guards/AuthGuard";
 import UsersPage from "@/pages/users-page";
-import AdminDashBoardPage from "@/pages/admin-dashboard-page";
-import SubscriptionPage from "@/pages/plans-page";
-import SubscriptionPlanPage from "@/pages/plans-page";
+import AdminDashBoardPage from "@/pages/admin/admin-dashboard-page";
+import SubscriptionPage from "@/pages/admin/plans-page";
+import SubscriptionPlanPage from "@/pages/admin/plans-page";
 import { ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER } from "@/config/constants";
 import Layout from "@/layout/Layout";
-import PropertyStatsPage from "@/pages/property/property-stats-page";
-import DataDictionaryPage from "@/pages/data-dictionary/data-dictionary-page";
+import PropertyStatsPage from "@/pages/user/property-stats-page";
+import DataDictionaryPage from "@/pages/admin/data-dictionary-page";
 
 export type RouteDefinition = {
     path?: string,

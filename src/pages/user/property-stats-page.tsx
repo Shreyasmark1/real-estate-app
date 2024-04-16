@@ -1,6 +1,6 @@
 import { Activity, HeartIcon, Share, Users } from "lucide-react";
 import { StatsCard } from "../../feature/dashboard/_components/user-dashboard";
-import { EnquiryCard } from "./_components/property-enquiry-card";
+import { EnquiryCard } from "../../feature/property/_components/property-enquiry-card";
 
 const PropertyStatsPage = () => {
     return (

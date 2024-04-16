@@ -6,7 +6,7 @@ import { SubscriptionPlan } from "@/schema/subscription/subscription-plan-form-s
 import { CircleIcon } from "lucide-react"
 import { formatDate } from "@/lib/utils/utils"
 import { PlanStatus } from "@/schema/subscription/subscription-types"
-import SuperAdminGuard from "@/layout/guards/SuperAdminGuard"
+import SuperAdminGuard from "@/feature/super-admin/_gaurds/super-admin-guard"
 import { useSubscriptionService } from "@/services/SubscriptionSerivce"
 
 // export const SubscriptionTableColumnRef = (setOpenSheet: { (value: SetStateAction<boolean>): void; (arg0: () => JSX.Element): void }): ColumnDef<SubscriptionPlan>[] => [

@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/DataTable";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DataDictionaryColumnRef } from "./_components/data-dictionary";
-import { DataDictionary } from "@/schema/data-dictionary/data-dictionary-form-schema";
+import { DataDictionaryColumnRef } from "../../feature/data-dictionary/_components/data-dictionary";
+import { DataDictionary } from "@/feature/data-dictionary/_schemas/data-dictionary-form-schema";
 
 const DataDictionaryPage = () => {
 

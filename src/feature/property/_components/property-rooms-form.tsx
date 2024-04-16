@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
 import { Form } from "../../../components/ui/form";
-import { PropertyBasic, PropertyBasicFormSchema, propertyFormDefaults } from "@/schema/property/property-form-schema";
+import { PropertyBasic, PropertyBasicFormSchema, propertyFormDefaults } from "@/feature/property/_schemas/property-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "../../../components/ui/textarea";
 import SingleDigitNumberInput from "../../../components/forms/form-fields/SingleDigitNumberInput";

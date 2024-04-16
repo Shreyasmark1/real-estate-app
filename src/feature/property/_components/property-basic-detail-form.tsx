@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
 import { Input } from "../../../components/ui/input";
 import { Form } from "../../../components/ui/form";
-import { PropertyBasic, PropertyBasicFormSchema, propertyFormDefaults } from "@/schema/property/property-form-schema";
+import { PropertyBasic, PropertyBasicFormSchema, propertyFormDefaults } from "@/feature/property/_schemas/property-form-schema";
 import PropertyTypeDropdown from "./PropertyTypeDropdown";
 import { Button } from "../../../components/ui/button";
 import EnumDropdown from "../../../components/forms/form-fields/EnumDropdown";
-import { AdvertiserType, SaleType } from "@/schema/property/enum";
+import { AdvertiserType, SaleType } from "@/feature/property/_schemas/enum";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
 import { useEffect } from "react";
 

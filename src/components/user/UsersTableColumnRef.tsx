@@ -5,7 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { useUserService } from "../../services/UserService";
-import SuperAdminGuard from "@/layout/guards/SuperAdminGuard";
+import SuperAdminGuard from "@/feature/super-admin/_gaurds/super-admin-guard";
 import tubeSpinner from "../../assets/tube-spinner.svg";
 import { USER_TYPE_ADMIN, USER_TYPE_SUPER_ADMIN } from "@/config/constants";
 import { ReactNode } from "react";
