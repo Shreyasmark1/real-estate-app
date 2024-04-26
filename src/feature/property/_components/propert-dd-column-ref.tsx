@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import SuperAdminGuard from "@/feature/super-admin/_gaurds/super-admin-guard"
-import { DataDictionary } from "@/feature/data-dictionary/_schemas/data-dictionary-form-schema"
-import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { ColumnDef } from "@tanstack/react-table"
+import { CircleIcon } from "lucide-react"
+import { PropertyDD } from "../_schemas/property-schema"
+import { PropertyDDType } from "../_schemas/enum"
 
-function DataDictionaryColumnRef(): ColumnDef<DataDictionary>[] {
+export const PropertyDDColumnRef = (toggleSheet: (dd?: PropertyDD) => void): ColumnDef<PropertyDD>[] => {
 
     return [
         {
@@ -13,22 +15,42 @@ function DataDictionaryColumnRef(): ColumnDef<DataDictionary>[] {
             enableHiding: true,
         },
         {
-            accessorKey: "ddValue",
+            id: "status",
+            enableHiding: false,
+            header: "Status",
+            cell: () => {
+                return (<CircleIcon fill="#7fff00" stroke="none" className="mx-2" size={10} />)
+            }
+        },
+        {
+            accessorKey: "value",
             header: "Value",
         },
         {
-            accessorKey: "ddTypeName",
-            header: "Type",
-        },
-        {
-            accessorKey: "createdAt",
-            header: "Created At"
+            accessorKey: "ddType",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        className="p-0 m-0"
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Type
+                        <CaretSortIcon />
+                    </Button>
+                )
+            },
+            cell: ({ cell }) => {
+                return ( cell.getValue() === PropertyDDType.PROPERTY_TYPE ? "Property Type" : "Sale Type")
+            }
+
         },
         {
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {
-                const dataDictionary = row.original
+
+                const propertyDD = row.original
 
                 return (
                     <DropdownMenu>
@@ -42,12 +64,15 @@ function DataDictionaryColumnRef(): ColumnDef<DataDictionary>[] {
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <SuperAdminGuard>
                                 <DropdownMenuItem
-                                    onClick={() => navigator.clipboard.writeText(dataDictionary.uniqueId)}
+                                    onClick={() => navigator.clipboard.writeText(propertyDD.uniqueId || "")}
                                 >
                                     <span className="w-full"> Copy ID </span>
                                 </DropdownMenuItem>
                             </SuperAdminGuard>
                             <DropdownMenuSeparator />
+                            <SuperAdminGuard>
+                                <DropdownMenuItem onClick={() => toggleSheet(propertyDD)}><span className="w-full"> Edit </span></DropdownMenuItem>
+                            </SuperAdminGuard>
                             <DropdownMenuItem
                                 onClick={undefined}
                             >
@@ -59,5 +84,3 @@ function DataDictionaryColumnRef(): ColumnDef<DataDictionary>[] {
         },
     ]
 }
-
-export { DataDictionaryColumnRef }

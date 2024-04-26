@@ -34,7 +34,7 @@ const ArrayFieldWrapper = ({ formFieldSchema, control, children, className }: Pr
                     const newFormFieldSchema = formFieldSchema ? { ...formFieldSchema, name: name.toString(), label: "" } : undefined;
 
                     return (
-                        <div key={field.id} className="flex items-center gap-3">
+                        <div key={field.id + index} className="flex items-center gap-3">
                             <Badge variant="outline">{`${index + 1}`}</Badge>
                             <FormFieldWrapper name={newFormFieldSchema ? newFormFieldSchema.name : ""}>
                                 {children}

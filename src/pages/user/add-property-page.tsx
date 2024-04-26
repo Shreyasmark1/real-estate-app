@@ -1,4 +1,4 @@
-import MultiStepPropertyForm from "@/feature/property/_components/multi-step-property-form";
+import MultiStepPropertyForm from "@/feature/property/_components/property-form/multi-step-property-form";
 import { usePageName } from "@/lib/hooks/usePageName";
 import { useEffect } from "react";
 

@@ -1,9 +1,9 @@
 import NotificationDialog from "@/components/NotificationDialog";
 import { Toaster } from "@/components/ui/sonner";
-import { isNotEmptyString } from "@/lib/utils/string-util";
 import { PropsWithChildren, useState } from "react";
 import { createContext } from "react";
 import { toast } from "sonner";
+import { StringUtil } from "../utils/string-util";
 
 type AlertType = "error" | "info" | "warning" | "success"
 
@@ -63,7 +63,7 @@ const AlertContextProvider = ({ children }: PropsWithChildren) => {
             }}>
             {children}
             <NotificationDialog
-                isOpen={isNotEmptyString(message)}
+                isOpen={StringUtil.isNotEmptyString(message)}
                 message={message}
                 title={title}
                 isError={type === "error"}

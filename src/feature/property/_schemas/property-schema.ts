@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AdvertiserType, SaleType, TransactionType } from "./enum";
+import { AdvertiserType, PropertyDDType, SaleType, TransactionType } from "./enum";
 
 // export const projectFormFields: FormFieldSchema[] = [
 //     {
@@ -62,7 +62,7 @@ import { AdvertiserType, SaleType, TransactionType } from "./enum";
 //     }
 // ]
 
-export const propertyFormDefaults: PropertyBasic = {
+const propertyFormDefaults: PropertyBasic = {
     uniqueId: "",
     projectId: "",
     propertyCode: "",
@@ -78,7 +78,7 @@ export const propertyFormDefaults: PropertyBasic = {
     transactionType: TransactionType.NEW
 }
 
-export const PropertyBasicFormSchema = z.object({
+const PropertyBasicFormSchema = z.object({
     uniqueId: z.string().nullable(),
     propertyCode: z.string().nullable(),
     projectId: z.string().nullable(),
@@ -114,4 +114,23 @@ export const PropertyBasicFormSchema = z.object({
     // propertyVideos: z.array(z.string()),
 })
 
+const propertyDDDefaults: PropertyDD = {
+    uniqueId: null,
+    value: "",
+    ddType: PropertyDDType.PROPERTY_TYPE
+}
+
+const ProperTyDDSchema = z.object({
+    uniqueId: z.string().nullable(),
+    value: z.string({ invalid_type_error: "Value cannot be empty" }).min(3, "Should be atleast 3 characters"),
+    ddType: z.nativeEnum(PropertyDDType),
+})
+
+export const PropertySchema = {
+    PropertyBasicFormSchema,
+    ProperTyDDSchema,
+    propertyFormDefaults,
+    propertyDDDefaults
+}
+export type PropertyDD = z.infer<typeof ProperTyDDSchema>
 export type PropertyBasic = z.infer<typeof PropertyBasicFormSchema>

@@ -38,7 +38,7 @@ const SubscriptionPlanPage = () => {
                     </ScrollArea>
                 </SheetContent>
             </Sheet>
-            <PlusIcon onClick={toggleSheet} className="fixed h-[50px] w-[50px] bottom-8 right-8 bg-blue-500 text-white p-2 rounded-full hover:cursor-pointer" />
+            <PlusIcon onClick={() => toggleSheet()} className="fixed h-[50px] w-[50px] bottom-8 right-8 bg-blue-500 text-white p-2 rounded-full hover:cursor-pointer" />
         </div >
     );
 }

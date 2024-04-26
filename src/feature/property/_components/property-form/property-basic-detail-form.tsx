@@ -1,15 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
-import { Input } from "../../../components/ui/input";
-import { Form } from "../../../components/ui/form";
-import { PropertyBasic, PropertyBasicFormSchema, propertyFormDefaults } from "@/feature/property/_schemas/property-form-schema";
-import PropertyTypeDropdown from "./PropertyTypeDropdown";
-import { Button } from "../../../components/ui/button";
-import EnumDropdown from "../../../components/forms/form-fields/EnumDropdown";
+import FormFieldWrapper from "../../../../components/form-fields/FormFieldWrapper";
+import { Input } from "../../../../components/ui/input";
+import { Form } from "../../../../components/ui/form";
+import PropertyTypeDropdown from "../PropertyTypeDropdown";
+import { Button } from "../../../../components/ui/button";
+import EnumDropdown from "../../../../components/form-fields/EnumDropdown";
 import { AdvertiserType, SaleType } from "@/feature/property/_schemas/enum";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
 import { useEffect } from "react";
+import { PropertyBasic, PropertySchema } from "../../_schemas/property-schema";
 
 type Props = {
     next: () => void
@@ -18,8 +18,8 @@ type Props = {
 const PropertyFormStep1 = ({ next }: Props) => {
 
     const formContext = useForm<PropertyBasic>({
-        resolver: zodResolver(PropertyBasicFormSchema),
-        defaultValues: propertyFormDefaults
+        resolver: zodResolver(PropertySchema.PropertyBasicFormSchema),
+        defaultValues: PropertySchema.propertyFormDefaults
     });
 
     const onSubmit = (_data: any) => next()

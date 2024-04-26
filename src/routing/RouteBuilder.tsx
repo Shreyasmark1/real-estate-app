@@ -11,7 +11,7 @@ import SubscriptionPlanPage from "@/pages/admin/plans-page";
 import { ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER } from "@/config/constants";
 import Layout from "@/layout/Layout";
 import PropertyStatsPage from "@/pages/user/property-stats-page";
-import DataDictionaryPage from "@/pages/admin/data-dictionary-page";
+import DataDictionaryPage from "@/pages/admin/property-dd-page";
 
 export type RouteDefinition = {
     path?: string,
@@ -41,7 +41,7 @@ const superAdminRoutes: RouteDefinition[] = [
         path: "/super-admin",
         element: <AuthGuard><Layout /></AuthGuard>,
         children: [
-            { path: "", element: <div>Super Admin</div> },
+            { path: "", element: <AdminDashBoardPage /> },
             { path: "dashboard", element: <AdminDashBoardPage /> },
             { path: "plans", element: <SubscriptionPage /> },
             { path: "users", element: <UsersPage /> },
@@ -55,7 +55,7 @@ const adminRoutes: RouteDefinition[] = [
         path: "/admin",
         element: <AuthGuard><Layout /></AuthGuard>,
         children: [
-            { path: "", element: <div>Admin</div> },
+            { path: "", element: <AdminDashBoardPage /> },
             { path: "dashboard", element: <AdminDashBoardPage /> },
             { path: "plans", element: <SubscriptionPlanPage /> },
             { path: "users", element: <UsersPage /> },

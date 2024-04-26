@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
-import { Form } from "../../../components/ui/form";
-import { PropertyBasic, PropertyBasicFormSchema, propertyFormDefaults } from "@/feature/property/_schemas/property-form-schema";
+import FormFieldWrapper from "../../../../components/form-fields/FormFieldWrapper";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
+import { Form } from "../../../../components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Textarea } from "../../../components/ui/textarea";
-import SingleDigitNumberInput from "../../../components/forms/form-fields/SingleDigitNumberInput";
+import { Textarea } from "../../../../components/ui/textarea";
+import SingleDigitNumberInput from "../../../../components/form-fields/SingleDigitNumberInput";
+import { PropertyBasic, PropertySchema } from "../../_schemas/property-schema";
 
 type Props = {
     next: () => void
@@ -14,8 +14,8 @@ type Props = {
 const PropertyFormStep3 = ({ next }: Props) => {
 
     const formContext = useForm<PropertyBasic>({
-        resolver: zodResolver(PropertyBasicFormSchema),
-        defaultValues: propertyFormDefaults
+        resolver: zodResolver(PropertySchema.PropertyBasicFormSchema),
+        defaultValues: PropertySchema.propertyFormDefaults
     });
 
     const onSubmit = (_data: any) => next()

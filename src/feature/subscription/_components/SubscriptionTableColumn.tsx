@@ -20,17 +20,15 @@ export const SubscriptionTableColumnRef = (toggleSheet: (plans?: SubscriptionPla
 
     return [
         {
+            accessorKey: "uniqueId",
+            enableHiding: true
+        },
+        {
             id: "status",
-            enableHiding: false,
             header: "Status",
             cell: ({ row }) => {
 
                 const plan: SubscriptionPlan = row.original
-                
-                const status = row.getValue("status")     
-                
-                console.log(plan.status, "hi", status);
-                
 
                 const fillColor = plan.status === PlanStatus.ACTIVE ? "#7fff00" : "#8c8c8c"
 
@@ -68,7 +66,7 @@ export const SubscriptionTableColumnRef = (toggleSheet: (plans?: SubscriptionPla
             header: ({ column }) => {
                 return (
                     <Button
-                        className="p-0 m-0"
+                        className="p-0 m-0 hidden"
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
@@ -80,7 +78,7 @@ export const SubscriptionTableColumnRef = (toggleSheet: (plans?: SubscriptionPla
             cell: ({ row }) => {
                 const createdAt: string = new String(row.getValue("createdAt")).toString()
                 return (
-                    <div>
+                    <div className="hidden">
                         {formatDate(createdAt)}
                     </div>
                 )
@@ -88,6 +86,7 @@ export const SubscriptionTableColumnRef = (toggleSheet: (plans?: SubscriptionPla
         },
         {
             accessorKey: "updatedAt",
+            enableResizing: true,
             header: ({ column }) => {
                 return (
                     <Button

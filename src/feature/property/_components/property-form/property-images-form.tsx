@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
-import SelectableImage from "../../../components/SelectableImage";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
+import SelectableImage from "../../../../components/SelectableImage";
 import { usePropertyService } from "@/services/PropertyService";
-import { isEmptyString } from "@/lib/utils/string-util";
-import { Badge } from "../../../components/ui/badge";
+import { Badge } from "../../../../components/ui/badge";
 import { BASE_URL } from "@/config/env-helper";
+import { StringUtil } from "@/lib/utils/string-util";
 
 const PropertyFormStep2 = () => {
 
@@ -47,7 +47,7 @@ const PropertyFormStep2 = () => {
                 <SelectableImage
                     className="h-[250px] aspect-square flex justify-center"
                     onFileSelect={handleBannerSet}
-                    imageSrc={isEmptyString(bannerImage) ? "/no-image.jpg" : BASE_URL + bannerImage}
+                    imageSrc={StringUtil.isEmptyString(bannerImage) ? "/no-image.jpg" : BASE_URL + bannerImage}
                 />
                 <CardTitle className="text-1xl">Additional Images</CardTitle>
 

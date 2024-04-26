@@ -6,7 +6,7 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { useUserService } from "../../../services/UserService";
 import SuperAdminGuard from "@/feature/super-admin/_gaurds/super-admin-guard";
-import tubeSpinner from "../../assets/tube-spinner.svg";
+import tubeSpinner from "@/assets/tube-spinner.svg";
 import { USER_TYPE_ADMIN, USER_TYPE_SUPER_ADMIN } from "@/config/constants";
 import { ReactNode } from "react";
 
@@ -48,7 +48,7 @@ export const UserTableColumnRef = (): ColumnDef<User>[] => {
             cell: ({ row }) => {
                 const user = row.original
 
-                if(user.role === USER_TYPE_SUPER_ADMIN) return (<></>)
+                if (user.role === USER_TYPE_SUPER_ADMIN) return (<></>)
 
                 return (
                     <DropdownMenu>
@@ -71,7 +71,9 @@ export const UserTableColumnRef = (): ColumnDef<User>[] => {
                             <SuperAdminGuard>
                                 {
                                     changeUserRole.isPending ? (
-                                        <DropdownMenuItem className="flex justify-center"><img height={20} width={20} src={tubeSpinner} /></DropdownMenuItem>
+                                        <DropdownMenuItem className="flex justify-center">
+                                            <img height={20} width={20} src={tubeSpinner} />
+                                        </DropdownMenuItem>
                                     ) :
                                         (
                                             <>
@@ -105,7 +107,7 @@ export const UserTableColumnRef = (): ColumnDef<User>[] => {
 }
 
 const renderName = (fullName: string, role: number): ReactNode => {
-        
+
     if (role === USER_TYPE_SUPER_ADMIN) return (<> {fullName} <span className="text-violet-700"> (super admin) </span></>)
     if (role === USER_TYPE_ADMIN) return (<> {fullName} <span className="text-violet-700"> (admin)</span></>)
 

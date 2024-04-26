@@ -19,3 +19,8 @@ export enum SaleType {
     AUCTION = "AUCTION",
     EXCHANGE = "EXCHANGE",
 }
+
+export enum PropertyDDType {
+    PROPERTY_TYPE = "PROPERTY_TYPE",
+    SALE_TYPE = "SALE_TYPE"
+} 

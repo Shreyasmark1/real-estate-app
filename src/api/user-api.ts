@@ -1,7 +1,7 @@
 import { HttpClient } from "@/lib/network/http-helper";
 import { ApiResponse } from "./response-type/ApiResponse";
-import { isEmptyString } from "@/lib/utils/string-util";
 import { User } from "@/feature/user/_schemas/user-form-schema";
+import { StringUtil } from "@/lib/utils/string-util";
 
 const API_URL_USER = "/user";
 const generateUserApiUrl = (uniqueId: string, path?: string) => {
@@ -18,7 +18,7 @@ const getUsers = (): Promise<User[]> => {
 
 const changeUserRole = (uniqueId: string, asAdmin: boolean) => {
 
-    if (isEmptyString(uniqueId) || asAdmin == null) Promise.reject("Invalid user Id or type");
+    if (StringUtil.isEmptyString(uniqueId) || asAdmin == null) Promise.reject("Invalid user Id or type");
 
     return new Promise((resolve, reject) => {
         HttpClient.post({ path: generateUserApiUrl(uniqueId, "/role"), body: { asAdmin } })

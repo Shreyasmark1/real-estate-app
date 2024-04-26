@@ -1,6 +1,6 @@
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import ComboBox from "../../../components/forms/form-fields/ComboBox";
-import FormFieldWrapper from "../../../components/forms/form-fields/FormFieldWrapper";
+import ComboBox from "../../../components/form-fields/ComboBox";
+import FormFieldWrapper from "../../../components/form-fields/FormFieldWrapper";
 import { Button } from "../../../components/ui/button";
 import { UseFormReturn } from "react-hook-form";
 import { SetStateAction, useState } from "react";
