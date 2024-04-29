@@ -41,7 +41,19 @@ export const PropertyDDColumnRef = (toggleSheet: (dd?: PropertyDD) => void): Col
                 )
             },
             cell: ({ cell }) => {
-                return ( cell.getValue() === PropertyDDType.PROPERTY_TYPE ? "Property Type" : "Sale Type")
+
+                const value: PropertyDDType | unknown = cell.getValue()
+
+                let valueLabel = "";
+
+                if(value){
+                    if(value === PropertyDDType.ADVERTISER_TYPE) valueLabel = "Advertiser Type"
+                    if(value === PropertyDDType.PROPERTY_TYPE) valueLabel = "Property Type"
+                    if(value === PropertyDDType.SALE_TYPE) valueLabel = "Sale Type"
+                }
+
+
+                return (valueLabel)
             }
 
         },

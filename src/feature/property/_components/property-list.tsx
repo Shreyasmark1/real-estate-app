@@ -26,12 +26,19 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Link } from "react-router-dom"
+import { Property } from "../_schemas/property-schema"
+import { BASE_URL } from "@/config/env-helper"
 
 type PropertyListProps = {
-    list: any[]
+    list: Property[]
 }
 
 function PropertyList({ list }: PropertyListProps) {
+
+    if(list.length <= 0){
+        return <div>You dont have any property</div>
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -58,21 +65,20 @@ function PropertyList({ list }: PropertyListProps) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-
                         {
-                            list.map((_item, index) => (
+                            list.map((item, index) => (
                                 <TableRow key={index}>
                                     <TableCell className="hidden sm:table-cell">
                                         <img
                                             alt="Product img"
                                             className="aspect-square rounded-md object-cover"
                                             height="64"
-                                            src="/placeholder.svg"
+                                            src={BASE_URL + item.bannerImag}
                                             width="64"
                                         />
                                     </TableCell>
                                     <TableCell className="font-medium">
-                                        Laser Lemonade Machine
+                                        {item.propertyName}
                                     </TableCell>
                                     <TableCell>
                                         <Badge variant="outline">Draft</Badge>
@@ -80,7 +86,7 @@ function PropertyList({ list }: PropertyListProps) {
                                     <TableCell className="hidden md:table-cell">10</TableCell>
                                     <TableCell className="hidden md:table-cell">2</TableCell>
                                     <TableCell className="hidden md:table-cell">
-                                        2023-07-12 10:42 AM
+                                        {item.createdAt}
                                     </TableCell>
                                     <TableCell>
                                         <DropdownMenu>
@@ -93,7 +99,7 @@ function PropertyList({ list }: PropertyListProps) {
                                             <DropdownMenuContent align="end">
                                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                                 <DropdownMenuItem>Preview</DropdownMenuItem>
-                                                <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                <Link to={"/property/" + item.uniqueId}><DropdownMenuItem>Edit</DropdownMenuItem></Link>
                                                 <Link to={"/property/id/stats"}><DropdownMenuItem>Leads</DropdownMenuItem></Link>
                                                 <DropdownMenuItem>Delete</DropdownMenuItem>
                                                 <DropdownMenuItem>Share</DropdownMenuItem>

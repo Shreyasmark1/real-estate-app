@@ -1,39 +1,44 @@
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import ComboBox from "../../../components/form-fields/ComboBox";
-import FormFieldWrapper from "../../../components/form-fields/FormFieldWrapper";
-import { Button } from "../../../components/ui/button";
+import ComboBox from "./form-fields/ComboBox";
+import FormFieldWrapper from "./form-fields/FormFieldWrapper";
+import { Button } from "./ui/button";
 import { UseFormReturn } from "react-hook-form";
 import { SetStateAction, useState } from "react";
-import { CommandItem } from "../../../components/ui/command";
+import { CommandItem } from "./ui/command";
 import { cn } from "@/lib/utils";
+import { PropertyDD } from "../feature/property/_schemas/property-schema";
 
 type Props = {
-    formContext?: UseFormReturn<any, any, undefined>,
+    formContext: UseFormReturn<any, any, undefined>,
+    options: PropertyDD[],
+    label: string,
+    fieldName: string,
+    className?: string
 }
 
-const PropertyTypeDropdown = ({ formContext }: Props) => {
+const DDDropdown = ({ formContext, options, fieldName, label, className }: Props) => {
 
     const [comboOpen, setComboOpen] = useState<boolean>(false)
 
-    const currentValue = formContext?.watch("propertyType")
+    const currentValue = formContext?.watch(fieldName)
 
     const filter = (value: string, search: string) => {
         search = search.toLowerCase();
         const option = options.find(option => option.value.toLowerCase() === value.toLowerCase());
         if (!option) return 0; // Value not found in options array
-        const label = option.label.toLowerCase();
+        const label = option.value.toLowerCase();
         return label.includes(search) ? 1 : 0;
     }
 
     return (
         <FormFieldWrapper
-            // className="w-[300px] md:w-[200px]"
-            name="propertyType"
-            label="Property Type"
+            className={className}
+            name={fieldName}
+            label={label}
             control={formContext?.control}
         >
             <ComboBox
-                enableSearch
+                enableSearch={false}
                 className="w-[150px]"
                 filter={filter}
                 trigger={
@@ -44,28 +49,28 @@ const PropertyTypeDropdown = ({ formContext }: Props) => {
                         className="w-full justify-between rounded-lg"
                     >
                         <span className="overflow-hidden truncate">
-                            {currentValue ? options.find(({ value }) => value === currentValue)?.label : ""}
+                            {currentValue ? options.find((obj) => obj.uniqueId === currentValue)?.value : ""}
                         </span>
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                 }>
                 {
-                    options.map(({ label, value }) => (
+                    options.map(({ value, uniqueId }) => (
                         <CommandItem
-                            key={value}
-                            value={value}
-                            // onChange={(selectedValue: any) => formContext?.setValue("propertyType", selectedValue)}
+                            key={uniqueId}
+                            value={uniqueId ?? undefined}
+                            onChange={(selectedValue: any) => formContext?.setValue(fieldName, selectedValue)}
                             onSelect={(selectedValue: SetStateAction<string>) => {
                                 const newValue: any = selectedValue === currentValue ? "" : selectedValue;
-                                formContext?.setValue("propertyType", newValue)
+                                formContext?.setValue(fieldName, newValue)
                                 setComboOpen(false)
                             }}
                         >
-                            {label}
+                            {value}
                             <CheckIcon
                                 className={cn(
                                     "ml-auto h-4 w-4",
-                                    currentValue === value ? "opacity-100" : "opacity-0"
+                                    currentValue === uniqueId ? "opacity-100" : "opacity-0"
                                 )}
                             />
                         </CommandItem >
@@ -76,27 +81,4 @@ const PropertyTypeDropdown = ({ formContext }: Props) => {
     );
 }
 
-export default PropertyTypeDropdown;
-
-const options = [
-    {
-        value: "123456789012345678901234567890123456",
-        label: "Apartment",
-    },
-    {
-        value: "123456789012345678901234567890123457",
-        label: "Villa",
-    },
-    {
-        value: "123456789012345678901234567890123458",
-        label: "House",
-    },
-    {
-        value: "123456789012345678901234567890123459",
-        label: "Agricultural land",
-    },
-    {
-        value: "1234567890123456789012345678901234560",
-        label: "Hotel",
-    },
-]
+export default DDDropdown;

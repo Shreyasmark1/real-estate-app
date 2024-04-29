@@ -22,5 +22,6 @@ export enum SaleType {
 
 export enum PropertyDDType {
     PROPERTY_TYPE = "PROPERTY_TYPE",
-    SALE_TYPE = "SALE_TYPE"
+    SALE_TYPE = "SALE_TYPE",
+    ADVERTISER_TYPE = "ADVERTISER_TYPE"
 } 

@@ -3,7 +3,7 @@ const isEmptyString = (str: string | any): boolean => {
     return false;
 }
 
-const isNotEmptyString = (str: string): boolean => {
+const isNotEmptyString = (str: string | any): boolean => {
     return !isEmptyString(str);
 }
 

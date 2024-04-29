@@ -5,20 +5,22 @@ import { Form } from "../../../../components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "../../../../components/ui/textarea";
 import SingleDigitNumberInput from "../../../../components/form-fields/SingleDigitNumberInput";
-import { PropertyBasic, PropertySchema } from "../../_schemas/property-schema";
+import { PropertyRoom, PropertySchema } from "../../_schemas/property-schema";
+import { Button } from "@/components/ui/button";
+import { useFormErrorToast } from "@/lib/hooks/useFormError";
 
-type Props = {
-    next: () => void
-}
+const PropertyFormStep3 = () => {
 
-const PropertyFormStep3 = ({ next }: Props) => {
-
-    const formContext = useForm<PropertyBasic>({
-        resolver: zodResolver(PropertySchema.PropertyBasicFormSchema),
-        defaultValues: PropertySchema.propertyFormDefaults
+    const formContext = useForm<PropertyRoom>({
+        resolver: zodResolver(PropertySchema.PropertyRoomFormSchema),
+        defaultValues: PropertySchema.propertyRoomDefaults
     });
 
-    const onSubmit = (_data: any) => next()
+    const onSubmit = (data: any) => {
+        alert(data)
+    }
+
+    useFormErrorToast({ formContext })
 
     return (
         <Card className="w-full md:w-2/5 md:p-8 mx-auto"> {/* max-w-lg */}
@@ -31,48 +33,68 @@ const PropertyFormStep3 = ({ next }: Props) => {
                     <form className="w-full flex flex-col gap-2" onSubmit={formContext.handleSubmit(onSubmit)}>
                         <FormFieldWrapper
                             className="w-full flex items-center justify-between"
-                            name="basePrice"
+                            name="noOfRooms"
                             label="Number of rooms:"
                             labelStyle="font-medium"
                             control={formContext.control}
                         >
-                            <SingleDigitNumberInput maxValue={50} minValue={0} fieldName="basePrice" formContext={formContext} />
+                            <SingleDigitNumberInput
+                                maxValue={50}
+                                minValue={0}
+                                fieldName="noOfRooms"
+                                formContext={formContext}
+                            />
                         </FormFieldWrapper>
                         <FormFieldWrapper
                             className="flex items-center justify-between"
-                            name="basePrice"
+                            name="noOfBedrooms"
                             label="Number of bedrooms:"
                             labelStyle="font-medium"
                             control={formContext.control}
                         >
-                            <SingleDigitNumberInput maxValue={50} minValue={0} fieldName="basePrice" formContext={formContext} />
+                            <SingleDigitNumberInput
+                                maxValue={50}
+                                minValue={0}
+                                fieldName="noOfBedrooms"
+                                formContext={formContext}
+                            />
                         </FormFieldWrapper>
                         <FormFieldWrapper
                             className="flex items-center justify-between"
-                            name="basePrice"
+                            name="noOfBathrooms"
                             label="Number of bathrooms:"
                             labelStyle="font-medium"
                             control={formContext.control}
                         >
-                            <SingleDigitNumberInput maxValue={50} minValue={0} fieldName="basePrice" formContext={formContext} />
+                            <SingleDigitNumberInput
+                                maxValue={50}
+                                minValue={0}
+                                fieldName="noOfBathrooms"
+                                formContext={formContext}
+                            />
                         </FormFieldWrapper>
                         <FormFieldWrapper
                             className="flex items-center justify-between"
-                            name="basePrice"
+                            name="noOfGuestrooms"
                             label="Number of guest rooms:"
                             labelStyle="font-medium"
                             control={formContext.control}
                         >
-                            <SingleDigitNumberInput maxValue={50} minValue={0} fieldName="basePrice" formContext={formContext} />
+                            <SingleDigitNumberInput maxValue={50} minValue={0} fieldName="noOfGuestrooms" formContext={formContext} />
                         </FormFieldWrapper>
                         <FormFieldWrapper
                             className="w-full"
-                            name="basePrice"
+                            name=""
                             label="Short description"
                             control={formContext.control}
                         >
                             <Textarea />
                         </FormFieldWrapper>
+                        <Button
+                            type="submit"
+                            className="w-full bg-black text-white mt-2 rounded-1g my-4 hover:bg-white hover:text-black hover:border hover:border-gray-300">
+                            Save & Continue
+                        </Button>
                     </form>
                 </Form>
             </CardContent >

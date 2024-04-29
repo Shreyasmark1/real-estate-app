@@ -12,7 +12,7 @@ const SingleDigitNumberInput = ({ formContext, fieldName, maxValue, minValue }: 
 
     return (
         <div className="flex gap-1">
-            <Button className="cursor-pointer" onClick={() => {
+            <Button type="button" className="cursor-pointer" onClick={() => {
 
                 const value = formContext.getValues(fieldName)
 
@@ -26,9 +26,9 @@ const SingleDigitNumberInput = ({ formContext, fieldName, maxValue, minValue }: 
                 -
             </Button>
 
-            <Input maxLength={1} onChange={() => { }} className="focus-visible:ring-transparent focus-visible:ring-offset-0 caret-transparent w-12 text-center" value={formContext.watch("basePrice")} />
+            <Input maxLength={1} onChange={() => { }} className="focus-visible:ring-transparent focus-visible:ring-offset-0 caret-transparent w-12 text-center" value={formContext.watch(fieldName)} />
 
-            <Button className="cursor-pointer" onClick={() => {
+            <Button type="button" className="cursor-pointer" onClick={() => {
                 const value = Number(formContext.getValues(fieldName))
 
                 if(value === maxValue || value > maxValue){

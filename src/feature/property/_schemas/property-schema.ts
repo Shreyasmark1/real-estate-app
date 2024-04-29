@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AdvertiserType, PropertyDDType, SaleType, TransactionType } from "./enum";
+import { PropertyDDType } from "./enum";
 
 // export const projectFormFields: FormFieldSchema[] = [
 //     {
@@ -62,33 +62,24 @@ import { AdvertiserType, PropertyDDType, SaleType, TransactionType } from "./enu
 //     }
 // ]
 
-const propertyFormDefaults: PropertyBasic = {
+const propertyBasicFormDefaults: PropertyBasicDetail = {
     uniqueId: "",
-    projectId: "",
-    propertyCode: "",
     propertyName: "",
-    propertyType: "",
     area: 0,
-    advertiserType: AdvertiserType.OWNER,
     basePrice: 0,
     maxPrice: 0,
     propertyAge: 0,
-    description: [],
-    saleType: SaleType.SALE,
-    transactionType: TransactionType.NEW
+    propertyTypeDD: "",
+    saleTypeDD: "",
+    advertiserTypeDD: ""
 }
 
 const PropertyBasicFormSchema = z.object({
     uniqueId: z.string().nullable(),
-    propertyCode: z.string().nullable(),
-    projectId: z.string().nullable(),
     propertyName: z.string().min(0),
-    propertyType: z.string().length(36, "Please select property type"),
-    saleType: z.nativeEnum(SaleType),
-    transactionType: z.nativeEnum(TransactionType),
     basePrice: z.preprocess(
         (a) => parseInt(z.any().parse(a), 10),
-        z.number({ invalid_type_error: "Amount cannot be less than 100" }).min(100, "Amount cannot be less than 100")
+        z.number({ invalid_type_error: "Please enter the price" }).min(1, "Please enter a valid price")
     ),
     maxPrice: z.preprocess(
         (a) => parseInt(z.any().parse(a), 10),
@@ -102,16 +93,52 @@ const PropertyBasicFormSchema = z.object({
         (a) => parseInt(z.any().parse(a), 10),
         z.number({ invalid_type_error: "Please enter a valid number or 0" }).min(0, "Amount cannot be negative")
     ),
-    description: z.array(z.object({
-        title: z.string(),
-        description: z.string()
-    })),
-    advertiserType: z.nativeEnum(AdvertiserType),
+    propertyTypeDD: z.string().length(36, "Please select property type"),
+    advertiserTypeDD: z.string().length(36, "Please select property type"),
+    saleTypeDD: z.string().length(36, "Please select property type"),
+
+
+    // propertyCode: z.string().nullable(),
+    // projectId: z.string().nullable(),
+    // saleType: z.nativeEnum(SaleType),
+    // transactionType: z.nativeEnum(TransactionType),
+    // description: z.array(z.object({
+    //     title: z.string(),
+    //     description: z.string()
+    // })),
     // address: z.string(),
     // propertyBannerImg: z.string(),
     // propertyBannerVideo: z.string(),
     // propertyImges: z.array(z.string()),
     // propertyVideos: z.array(z.string()),
+})
+
+const propertyRoomDefaults: PropertyRoom = {
+    uniqueId: "",
+    noOfRooms: 0,
+    noOfBedrooms: 0,
+    noOfBathrooms: 0,
+    noOfGuestrooms: 0
+}
+
+const PropertyRoomFormSchema = z.object({
+    uniqueId: z.string().length(36, "Invalid property id"),
+    noOfRooms: z.preprocess(
+        (a) => parseInt(z.any().parse(a), 10),
+        z.number({ invalid_type_error: "Please enter a valid number or 0" }).min(0, "Amount cannot be negative")
+    ),
+    noOfBedrooms: z.preprocess(
+        (a) => parseInt(z.any().parse(a), 10),
+        z.number({ invalid_type_error: "Please enter a valid number or 0" }).min(0, "Amount cannot be negative")
+    ),
+    noOfBathrooms: z.preprocess(
+        (a) => parseInt(z.any().parse(a), 10),
+        z.number({ invalid_type_error: "Please enter a valid number or 0" }).min(0, "Amount cannot be negative")
+    ),
+    noOfGuestrooms: z.preprocess(
+        (a) => parseInt(z.any().parse(a), 10),
+        z.number({ invalid_type_error: "Please enter a valid number or 0" }).min(0, "Amount cannot be negative")
+    ),
 })
 
 const propertyDDDefaults: PropertyDD = {
@@ -128,9 +155,20 @@ const ProperTyDDSchema = z.object({
 
 export const PropertySchema = {
     PropertyBasicFormSchema,
+    propertyBasicFormDefaults,
     ProperTyDDSchema,
-    propertyFormDefaults,
-    propertyDDDefaults
+    propertyDDDefaults,
+    PropertyRoomFormSchema,
+    propertyRoomDefaults
 }
 export type PropertyDD = z.infer<typeof ProperTyDDSchema>
-export type PropertyBasic = z.infer<typeof PropertyBasicFormSchema>
+export type PropertyBasicDetail = z.infer<typeof PropertyBasicFormSchema>
+export type PropertyRoom = z.infer<typeof PropertyRoomFormSchema>
+export type Property = PropertyBasicDetail & {
+    uniqueId:string,
+    rooms: PropertyRoom
+    bannerImag: string
+    images: any[]
+    createdAt: string,
+    updatedAt: string
+}

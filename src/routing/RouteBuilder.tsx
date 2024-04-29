@@ -1,4 +1,4 @@
-import AddPropertyPage from "@/pages/user/add-property-page";
+import AddPropertyPage from "@/pages/user/property-edit-page";
 import UserDashboard from "@/pages/user/user-dashboard-page";
 import { ReactNode } from "react";
 import PaymentGuard from "@/layout/guards/PaymentGauard";
@@ -70,7 +70,7 @@ const userRoutes: RouteDefinition[] = [
         children: [
             { path: "/dashboard", element: <UserDashboard /> },
             // { path: "/search", element: <SearchPropertyPage /> },
-            { path: "/property/new", element: <PaymentGuard> <AddPropertyPage /> </PaymentGuard> },
+            { path: "/property/:uniqueId", element: <PaymentGuard> <AddPropertyPage /> </PaymentGuard> },
             { path: "/property/id", element: <ProjectDetailPage /> },
             { path: "/property/id/edit", element: <PaymentGuard> <AddPropertyPage /> </PaymentGuard> },
             { path: "/property/id/stats", element: <PaymentGuard> <PropertyStatsPage /> </PaymentGuard> }

@@ -3,33 +3,45 @@ import { useForm } from "react-hook-form";
 import FormFieldWrapper from "../../../../components/form-fields/FormFieldWrapper";
 import { Input } from "../../../../components/ui/input";
 import { Form } from "../../../../components/ui/form";
-import PropertyTypeDropdown from "../PropertyTypeDropdown";
 import { Button } from "../../../../components/ui/button";
-import EnumDropdown from "../../../../components/form-fields/EnumDropdown";
-import { AdvertiserType, SaleType } from "@/feature/property/_schemas/enum";
+import { PropertyDDType } from "@/feature/property/_schemas/enum";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
 import { useEffect } from "react";
-import { PropertyBasic, PropertySchema } from "../../_schemas/property-schema";
+import { PropertyBasicDetail, PropertyDD, PropertySchema } from "../../_schemas/property-schema";
+import DDDropdown from "../../../../components/dd-dropdown";
+import { usePropertyService } from "@/services/PropertyService";
 
 type Props = {
-    next: () => void
+    defaultValue: PropertyBasicDetail
+    propertyDDList: PropertyDD[]
+    next: (uniqueId: string) => void
 }
 
-const PropertyFormStep1 = ({ next }: Props) => {
+const PropertyFormStep1 = ({ next, propertyDDList, defaultValue }: Props) => {
 
-    const formContext = useForm<PropertyBasic>({
+    console.log(defaultValue)
+
+    const { savePropertyBasic } = usePropertyService()
+
+    const formContext = useForm<PropertyBasicDetail>({
         resolver: zodResolver(PropertySchema.PropertyBasicFormSchema),
-        defaultValues: PropertySchema.propertyFormDefaults
-    });
+        defaultValues: defaultValue
+    })
 
-    const onSubmit = (_data: any) => next()
+    const onSubmit = (data: PropertyBasicDetail) => savePropertyBasic.mutate(data)
+
+    useEffect(() => {
+        if (savePropertyBasic.isSuccess) {
+            next(savePropertyBasic.data.data.uniqueId)
+        }
+    }, [savePropertyBasic.isSuccess])
 
     useEffect(() => window.scrollTo(0, 0), [])
 
     return (
-        <Card className="w-full md:w-2/5 md:p-8 mx-auto"> {/* max-w-lg */}
+        <Card className="w-full md:w-3/6 md:p-8 mx-auto"> {/* max-w-lg */}
             <CardHeader className="flex flex-col items-center">
-                <CardTitle className="text-2xl">Step 1 </CardTitle>
+                <CardTitle className="text-2xl">Property Details</CardTitle>
                 <CardDescription>Fill in the basic details of your property</CardDescription>
             </CardHeader>
             <CardContent>
@@ -43,9 +55,6 @@ const PropertyFormStep1 = ({ next }: Props) => {
                         >
                             <Input type="text" placeholder="E.g. Modern Family Home" />
                         </FormFieldWrapper>
-                        <PropertyTypeDropdown
-                            formContext={formContext}
-                        />
                         <div className="md:flex gap-1">
                             <FormFieldWrapper
                                 className="w-full"
@@ -84,20 +93,31 @@ const PropertyFormStep1 = ({ next }: Props) => {
                             </FormFieldWrapper>
                         </div>
                         <div className="md:flex gap-1">
-                            <EnumDropdown
+                            <DDDropdown
                                 formContext={formContext}
-                                options={AdvertiserType}
-                                fieldName="advertiserType"
+                                fieldName="advertiserTypeDD"
                                 label="Posting as"
+                                options={propertyDDList.filter((item) => item.ddType === PropertyDDType.ADVERTISER_TYPE)}
+                                className="w-full"
                             />
-                            <EnumDropdown
+                            <DDDropdown
                                 formContext={formContext}
-                                options={SaleType}
-                                fieldName="saleType"
+                                fieldName="propertyTypeDD"
+                                label="Property Type"
+                                options={propertyDDList.filter((item) => item.ddType === PropertyDDType.PROPERTY_TYPE)}
+                                className="w-full"
+                            />
+                            <DDDropdown
+                                formContext={formContext}
+                                fieldName="saleTypeDD"
                                 label="Sale Type"
+                                options={propertyDDList.filter((item) => item.ddType === PropertyDDType.SALE_TYPE)}
+                                className="w-full"
                             />
                         </div>
                         <Button
+                            type="submit"
+                            disabled={savePropertyBasic.isPending}
                             className="w-full bg-black text-white mt-2 rounded-1g my-4 hover:bg-white hover:text-black hover:border hover:border-gray-300">
                             Save & Continue
                         </Button>
