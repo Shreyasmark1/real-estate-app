@@ -1,5 +1,5 @@
-import { Login } from "@/schema/auth/login-form-schema"
-import { Otp } from "@/schema/auth/otp-form-schema"
+import { Login } from "@/feature/auth/_schemas/login-form-schema"
+import { Otp } from "@/feature/auth/_schemas/otp-form-schema"
 import { HttpClient } from "@/lib/network/http-helper"
 import { Register } from "@tanstack/react-query"
 import { ApiResponse } from "./response-type/ApiResponse"

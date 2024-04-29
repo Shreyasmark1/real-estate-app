@@ -1,4 +1,3 @@
-import { getPaymentStatus } from "@/lib/store/local-storage/local-storage";
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -8,7 +7,8 @@ type props = {
 
 const PaymentGuard = ({ children }: props) => {
 
-    const isSubscribed = getPaymentStatus();
+    // const isSubscribed = getPaymentStatus();
+    const isSubscribed = true;
     return isSubscribed ? (children) : <Navigate to="/subscription" />
 }
 

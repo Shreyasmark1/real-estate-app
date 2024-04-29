@@ -17,8 +17,6 @@ export const useUserService = () => {
 
     const users = useQuery({ queryKey: [QUERY_KEY], queryFn: UsersApi.getUsers, initialData: [], retry: false })
 
-    // Need to check the effect on being called on mutiple page
-    // doesn't suit all use case
     if (users.isError) showToastError(users.error.message)
 
     const changeUserRole = useMutation({
