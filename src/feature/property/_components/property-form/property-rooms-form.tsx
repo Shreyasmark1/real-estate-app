@@ -8,17 +8,32 @@ import SingleDigitNumberInput from "../../../../components/form-fields/SingleDig
 import { PropertyRoom, PropertySchema } from "../../_schemas/property-schema";
 import { Button } from "@/components/ui/button";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
+import { usePropertyService } from "@/services/PropertyService";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const PropertyFormStep3 = () => {
+type Props = {
+    uniqueId: string
+    defaultValue: PropertyRoom
+}
+
+const PropertyFormStep3 = ({ defaultValue, uniqueId }: Props) => {
+    const { savePropertyRooms } = usePropertyService()
+    const navigate = useNavigate();
+    defaultValue.uniqueId = uniqueId
 
     const formContext = useForm<PropertyRoom>({
         resolver: zodResolver(PropertySchema.PropertyRoomFormSchema),
-        defaultValues: PropertySchema.propertyRoomDefaults
+        defaultValues: defaultValue
     });
 
-    const onSubmit = (data: any) => {
-        alert(data)
-    }
+    const onSubmit = (data: PropertyRoom) => savePropertyRooms.mutate(data)
+
+    useEffect(() => {
+        if (savePropertyRooms.isSuccess) {
+            navigate("/dashboard");
+        }
+    }, [savePropertyRooms.isSuccess])
 
     useFormErrorToast({ formContext })
 
@@ -91,6 +106,7 @@ const PropertyFormStep3 = () => {
                             <Textarea />
                         </FormFieldWrapper>
                         <Button
+                            disabled={savePropertyRooms.isPending}
                             type="submit"
                             className="w-full bg-black text-white mt-2 rounded-1g my-4 hover:bg-white hover:text-black hover:border hover:border-gray-300">
                             Save & Continue

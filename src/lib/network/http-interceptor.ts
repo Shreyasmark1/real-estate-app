@@ -4,10 +4,10 @@ import SecureStorageService from "../store/local-storage/local-storage-secure";
 import { LS_ACESS_TOKEN_KEY, LS_REFRESH_TOKEN_KEY, LS_TRANSACTION_TOKEN_KEY } from "@/config/env-helper";
 import { ApiResponse } from "../../api/response-type/ApiResponse";
 import { generateApiMessage } from "@/lib/utils/api-util";
-import { CONTENT_TYPE_FORM, CONTENT_TYPE_JSON } from "@/config/api-constants";
+import { CONTENT_TYPE_JSON, CONTENT_TYPE_MULTIPART_FORM } from "@/config/api-constants";
 import { AUTH_URL, OPEN_URL_LIST } from "@/api/authentication-api";
-import { MULTIPART_URL_LIST } from "@/api/urls-groups";
 import { StringUtil } from "../utils/string-util";
+import { isMultipartUrl } from "@/api/urls-groups";
 
 export const onRequest = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
 
@@ -18,9 +18,7 @@ export const onRequest = (config: InternalAxiosRequestConfig): InternalAxiosRequ
 
     logOnDev(`🚀 [API] ${method?.toUpperCase()} ${baseURL}${url} | Request`);
 
-    if (!url) {
-        return config;
-    }
+    if (!url) return config;
 
     if (!OPEN_URL_LIST.includes(url) && token) {
         config.headers['Authorization'] = `Bearer ${token}`;
@@ -30,7 +28,7 @@ export const onRequest = (config: InternalAxiosRequestConfig): InternalAxiosRequ
         data.token = transactionToken
     }
 
-    const contentType = MULTIPART_URL_LIST.includes(url) ? CONTENT_TYPE_FORM : CONTENT_TYPE_JSON;
+    const contentType = isMultipartUrl(url) ? CONTENT_TYPE_MULTIPART_FORM : CONTENT_TYPE_JSON;
     config.headers['Content-Type'] = contentType;
     return config;
 }
@@ -44,9 +42,7 @@ export const onResponse = (response: AxiosResponse): any => {
 
     const res = new ApiResponse(response.data)
 
-    if (!url) {
-        return Promise.resolve(res)
-    }
+    if (!url) return Promise.resolve(res)
 
     if (AUTH_URL.includes(url)) {
 

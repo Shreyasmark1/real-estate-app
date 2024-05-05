@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const customAminations = require('./src/config/animations.ts');
+
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -57,6 +59,7 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        ...customAminations.keyframes,
         "accordion-down": {
           from: { height: 0 },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -71,6 +74,7 @@ module.exports = {
         },
       },
       animation: {
+        ...customAminations.animations,
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fadeIn": 'fadeIn 0.3s',

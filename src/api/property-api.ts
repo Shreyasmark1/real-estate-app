@@ -1,19 +1,15 @@
 import { HttpClient } from "@/lib/network/http-helper";
 import { ApiResponse } from "./response-type/ApiResponse";
 import { StringUtil } from "@/lib/utils/string-util";
-import { Property, PropertyBasicDetail, PropertyDD } from "@/feature/property/_schemas/property-schema";
+import { Property, PropertyBasicDetail, PropertyDD, PropertyList, PropertyRoom } from "@/feature/property/_schemas/property-schema";
 
 const API_URL_PROPERTY_DD = "/property/dd";
+export const generatePropertyImageUploadUrl = (uniqueId: string) => `/property/${uniqueId}/images`
+const generatePropertySaveUrl = (uniqueId: string | null, endpoint: string) => `/property${StringUtil.isNotEmptyString(uniqueId) ? "/" + uniqueId : ""}${endpoint}`
 
-const uploadPropertyImage = (uniqueId: string, file: any): Promise<ApiResponse> => {
-
-    console.log(file)
-
-    const form = new FormData();
-    form.append('file', file)
-
+const uploadPropertyImage = (body: PropertyImageUpload): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
-        HttpClient.multipartPost("/property/" + uniqueId + "/images", form)
+        HttpClient.multipartPost(generatePropertyImageUploadUrl(body.uniqueId), body.form)
             .then((res: ApiResponse) => resolve(res))
             .catch((e) => reject(e))
     })
@@ -38,8 +34,15 @@ const createOrUpdateDD = (dd: PropertyDD): Promise<ApiResponse> => {
 
 const createOrUpdatePropertyBasic = (body: PropertyBasicDetail): Promise<ApiResponse> => {
     return new Promise((resolve, reject) => {
-        const pathVariable = StringUtil.isEmptyString(body.uniqueId) ? "" : "/" + body.uniqueId
-        HttpClient.post({ path: "/property" + pathVariable + "/basic-detail", body: body })
+        HttpClient.post({ path: generatePropertySaveUrl(body.uniqueId, "/basic-detail"), body: body })
+            .then((res: ApiResponse) => resolve(res))
+            .catch((e) => reject(e))
+    })
+}
+
+const savePropertyRooms = (body: PropertyRoom): Promise<ApiResponse> => {
+    return new Promise((resolve, reject) => {
+        HttpClient.post({ path: generatePropertySaveUrl(body.uniqueId, "/rooms"), body: body })
             .then((res: ApiResponse) => resolve(res))
             .catch((e) => reject(e))
     })
@@ -50,30 +53,30 @@ const savePropertyImages = (body: any, uniqueId: string): Promise<ApiResponse> =
     if (StringUtil.isEmptyString(uniqueId)) return Promise.reject("Invalid property id")
 
     return new Promise((resolve, reject) => {
-        HttpClient.post({ path: `/property/${uniqueId}/images/final`, body: body })
+        HttpClient.post({ path: generatePropertySaveUrl(body.uniqueId, "/images/final"), body: body })
             .then((res: ApiResponse) => resolve(res))
             .catch((e) => reject(e))
     })
 }
 
-const getPropertyList = (): Promise<Property[]> => {
+const getPropertyList = (): Promise<PropertyList[]> => {
     return new Promise((resolve, reject) => {
-        HttpClient.get({ path: "/property/"})
+        HttpClient.get({ path: "/property/" })
             .then((res: ApiResponse) => resolve(res.data.list))
             .catch((e) => reject(e))
     })
 }
 
-const getPropertyDetails = (uniqueId:string): Promise<Property> => {
+const getPropertyDetails = (uniqueId: string): Promise<Property> => {
 
-    if(StringUtil.isEmptyString(uniqueId)) return Promise.reject("Invalid Property id");
+    if (StringUtil.isEmptyString(uniqueId)) return Promise.reject("Invalid Property id");
 
     return new Promise((resolve, reject) => {
-        HttpClient.get({ path: "/property/" + uniqueId})
+        HttpClient.get({ path: "/property/" + uniqueId })
             .then((res: ApiResponse) => resolve(res.data))
             .catch((e) => reject(e))
     })
-} 
+}
 
 export const PropertyApi = {
     uploadPropertyImage,
@@ -82,5 +85,11 @@ export const PropertyApi = {
     createOrUpdatePropertyBasic,
     savePropertyImages,
     getPropertyList,
-    getPropertyDetails
+    getPropertyDetails,
+    savePropertyRooms
+}
+
+export type PropertyImageUpload = {
+    uniqueId: string,
+    form: FormData
 }

@@ -15,7 +15,8 @@ type Props = {
 
 const MultiStepPropertyForm = ({ id }: Props) => {
 
-    const [property, setProperty] = useState<Property | undefined>(undefined)
+    const [property, setProperty] = useState<Property>(PropertySchema.propertyBasicFormDefaults as Property)
+    const [steps, setSetps] = useState<ReactElement[]>([]);
 
     const { getPropertyDetail, getPropertyDDList } = usePropertyService()
 
@@ -24,9 +25,11 @@ const MultiStepPropertyForm = ({ id }: Props) => {
             getPropertyDetail(uniqueId)
                 .then((res) => {
                     setProperty(res)
+                    next()
                 })
+        } else {
+            next()
         }
-        next()
     }
 
     const handleBack = () => back()
@@ -44,27 +47,40 @@ const MultiStepPropertyForm = ({ id }: Props) => {
 
     }, [id])
 
-    const [steps, setSetps] = useState<ReactElement[]>([]);
-
     useEffect(() => {
         if (property) {
-            setSetps([
-                <PropertyFormStep1 propertyDDList={propertyDD} next={handleNext} defaultValue={property ? property : PropertySchema.propertyBasicFormDefaults} />,
-                <PropertyFormStep2 next={handleNext} property={property}  />,
-                <PropertyFormStep3 />
 
-            ])
+            const newSteps = [
+                <PropertyFormStep1
+                    key={JSON.stringify(property)}
+                    propertyDDList={propertyDD}
+                    next={handleNext}
+                    defaultValue={property} />,
+                <PropertyFormStep2
+                    key={JSON.stringify(property)}
+                    next={handleNext}
+                    bannerImg={property.bannerImg}
+                    images={property.images}
+                    uniqueId={property.uniqueId} />,
+                <PropertyFormStep3
+                    key={JSON.stringify(property)}
+                    defaultValue={property.rooms ? property.rooms : PropertySchema.propertyRoomDefaults}
+                    uniqueId={property.uniqueId}
+                />
+            ]
+
+            setSetps(newSteps)
         }
-    }, [property])
+    }, [property, propertyDD])
 
 
     const { step, back, next, isFirstStep, isLastStep } = useMultistepForm(steps)
 
     return (
         <>
-            <div className="flex justify-between mb-3 text-2xl font-semibold">
+            <div className="flex justify-between mb-3 text-2xl font-semibold w-full">
                 <div className={cn("cursor-pointer flex items-center gap-2", isFirstStep ? 'invisible' : '')} onClick={handleBack}>  <ArrowLeft /> <span>Back</span> </div>
-                <div className={cn("cursor-pointer flex items-center gap-2", isLastStep ? 'invisible' : '')} onClick={next}> <span>Next</span>  <ArrowRight /></div>
+                <div className={cn("cursor-pointer flex items-center gap-2", isLastStep || StringUtil.isEmptyString(property.uniqueId) ? 'invisible' : '')} onClick={next}> <span>Next</span>  <ArrowRight /></div>
             </div>
             {step}
         </>

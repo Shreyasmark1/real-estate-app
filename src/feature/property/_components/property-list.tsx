@@ -26,16 +26,17 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Link } from "react-router-dom"
-import { Property } from "../_schemas/property-schema"
+import { PropertyList } from "../_schemas/property-schema"
 import { BASE_URL } from "@/config/env-helper"
+import { formatDate } from "@/lib/utils/utils"
 
 type PropertyListProps = {
-    list: Property[]
+    list: PropertyList[]
 }
 
-function PropertyList({ list }: PropertyListProps) {
+function PropertyListComponent({ list }: PropertyListProps) {
 
-    if(list.length <= 0){
+    if (list.length <= 0) {
         return <div>You dont have any property</div>
     }
 
@@ -73,7 +74,7 @@ function PropertyList({ list }: PropertyListProps) {
                                             alt="Product img"
                                             className="aspect-square rounded-md object-cover"
                                             height="64"
-                                            src={BASE_URL + item.bannerImag}
+                                            src={BASE_URL + "/" + item.bannerImg}
                                             width="64"
                                         />
                                     </TableCell>
@@ -86,7 +87,7 @@ function PropertyList({ list }: PropertyListProps) {
                                     <TableCell className="hidden md:table-cell">10</TableCell>
                                     <TableCell className="hidden md:table-cell">2</TableCell>
                                     <TableCell className="hidden md:table-cell">
-                                        {item.createdAt}
+                                        {formatDate(item.createdAt)}
                                     </TableCell>
                                     <TableCell>
                                         <DropdownMenu>
@@ -122,4 +123,4 @@ function PropertyList({ list }: PropertyListProps) {
     )
 }
 
-export { PropertyList }
+export { PropertyListComponent }

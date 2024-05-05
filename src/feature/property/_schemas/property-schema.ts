@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PropertyDDType } from "./enum";
+import { FileContextType, PropertyDDType } from "./enum";
 
 // export const projectFormFields: FormFieldSchema[] = [
 //     {
@@ -161,14 +161,37 @@ export const PropertySchema = {
     PropertyRoomFormSchema,
     propertyRoomDefaults
 }
+
 export type PropertyDD = z.infer<typeof ProperTyDDSchema>
 export type PropertyBasicDetail = z.infer<typeof PropertyBasicFormSchema>
 export type PropertyRoom = z.infer<typeof PropertyRoomFormSchema>
+
 export type Property = PropertyBasicDetail & {
     uniqueId:string,
     rooms: PropertyRoom
-    bannerImag: string
-    images: any[]
+    bannerImg: PropertyFileUploadRes
+    images: PropertyFileUploadRes[]
     createdAt: string,
     updatedAt: string
+}
+
+export type PropertyList = Property & {
+    uniqueId:string,
+    propertyName: string;
+    bannerImage: string
+    createdAt: string,
+    updatedAt: string
+}
+
+export type PropertyFileUploadRes = {
+    contextUniqueId: string,
+    fileName: string,
+    path: string,
+    actualFileName: string,
+    uploadedFileName: string,
+    description: string,
+    contextType: FileContextType,
+    size: number,
+    mineType: string,
+    reUpload: number
 }

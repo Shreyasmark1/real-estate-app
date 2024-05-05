@@ -1,5 +1,6 @@
 export const CONTENT_TYPE_JSON : string = 'application/json';
-export const CONTENT_TYPE_FORM : string = 'multipart/form-data';
+export const CONTENT_TYPE_MULTIPART_FORM : string = 'multipart/form-data';
+// export const CONTENT_TYPE_MULTIPART_FORM : string = 'multipart/form-data;boundary=mutipartAppData';
 
 // status from server
 export const FAILED = 5000 // don't show this error to user

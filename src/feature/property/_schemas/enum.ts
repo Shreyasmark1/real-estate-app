@@ -25,3 +25,8 @@ export enum PropertyDDType {
     SALE_TYPE = "SALE_TYPE",
     ADVERTISER_TYPE = "ADVERTISER_TYPE"
 } 
+
+export enum FileContextType {
+    propertyBannerImg = "propertyBannerImg",
+    propertyImages = "propertyImages"
+}

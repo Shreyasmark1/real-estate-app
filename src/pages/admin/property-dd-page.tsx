@@ -24,8 +24,8 @@ const PropertyDDPage = () => {
     const closeSheet = () => setOpenSheet(null)
 
     return (
-        <>
-            <Card>
+        <div className="page-style">
+            <Card className="w-full h-full">
                 <CardHeader>
                     <CardTitle></CardTitle>
                     <CardDescription>
@@ -43,7 +43,7 @@ const PropertyDDPage = () => {
                 </SheetContent>
             </Sheet>
             <PlusIcon onClick={() => toggleSheet()} className="fixed h-[50px] w-[50px] bottom-8 right-8 bg-blue-500 text-white p-2 rounded-full hover:cursor-pointer" />
-        </>
+        </div>
     );
 }
 

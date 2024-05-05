@@ -7,19 +7,19 @@ import { BASE_URL } from "@/config/env-helper";
 import { StringUtil } from "@/lib/utils/string-util";
 import { Button } from "@/components/ui/button";
 import { useAlert } from "@/lib/hooks/useAlert";
-import { Property } from "../../_schemas/property-schema";
+import { PropertyFileUploadRes } from "../../_schemas/property-schema";
 
 type Props = {
-    property: Property
+    uniqueId: string
+    bannerImg: PropertyFileUploadRes,
+    images: PropertyFileUploadRes[],
     next: (uniqueId: string) => void,
 }
 
-const PropertyFormStep2 = ({ next , property}: Props) => {
+const PropertyFormStep2 = ({ next, bannerImg, images, uniqueId }: Props) => {
 
-    const [bannerImage, setBannerImage] = useState<any>(property.bannerImag)
-    const [images, setImages] = useState<any[]>(property.images)
-
-    const uniqueId = property.uniqueId;
+    const [bannerImageCurrent, setBannerImageCurrent] = useState(bannerImg)
+    const [imagesCurrent, setImagesCurrent] = useState(images)
 
     const { showToastError } = useAlert()
 
@@ -28,9 +28,12 @@ const PropertyFormStep2 = ({ next , property}: Props) => {
     const handleBannerSet = (e: any) => {
         if (e.target.files && e.target.files[0]) {
 
+            const form = new FormData()
+            form.append("file", e.target.files[0])
+
             const body = {
                 uniqueId: uniqueId,
-                file: e.target.files[0]
+                form: form
             }
 
             uploadPropertyBannerImg.mutate(body)
@@ -39,46 +42,47 @@ const PropertyFormStep2 = ({ next , property}: Props) => {
 
     const handleAddAditionalImage = (e: any) => {
         if (e.target.files && e.target.files[0]) {
+
+            const form = new FormData()
+            form.append("file", e.target.files[0])
+
             const body = {
                 uniqueId: uniqueId,
-                file: e.target.files[0]
+                form: form
             }
             uploadPropertyImg.mutate(body)
         }
     }
 
     const handleRemoveImg = (index: number) => {
-        const temp = images
+        const temp = imagesCurrent
         if (index !== -1) temp.splice(index, 1);
-        setImages([...temp])
+        setImagesCurrent([...temp])
     }
 
     // doing like this to prevent infinite re-renders
     useEffect(() => {
-        if (uploadPropertyBannerImg.isSuccess) setBannerImage(uploadPropertyBannerImg.data?.data)
+        if (uploadPropertyBannerImg.isSuccess) setBannerImageCurrent(uploadPropertyBannerImg.data?.data)
     }, [uploadPropertyBannerImg.isSuccess])
 
     useEffect(() => {
-        if (uploadPropertyImg.isSuccess) setImages(prev => [...prev, uploadPropertyImg.data.data])
+        if (uploadPropertyImg.isSuccess) setImagesCurrent(prev => [...prev, uploadPropertyImg.data.data])
     }, [uploadPropertyImg.isSuccess])
 
 
     useEffect(() => window.scrollTo(0, 0), [])
 
-    console.log(bannerImage);
-
-
     const handleFinalSave = () => {
 
-        if (bannerImage == null) {
+        if (bannerImageCurrent == null) {
             showToastError("Please select a banner image")
             return
         }
 
         const body = {
             uniqueId: uniqueId,
-            bannerImg: bannerImage,
-            images: images
+            bannerImg: bannerImageCurrent,
+            images: imagesCurrent
         }
 
         savePropertyImages.mutate(body)
@@ -103,13 +107,13 @@ const PropertyFormStep2 = ({ next , property}: Props) => {
                 <SelectableImage
                     className="h-[250px] aspect-square flex justify-center"
                     onFileSelect={handleBannerSet}
-                    imageSrc={StringUtil.isEmptyString(bannerImage?.path) ? "/no-image.jpg" : `${BASE_URL}/${bannerImage.path}`}
+                    imageSrc={StringUtil.isEmptyString(bannerImageCurrent?.path) ? "/no-image.jpg" : `${BASE_URL}/${bannerImageCurrent.path}`}
                 />
                 <CardTitle className="text-1xl">Additional Images</CardTitle>
 
                 {
-                    images && images.length > 0 ?
-                        images.map((img, index) => (
+                    imagesCurrent && imagesCurrent.length > 0 ?
+                        imagesCurrent.map((img, index) => (
                             (
                                 <Card key={img.path} className="h-[200px] md:h-[120px] w-full flex flex-col sm:flex-row justify-between p-2 gap-4">
                                     <div className="flex items-center overflow-hidden">
@@ -122,14 +126,18 @@ const PropertyFormStep2 = ({ next , property}: Props) => {
                                     <div className="flex items-center">
                                         <input
                                             type="text"
+                                            value={img.fileName}
                                             className="bg-transparent border-none focus:outline-none"
                                             placeholder="E.g: Kitchen..."
                                             onChange={(e) => {
-                                                const prevImages = images
+                                                // Create a new array with the same values as imagesCurrent
+                                                const newImages = [...imagesCurrent];
 
-                                                prevImages[index].fileName = e.target.value
+                                                // Update the fileName property of the relevant image object
+                                                newImages[index].fileName = e.target.value;
 
-                                                setImages(prevImages)
+                                                // Update the state with the new array
+                                                setImagesCurrent(newImages);
                                             }}
                                         />
                                     </div>

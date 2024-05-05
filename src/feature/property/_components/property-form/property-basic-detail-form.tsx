@@ -19,8 +19,6 @@ type Props = {
 
 const PropertyFormStep1 = ({ next, propertyDDList, defaultValue }: Props) => {
 
-    console.log(defaultValue)
-
     const { savePropertyBasic } = usePropertyService()
 
     const formContext = useForm<PropertyBasicDetail>({

@@ -29,6 +29,24 @@ function CTACard() {
   )
 }
 
+function UpgradeCTACard() {
+  return (
+    <Card className="sm:col-span-2">
+      <CardHeader className="pb-3">
+        <CardTitle>You have reached your free quote of 5 listing!</CardTitle>
+        <CardDescription className="max-w-lg text-balance leading-relaxed">
+          Upgrade your plan to list more properties and unlock more features now!.
+        </CardDescription>
+      </CardHeader>
+      <CardFooter>
+        <Link to={"/property/new"} className="w-full md:w-60">
+          <Button className="animate-buttonheartbeat bg-purple-600 w-full md:w-60"> Upgrade </Button>
+        </Link>
+      </CardFooter>
+    </Card>
+  )
+}
+
 type InfoCardProps = {
   title?: string,
   description?: string,
@@ -50,7 +68,7 @@ function StatsCard({ description, value, subtext, progress, title, children }: I
         <div className="text-xs text-muted-foreground">{description}</div>
       </CardContent>
       <CardFooter>
-        <Progress value={progress} aria-label="used 25% of the quote" />
+        <Progress value={progress} aria-label={`used ${progress}% of the quote`} />
       </CardFooter>
     </Card>
   )
@@ -58,5 +76,5 @@ function StatsCard({ description, value, subtext, progress, title, children }: I
 
 
 
-export { CTACard, StatsCard }
+export { CTACard, UpgradeCTACard, StatsCard }
 
