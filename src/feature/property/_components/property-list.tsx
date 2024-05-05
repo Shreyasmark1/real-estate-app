@@ -29,6 +29,7 @@ import { Link } from "react-router-dom"
 import { PropertyList } from "../_schemas/property-schema"
 import { BASE_URL } from "@/config/env-helper"
 import { formatDate } from "@/lib/utils/utils"
+import { StringUtil } from "@/lib/utils/string-util"
 
 type PropertyListProps = {
     list: PropertyList[]
@@ -74,7 +75,7 @@ function PropertyListComponent({ list }: PropertyListProps) {
                                             alt="Product img"
                                             className="aspect-square rounded-md object-cover"
                                             height="64"
-                                            src={BASE_URL + "/" + item.bannerImg}
+                                            src={StringUtil.isEmptyString(item.bannerImg)? "/no-image.jpg" : BASE_URL + "/" + item.bannerImg}
                                             width="64"
                                         />
                                     </TableCell>

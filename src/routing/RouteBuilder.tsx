@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import PaymentGuard from "@/layout/guards/PaymentGauard";
 import ProjectDetailPage from "@/feature/property/ProjectDetail";
 import AuthGuard from "@/feature/auth/_guards/AuthGuard";
-import UsersPage from "@/pages/users-page";
+import UsersPage from "@/pages/admin/users-page";
 import AdminDashBoardPage from "@/pages/admin/admin-dashboard-page";
 import SubscriptionPage from "@/pages/admin/plans-page";
 import SubscriptionPlanPage from "@/pages/admin/plans-page";

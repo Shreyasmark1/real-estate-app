@@ -1,20 +1,19 @@
-import { ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_USER } from "@/config/constants";
 import { useAuth } from "@/lib/hooks/useAuth";
 import LoginPage from "@/pages/login-page";
+import NotFoundPage from "@/pages/not-found-page";
 import RegisterPage from "@/pages/register-page";
 import RouteBuilder, { RouteDefinition } from "@/routing/RouteBuilder";
+import RouteLayout from "@/routing/RouteLayout";
 import { useEffect } from "react";
-import { useNavigate, useRoutes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 const MainLayout = () => {
 
     const { authority, isLoggedIn, logout } = useAuth()
 
-    const navigate = useNavigate();
-
     const getFeatureRoutes = (): RouteDefinition[] => {
         if (isLoggedIn) {
-            return RouteBuilder({ role:authority })
+            return RouteBuilder({ role: authority })
         }
         return []
     }
@@ -22,30 +21,23 @@ const MainLayout = () => {
     const Logout = () => {
         useEffect(() => {
             logout()
-        },[])
-        
-        return <LoginPage/>
+        }, [])
+
+        return <LoginPage />
     }
 
-    const routing = useRoutes([
+    const routes: RouteDefinition[] = [
         { path: "/login", element: <LoginPage /> },
         { path: "/register", element: <RegisterPage /> },
-        { path: "/logout", element: <Logout/> },
-        ...getFeatureRoutes()
-    ])
-
-    useEffect(() => {
-        if(authority === ROLE_SUPER_ADMIN) navigate("/super-admin")
-        if(authority === ROLE_ADMIN) navigate("/admin")
-        if(authority === ROLE_USER) navigate("/dashboard")
-        if(!authority) navigate("/login")
-        console.log("authority",authority)
-    }, [authority])
+        { path: "/logout", element: <Logout /> },
+        ...getFeatureRoutes(),
+        { path: "*", element: <NotFoundPage /> }
+    ]
 
     return (
-        <>
-            {routing}
-        </>
+        <BrowserRouter>
+            <RouteLayout routes={routes} authority={authority} />
+        </BrowserRouter>
     );
 }
 
