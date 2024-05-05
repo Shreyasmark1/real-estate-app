@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
 import { usePropertyService } from "@/services/PropertyService";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
     uniqueId: string
@@ -18,8 +17,8 @@ type Props = {
 }
 
 const PropertyFormStep3 = ({ defaultValue, uniqueId }: Props) => {
+
     const { savePropertyRooms } = usePropertyService()
-    const navigate = useNavigate();
     defaultValue.uniqueId = uniqueId
 
     const formContext = useForm<PropertyRoom>({
@@ -31,7 +30,6 @@ const PropertyFormStep3 = ({ defaultValue, uniqueId }: Props) => {
 
     useEffect(() => {
         if (savePropertyRooms.isSuccess) {
-            navigate("/dashboard");
         }
     }, [savePropertyRooms.isSuccess])
 
