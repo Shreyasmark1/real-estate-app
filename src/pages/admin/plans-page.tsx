@@ -27,7 +27,7 @@ const SubscriptionPlanPage = () => {
     useEffect(() => setPageName("Plans"), [])
 
     return (
-        <div className="page-style flex justify-center">
+        <div className="page-style">
             <Card className="w-full p-2 h-full">
                 <DataTable columns={columnRef} data={plans.data} />
             </Card>

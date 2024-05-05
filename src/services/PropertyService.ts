@@ -1,5 +1,5 @@
-import { PropertyApi } from "@/api/property-api";
-import { Property, PropertyBasicDetail, PropertyDD } from "@/feature/property/_schemas/property-schema";
+import { PropertyApi, PropertyImageUpload } from "@/api/property-api";
+import { Property, PropertyBasicDetail, PropertyDD, PropertyList, PropertyRoom } from "@/feature/property/_schemas/property-schema";
 import { useAlert } from "@/lib/hooks/useAlert"
 import { DefinedUseQueryResult, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
@@ -10,8 +10,8 @@ export const usePropertyService = () => {
     const { showToastError, showToastSuccess } = useAlert()
 
     const uploadPropertyBannerImg = useMutation({
-        mutationFn: ({ uniqueId, file }: any) => {
-            return PropertyApi.uploadPropertyImage(uniqueId, file)
+        mutationFn: (body: PropertyImageUpload) => {
+            return PropertyApi.uploadPropertyImage(body)
         },
         onSuccess(_data, _variables, _context) {
             return _data;
@@ -20,8 +20,8 @@ export const usePropertyService = () => {
     })
 
     const uploadPropertyImg = useMutation({
-        mutationFn: (body: { uniqueId: string, file: any }) => {
-            return PropertyApi.uploadPropertyImage(body.uniqueId, body.file)
+        mutationFn: (body: PropertyImageUpload) => {
+            return PropertyApi.uploadPropertyImage(body)
         },
         onSuccess(_data, _variables, _context) { },
         onError(error) { showToastError(error.message) }
@@ -40,7 +40,7 @@ export const usePropertyService = () => {
         return dd;
     }
 
-    const getPropertyList = (): DefinedUseQueryResult<Property[], Error> => {
+    const getPropertyList = (): DefinedUseQueryResult<PropertyList[], Error> => {
 
         const result = useQuery({
             queryKey: [QUERY_KEY],
@@ -98,6 +98,17 @@ export const usePropertyService = () => {
         onError(error) { showToastError(error.message) }
     })
 
+    const savePropertyRooms = useMutation({
+        mutationFn: (body: PropertyRoom) => {
+            return PropertyApi.savePropertyRooms(body)
+        },
+        onSuccess(_data, _variables, _context) {
+            queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
+            showToastSuccess("Saved!")
+        },
+        onError(error) { showToastError(error.message) }
+    })
+
     const savePropertyImages = useMutation({
         mutationFn: (body: any) => PropertyApi.savePropertyImages(body, body.uniqueId),
         onSuccess(_data, _variables, _context) {
@@ -115,6 +126,7 @@ export const usePropertyService = () => {
         savePropertyBasic,
         savePropertyImages,
         getPropertyList,
-        getPropertyDetail
+        getPropertyDetail,
+        savePropertyRooms
     }
 }

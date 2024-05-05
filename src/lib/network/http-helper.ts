@@ -74,7 +74,6 @@ const put = () => {
 }
 
 const multipartPost = (path : string, formData: FormData) : Promise<ApiResponse> => {
-
     return new Promise((resolve, reject) => {
         Axios.post(path, formData)
             .then((res) => {

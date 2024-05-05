@@ -20,7 +20,7 @@ const UsersPage = () => {
     useEffect(() => setPageName("Users"), [])
 
     return (
-        <div className="page-style flex justify-center">
+        <div className="page-style">
             <Card className="w-full p-2 h-full">
                 <DataTable columns={columnRef} data={users.data} />
             </Card>

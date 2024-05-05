@@ -78,6 +78,6 @@
 /* custom css class */
 @layer components {
   .page-style {
-    @apply py-2 md:py-5 px-4 md:px-8 bg-gray-100 h-full;
+    @apply py-2 md:py-5 px-4 md:px-8 bg-gray-100 min-h-screen flex flex-col items-start;
   }
 }
