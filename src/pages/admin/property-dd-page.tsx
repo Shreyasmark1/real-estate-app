@@ -5,14 +5,14 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { PropertyDDColumnRef } from "@/feature/property/_components/propert-dd-column-ref";
 import PropertyDDForm from "@/feature/property/_components/property-dd-form";
 import { PropertyDD } from "@/feature/property/_schemas/property-schema";
-import { usePropertyService } from "@/services/PropertyService";
+import { usePropertyDDService } from "@/services/PropertyService";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 const PropertyDDPage = () => {
     const [openSheet, setOpenSheet] = useState<any>()
 
-    const { getPropertyDDList } = usePropertyService()
+    const { getPropertyDDList } = usePropertyDDService()
 
 
     const toggleSheet = (dd?: PropertyDD) => {

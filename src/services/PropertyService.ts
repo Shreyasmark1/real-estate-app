@@ -3,47 +3,19 @@ import { Property, PropertyBasicDetail, PropertyDD, PropertyList, PropertyRoom }
 import { useAlert } from "@/lib/hooks/useAlert"
 import { DefinedUseQueryResult, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
-const QUERY_KEY = "property";
+const PROPERTY_DETAILS_KEY = "PROPERTY_DETAILS_KEY";
+const PROPERTY_LIST_KEY = "PROPERTY_LIST_KEY";
+const PROPERTY_DD_LIST_KEY = "PROPERTY_DD_LIST_KEY";
 
 export const usePropertyService = () => {
+
     const queryClient = useQueryClient()
     const { showToastError, showToastSuccess } = useAlert()
-
-    const uploadPropertyBannerImg = useMutation({
-        mutationFn: (body: PropertyImageUpload) => {
-            return PropertyApi.uploadPropertyImage(body)
-        },
-        onSuccess(_data, _variables, _context) {
-            return _data;
-        },
-        onError(error) { showToastError(error.message) }
-    })
-
-    const uploadPropertyImg = useMutation({
-        mutationFn: (body: PropertyImageUpload) => {
-            return PropertyApi.uploadPropertyImage(body)
-        },
-        onSuccess(_data, _variables, _context) { },
-        onError(error) { showToastError(error.message) }
-    })
-
-    const getPropertyDDList = () => {
-
-        const dd = useQuery({
-            queryKey: [QUERY_KEY],
-            queryFn: PropertyApi.getDD,
-            initialData: [],
-        })
-
-        if (dd.isError) showToastError(dd.error.message);
-
-        return dd;
-    }
 
     const getPropertyList = (): DefinedUseQueryResult<PropertyList[], Error> => {
 
         const result = useQuery({
-            queryKey: [QUERY_KEY],
+            queryKey: [PROPERTY_LIST_KEY],
             queryFn: PropertyApi.getPropertyList,
             initialData: [],
         })
@@ -78,21 +50,12 @@ export const usePropertyService = () => {
         // return result;
     }
 
-    const saveDD = useMutation({
-        mutationFn: (dd: PropertyDD) => PropertyApi.createOrUpdateDD(dd),
-        onSuccess(_data, _variables, _context) {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
-            showToastSuccess("Saved!")
-        },
-        onError(error) { showToastError(error.message) }
-    })
-
     const savePropertyBasic = useMutation({
         mutationFn: (body: PropertyBasicDetail) => {
             return PropertyApi.createOrUpdatePropertyBasic(body)
         },
         onSuccess(_data, _variables, _context) {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
+            queryClient.invalidateQueries({ queryKey: [PROPERTY_DD_LIST_KEY, PROPERTY_DETAILS_KEY] })
             showToastSuccess("Saved!")
         },
         onError(error) { showToastError(error.message) }
@@ -103,7 +66,7 @@ export const usePropertyService = () => {
             return PropertyApi.savePropertyRooms(body)
         },
         onSuccess(_data, _variables, _context) {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
+            queryClient.invalidateQueries({ queryKey: [PROPERTY_DD_LIST_KEY, PROPERTY_DETAILS_KEY] })
             showToastSuccess("Saved!")
         },
         onError(error) { showToastError(error.message) }
@@ -112,21 +75,80 @@ export const usePropertyService = () => {
     const savePropertyImages = useMutation({
         mutationFn: (body: any) => PropertyApi.savePropertyImages(body, body.uniqueId),
         onSuccess(_data, _variables, _context) {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
+            queryClient.invalidateQueries({ queryKey: [PROPERTY_DD_LIST_KEY, PROPERTY_DETAILS_KEY] })
             showToastSuccess("Saved!")
         },
         onError(error) { showToastError(error.message) }
     })
 
     return {
-        uploadPropertyBannerImg,
-        uploadPropertyImg,
-        getPropertyDDList,
-        saveDD,
         savePropertyBasic,
         savePropertyImages,
         getPropertyList,
         getPropertyDetail,
         savePropertyRooms
+    }
+}
+
+export const usePropertyDDService = () => {
+
+    const queryClient = useQueryClient()
+
+    const { showToastError, showToastSuccess } = useAlert()
+
+    const getPropertyDDList = () => {
+
+        const dd = useQuery({
+            queryKey: [PROPERTY_DD_LIST_KEY],
+            queryFn: PropertyApi.getDD,
+            initialData: [],
+        })
+
+        if (dd.isError) showToastError(dd.error.message);
+
+        return dd;
+    }
+
+    const saveDD = useMutation({
+        mutationFn: (dd: PropertyDD) => PropertyApi.createOrUpdateDD(dd),
+        onSuccess(_data, _variables, _context) {
+            queryClient.invalidateQueries({ queryKey: [PROPERTY_DD_LIST_KEY] })
+            showToastSuccess("Saved!")
+        },
+        onError(error) { showToastError(error.message) }
+    })
+
+    return {
+        getPropertyDDList,
+        saveDD
+    }
+
+}
+
+export const usePropertyImageService = () => {
+
+    const { showToastError } = useAlert()
+
+    const uploadPropertyBannerImg = useMutation({
+        mutationFn: (body: PropertyImageUpload) => {
+            return PropertyApi.uploadPropertyImage(body)
+        },
+        onSuccess(_data, _variables, _context) {
+            return _data;
+        },
+        onError(error) { showToastError(error.message) }
+    })
+
+    const uploadPropertyImg = useMutation({
+        mutationFn: (body: PropertyImageUpload) => {
+            return PropertyApi.uploadPropertyImage(body)
+        },
+        onSuccess(_data, _variables, _context) { },
+        onError(error) { showToastError(error.message) }
+    })
+
+    return {
+        uploadPropertyBannerImg,
+        uploadPropertyImg
     }
 }

@@ -1,17 +1,19 @@
-import AddPropertyPage from "@/pages/user/property-edit-page";
-import UserDashboard from "@/pages/user/user-dashboard-page";
-import { ReactNode } from "react";
-import PaymentGuard from "@/layout/guards/PaymentGauard";
-import ProjectDetailPage from "@/feature/property/ProjectDetail";
+import { ReactNode, lazy } from "react";
 import AuthGuard from "@/feature/auth/_guards/AuthGuard";
-import UsersPage from "@/pages/admin/users-page";
-import AdminDashBoardPage from "@/pages/admin/admin-dashboard-page";
-import SubscriptionPage from "@/pages/admin/plans-page";
-import SubscriptionPlanPage from "@/pages/admin/plans-page";
 import { ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER } from "@/config/constants";
 import Layout from "@/layout/Layout";
-import PropertyStatsPage from "@/pages/user/property-stats-page";
-import DataDictionaryPage from "@/pages/admin/property-dd-page";
+import { AsynPageLoader } from "@/components/async-component";
+
+const AddPropertyPage = lazy(() => import("@/pages/user/property-edit-page"));
+const UserDashboard = lazy(() => import("@/pages/user/user-dashboard-page"));
+const PaymentGuard = lazy(() => import("@/layout/guards/PaymentGauard"));
+const ProjectDetailPage = lazy(() => import("@/feature/property/ProjectDetail"));
+const UsersPage = lazy(() => import("@/pages/admin/users-page"));
+const AdminDashBoardPage = lazy(() => import("@/pages/admin/admin-dashboard-page"));
+const SubscriptionPage = lazy(() => import("@/pages/admin/plans-page"));
+const SubscriptionPlanPage = lazy(() => import("@/pages/admin/plans-page"));
+const PropertyStatsPage = lazy(() => import("@/pages/user/property-stats-page"));
+const DataDictionaryPage = lazy(() => import("@/pages/admin/property-dd-page"));
 
 export type RouteDefinition = {
     path?: string,
@@ -41,11 +43,11 @@ const superAdminRoutes: RouteDefinition[] = [
         path: "/super-admin",
         element: <AuthGuard><Layout /></AuthGuard>,
         children: [
-            { path: "", element: <AdminDashBoardPage /> },
-            { path: "dashboard", element: <AdminDashBoardPage /> },
-            { path: "plans", element: <SubscriptionPage /> },
-            { path: "users", element: <UsersPage /> },
-            { path: "data-dictionary", element: <DataDictionaryPage /> }
+            { path: "", element:  <AsynPageLoader><AdminDashBoardPage /></AsynPageLoader> },
+            { path: "dashboard", element: <AsynPageLoader><AdminDashBoardPage /></AsynPageLoader> },
+            { path: "plans", element: <AsynPageLoader><SubscriptionPage /></AsynPageLoader> },
+            { path: "users", element: <AsynPageLoader><UsersPage /></AsynPageLoader> },
+            { path: "data-dictionary", element: <AsynPageLoader><DataDictionaryPage /></AsynPageLoader> }
         ]
     }
 ]
@@ -55,11 +57,11 @@ const adminRoutes: RouteDefinition[] = [
         path: "/admin",
         element: <AuthGuard><Layout /></AuthGuard>,
         children: [
-            { path: "", element: <AdminDashBoardPage /> },
-            { path: "dashboard", element: <AdminDashBoardPage /> },
-            { path: "plans", element: <SubscriptionPlanPage /> },
-            { path: "users", element: <UsersPage /> },
-            { path: "data-dictionary", element: <DataDictionaryPage /> }
+            { path: "", element: <AsynPageLoader><AdminDashBoardPage /></AsynPageLoader> },
+            { path: "dashboard", element: <AsynPageLoader><AdminDashBoardPage /></AsynPageLoader> },
+            { path: "plans", element: <AsynPageLoader><SubscriptionPlanPage /></AsynPageLoader> },
+            { path: "users", element: <AsynPageLoader><UsersPage /> </AsynPageLoader>},
+            { path: "data-dictionary", element: <AsynPageLoader><DataDictionaryPage /></AsynPageLoader> }
         ]
     }
 ]
@@ -68,12 +70,12 @@ const userRoutes: RouteDefinition[] = [
     {
         element: <AuthGuard><Layout /></AuthGuard>,
         children: [
-            { path: "/dashboard", element: <UserDashboard /> },
+            { path: "/dashboard", element: <AsynPageLoader><UserDashboard /></AsynPageLoader> },
             // { path: "/search", element: <SearchPropertyPage /> },
-            { path: "/property/:uniqueId", element: <PaymentGuard> <AddPropertyPage /> </PaymentGuard> },
-            { path: "/property/id", element: <ProjectDetailPage /> },
-            { path: "/property/id/edit", element: <PaymentGuard> <AddPropertyPage /> </PaymentGuard> },
-            { path: "/property/id/stats", element: <PaymentGuard> <PropertyStatsPage /> </PaymentGuard> }
+            { path: "/property/:uniqueId", element: <AsynPageLoader><PaymentGuard> <AddPropertyPage /> </PaymentGuard></AsynPageLoader> },
+            { path: "/property/id", element: <AsynPageLoader><ProjectDetailPage /></AsynPageLoader> },
+            { path: "/property/id/edit", element: <AsynPageLoader><PaymentGuard> <AddPropertyPage /> </PaymentGuard></AsynPageLoader> },
+            { path: "/property/id/stats", element: <AsynPageLoader><PaymentGuard> <PropertyStatsPage /> </PaymentGuard></AsynPageLoader> }
             // { path: "/explore", element: <PaymentGuard><div> Page under development</div></PaymentGuard> },
             // { path: "/subscription", element: <SubscribtionPage /> }
         ]

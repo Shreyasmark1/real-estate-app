@@ -1,4 +1,4 @@
-import { usePropertyService } from "@/services/PropertyService";
+import { usePropertyDDService } from "@/services/PropertyService";
 import { PropertyDD, PropertySchema } from "../_schemas/property-schema";
 import { useFormErrorToast } from "@/lib/hooks/useFormError";
 import { Form } from "@/components/ui/form";
@@ -19,7 +19,7 @@ type Props = {
 
 const PropertyDDForm = ({ defaultValues, closeForm }: Props) => {
 
-    const { saveDD } = usePropertyService()
+    const { saveDD } = usePropertyDDService()
 
     const formContext = useForm<PropertyDD>({
         resolver: zodResolver(PropertySchema.ProperTyDDSchema),
