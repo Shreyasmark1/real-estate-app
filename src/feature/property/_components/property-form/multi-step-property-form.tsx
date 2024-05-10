@@ -4,7 +4,7 @@ import PropertyFormStep2 from "./property-images-form";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import PropertyFormStep3 from "./property-rooms-form";
-import { usePropertyService } from "@/services/PropertyService";
+import { usePropertyDDService, usePropertyService } from "@/services/PropertyService";
 import { StringUtil } from "@/lib/utils/string-util";
 import { ReactElement, useEffect, useState } from "react";
 import { Property, PropertySchema } from "../../_schemas/property-schema";
@@ -18,7 +18,8 @@ const MultiStepPropertyForm = ({ id }: Props) => {
     const [property, setProperty] = useState<Property>(PropertySchema.propertyBasicFormDefaults as Property)
     const [steps, setSetps] = useState<ReactElement[]>([]);
 
-    const { getPropertyDetail, getPropertyDDList } = usePropertyService()
+    const { getPropertyDetail } = usePropertyService()
+    const { getPropertyDDList } = usePropertyDDService()
 
     const handleNext = (uniqueId: string) => {
         if (StringUtil.isNotEmptyString(uniqueId) && typeof uniqueId === "string" && uniqueId !== "new") {

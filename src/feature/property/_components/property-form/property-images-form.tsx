@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
 import SelectableImage from "../../../../components/SelectableImage";
-import { usePropertyService } from "@/services/PropertyService";
+import { usePropertyImageService, usePropertyService } from "@/services/PropertyService";
 import { Badge } from "../../../../components/ui/badge";
 import { BASE_URL } from "@/config/env-helper";
 import { StringUtil } from "@/lib/utils/string-util";
@@ -23,7 +23,8 @@ const PropertyFormStep2 = ({ next, bannerImg, images, uniqueId }: Props) => {
 
     const { showToastError } = useAlert()
 
-    const { uploadPropertyBannerImg, uploadPropertyImg, savePropertyImages } = usePropertyService()
+    const {  savePropertyImages } = usePropertyService()
+    const {uploadPropertyBannerImg, uploadPropertyImg }  = usePropertyImageService()
 
     const handleBannerSet = (e: any) => {
         if (e.target.files && e.target.files[0]) {
