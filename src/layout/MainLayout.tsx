@@ -2,8 +2,8 @@ import { useAuth } from "@/lib/hooks/useAuth";
 import LoginPage from "@/pages/login-page";
 import NotFoundPage from "@/pages/not-found-page";
 import RegisterPage from "@/pages/register-page";
-import RouteBuilder, { RouteDefinition } from "@/routing/RouteBuilder";
-import RouteLayout from "@/routing/RouteLayout";
+import RouteBuilder, { RouteDefinition } from "@/routes/RouteBuilder";
+import RouteLayout from "@/routes/RouteLayout";
 import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 

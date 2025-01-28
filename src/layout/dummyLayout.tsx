@@ -7,7 +7,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { PageContextType } from "@/lib/hooks/usePageName";
-import { getDrawerNavigation } from "@/routing/DrawerNavigation";
+import { getDrawerNavigation } from "@/routes/DrawerNavigation";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useAuth } from "@/lib/hooks/useAuth";
 

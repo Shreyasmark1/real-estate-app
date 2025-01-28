@@ -58,7 +58,7 @@ const post = ({ path, pathVariable = null, queryParams = null, body = null, abor
         Axios.post(path, body,
             {
                 params: queryParams,
-                signal: abortController
+                signal: abortController,
             })
             .then((res) => {
                 const response = new ApiResponse(res)
